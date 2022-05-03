@@ -1,0 +1,30 @@
+{
+  "name": "underfight",
+  "version": "0.0.0",
+  "description": "phaser game which combines the undertale fight mechanic together with the diep.io gameplay",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scrythe/underfight.git"
+  },
+  "keywords": [
+    "phaser",
+    "undertale",
+    "diep.io"
+  ],
+  "author": "Magomed Alimkhanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scrythe/underfight/issues"
+  },
+  "homepage": "https://github.com/scrythe/underfight#readme",
+  "devDependencies": {
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "phaser": "^3.55.2"
+  }
+}
