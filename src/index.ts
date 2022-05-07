@@ -1,18 +1,11 @@
 import Phaser from 'phaser';
+import GameScene from './game';
 
 const config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: {
-    preload,
-    create,
-    update,
-  },
+  scene: [GameScene],
 };
-
-function preload() {}
-function create() {}
-function update() {}
 
 const game = new Phaser.Game(config);
