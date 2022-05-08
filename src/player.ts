@@ -1,9 +1,10 @@
-import { Position, Speed, Keys, Rectangle } from './interfaces';
-import Rect from './rectangle';
+import { Speed, Keys, Rectangle, RectanlgeObject } from './interfaces';
+import RectObject from './rectangle';
 
 class Player {
   private width: number;
   private height: number;
+  private playerObject: RectanlgeObject;
   private rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
@@ -11,12 +12,9 @@ class Player {
   constructor(gameWidth: number, gameHeight: number) {
     this.width = 150;
     this.height = 150;
-    this.rect = new Rect(
-      gameWidth / 2,
-      gameHeight / 2,
-      this.width,
-      this.height
-    );
+    this.playerObject = new RectObject(this.width, this.height);
+    const center = { x: gameWidth / 2, y: gameHeight / 2 };
+    this.rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
       x: 50,
       y: 50,

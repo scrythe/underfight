@@ -1,4 +1,55 @@
-import { Rectangle } from './interfaces';
+import {
+  Rectangle,
+  Position,
+  RectPosition,
+  RectanlgeObject,
+} from './interfaces';
+
+class RectObject implements RectanlgeObject {
+  private _width: number;
+  private _height: number;
+
+  constructor(width: number, height: number) {
+    this._width = width;
+    this._height = height;
+  }
+
+  getRect(rectPos: RectPosition) {
+    const rect = new Rect(0, 0, this._width, this._height);
+
+    if (rectPos.x) {
+      rect.x = rectPos.x;
+    } else if (rectPos.y) {
+      rect.y = rectPos.y;
+    }
+    //
+    else if (rectPos.top) {
+      rect.top = rectPos.top;
+    } else if (rectPos.right) {
+      rect.right = rectPos.right;
+    } else if (rectPos.bottom) {
+      rect.bottom = rectPos.bottom;
+    } else if (rectPos.left) {
+      rect.left = rectPos.left;
+    }
+    //
+    else if (rectPos.topLeft) {
+      rect.topLeft = rectPos.topLeft;
+    } else if (rectPos.topRight) {
+      rect.topRight = rectPos.topRight;
+    } else if (rectPos.bottomLeft) {
+      rect.bottomLeft = rectPos.bottomLeft;
+    } else if (rectPos.bottomRight) {
+      rect.bottomRight = rectPos.bottomRight;
+    }
+    //
+    else if (rectPos.center) {
+      rect.center = rectPos.center;
+    }
+
+    return rect;
+  }
+}
 
 class Rect implements Rectangle {
   private _x: number;
@@ -38,11 +89,11 @@ class Rect implements Rectangle {
   }
 
   get bottom() {
-    return this.x + this.height;
+    return this.y + this.height;
   }
 
   get left() {
-    return this.y;
+    return this.x;
   }
 
   get topLeft() {
@@ -78,6 +129,50 @@ class Rect implements Rectangle {
   set y(value: number) {
     this._y = value;
   }
+
+  set top(value: number) {
+    this.y = value;
+  }
+
+  set right(value: number) {
+    this.x = value - this.width;
+  }
+
+  set bottom(value: number) {
+    this.y = value - this.height;
+  }
+
+  set left(value: number) {
+    this.x = value;
+  }
+
+  set topLeft(value: Position) {
+    this.left = value.x;
+    this.top = value.y;
+  }
+
+  set topRight(value: Position) {
+    this.right = value.x;
+    this.top = value.y;
+  }
+
+  set bottomLeft(value: Position) {
+    this.left = value.x;
+    this.bottom = value.y;
+  }
+
+  set bottomRight(value: Position) {
+    this.right = value.x;
+    this.bottom = value.y;
+  }
+
+  set center(value: Position) {
+    const halfWidth = this.width / 2;
+    const halfHeight = this.height / 2;
+
+    this.left = value.x - halfWidth;
+    this.top = value.y - halfHeight;
+  }
 }
 
-export default Rect;
+export default RectObject;
