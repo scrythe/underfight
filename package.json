@@ -1,7 +1,7 @@
 {
   "name": "underfight",
   "version": "0.0.0",
-  "description": "phaser game which combines the undertale fight mechanic together with the diep.io gameplay",
+  "description": "html 5 canvas and javascript game which combines the undertale fight mechanic together with the diep.io gameplay",
   "main": "dist/index.js",
   "scripts": {
     "serve": "webpack-dev-server",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/scrythe/underfight.git"
   },
   "keywords": [
-    "phaser",
+    "canvas",
     "undertale",
     "diep.io"
   ],
@@ -28,8 +28,5 @@
     "webpack": "^5.72.0",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0"
-  },
-  "dependencies": {
-    "phaser": "^3.55.2"
   }
 }
