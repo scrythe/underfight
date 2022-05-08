@@ -1,4 +1,4 @@
-import Player from './player';
+import Game from './game';
 
 const canvas = document.querySelector('canvas')!;
 const ctx = canvas.getContext('2d')!;
@@ -10,16 +10,14 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
 let lasttime = 0;
-
-const player = new Player(WIDTH, HEIGHT);
+const game = new Game(WIDTH, HEIGHT);
 
 function gameLoop(timestamp: number) {
   const deltatime = timestamp - lasttime;
   lasttime = timestamp;
 
-  ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  player.update(deltatime);
-  player.draw(ctx);
+  game.update(deltatime);
+  game.draw(ctx);
 
   requestAnimationFrame(gameLoop);
 }
