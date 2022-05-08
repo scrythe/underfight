@@ -9,5 +9,19 @@ const HEIGHT = 600;
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
+let lasttime = 0;
+
 const player = new Player(WIDTH, HEIGHT);
-player.draw(ctx);
+
+function gameLoop(timestamp: number) {
+  const deltatime = timestamp - lasttime;
+  lasttime = timestamp;
+
+  ctx.clearRect(0, 0, WIDTH, HEIGHT);
+  player.update(deltatime);
+  player.draw(ctx);
+
+  requestAnimationFrame(gameLoop);
+}
+
+requestAnimationFrame(gameLoop);
