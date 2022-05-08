@@ -1,11 +1,17 @@
-import { Speed, Keys, Rectangle, RectanlgeObject } from './interfaces';
+import {
+  Speed,
+  Keys,
+  Rectangle,
+  RectanlgeObject,
+  Position,
+} from './interfaces';
 import RectObject from './rectangle';
 
 class Player {
   private width: number;
   private height: number;
   private playerObject: RectanlgeObject;
-  private rect: Rectangle;
+  private _rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
 
@@ -14,7 +20,7 @@ class Player {
     this.height = 150;
     this.playerObject = new RectObject(this.width, this.height);
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
-    this.rect = this.playerObject.getRect({ center });
+    this._rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
       x: 50,
       y: 50,
@@ -25,13 +31,17 @@ class Player {
     };
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillRect(this.rect.x, this.rect.y, this.width, this.height);
+  draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
+    const insideCameraPos = {
+      x: this._rect.x - cameraPos.x,
+      y: this._rect.y - cameraPos.y,
+    };
+    ctx.fillRect(insideCameraPos.x, insideCameraPos.y, this.width, this.height);
   }
 
   update(deltatime: number) {
-    this.rect.x += this.speed.x / deltatime;
-    this.rect.y += this.speed.y / deltatime;
+    this._rect.x += this.speed.x / deltatime;
+    this._rect.y += this.speed.y / deltatime;
   }
 
   move(keys: Keys) {
@@ -62,6 +72,10 @@ class Player {
     } else {
       this.speed.y = 0;
     }
+  }
+
+  get rect() {
+    return this._rect;
   }
 }
 

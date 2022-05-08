@@ -21,6 +21,13 @@ export interface Speed {
   y: number;
 }
 
+export interface Keys {
+  up: Key;
+  right: Key;
+  down: Key;
+  left: Key;
+}
+
 export interface Screen {
   width: number;
   height: number;
@@ -68,9 +75,7 @@ export interface RectanlgeObject {
   getRect(rectPos: RectPosition): Rectangle;
 }
 
-export interface Keys {
-  up: Key;
-  right: Key;
-  down: Key;
-  left: Key;
+export interface CameraInterface {
+  pos: Position;
+  watch(target: Rectangle): void;
 }

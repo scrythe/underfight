@@ -17,23 +17,9 @@ class RectObject implements RectanlgeObject {
   getRect(rectPos: RectPosition) {
     const rect = new Rect(0, 0, this._width, this._height);
 
-    if (rectPos.x) {
-      rect.x = rectPos.x;
-    } else if (rectPos.y) {
-      rect.y = rectPos.y;
-    }
-    //
-    else if (rectPos.top) {
-      rect.top = rectPos.top;
-    } else if (rectPos.right) {
-      rect.right = rectPos.right;
-    } else if (rectPos.bottom) {
-      rect.bottom = rectPos.bottom;
-    } else if (rectPos.left) {
-      rect.left = rectPos.left;
-    }
-    //
-    else if (rectPos.topLeft) {
+    if (rectPos.center) {
+      rect.center = rectPos.center;
+    } else if (rectPos.topLeft) {
       rect.topLeft = rectPos.topLeft;
     } else if (rectPos.topRight) {
       rect.topRight = rectPos.topRight;
@@ -41,10 +27,6 @@ class RectObject implements RectanlgeObject {
       rect.bottomLeft = rectPos.bottomLeft;
     } else if (rectPos.bottomRight) {
       rect.bottomRight = rectPos.bottomRight;
-    }
-    //
-    else if (rectPos.center) {
-      rect.center = rectPos.center;
     }
 
     return rect;
