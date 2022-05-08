@@ -16,9 +16,36 @@ export interface Position {
   y: number;
 }
 
-export type Speed = Position;
+export interface Speed {
+  x: number;
+  y: number;
+}
+
+export interface Screen {
+  width: number;
+  height: number;
+}
 
 type Key = { pressed: boolean };
+
+export interface Rectangle {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+
+  top: number;
+  right: number;
+  bottom: number;
+  left: number;
+
+  topLeft: Position;
+  topRight: Position;
+  bottomLeft: Position;
+  bottomRight: Position;
+
+  center: Position;
+}
 
 export interface Keys {
   up: Key;

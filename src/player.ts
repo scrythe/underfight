@@ -1,19 +1,22 @@
-import { Position, Speed, Keys } from './interfaces';
+import { Position, Speed, Keys, Rectangle } from './interfaces';
+import Rect from './rectangle';
 
 class Player {
   private width: number;
   private height: number;
-  private pos: Position;
+  private rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
 
   constructor(gameWidth: number, gameHeight: number) {
     this.width = 150;
     this.height = 150;
-    this.pos = {
-      x: gameWidth / 2 - this.width / 2,
-      y: gameHeight / 2 - this.height / 2,
-    };
+    this.rect = new Rect(
+      gameWidth / 2,
+      gameHeight / 2,
+      this.width,
+      this.height
+    );
     this.maxSpeed = {
       x: 50,
       y: 50,
@@ -25,12 +28,12 @@ class Player {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.fillRect(this.pos.x, this.pos.y, this.width, this.height);
+    ctx.fillRect(this.rect.x, this.rect.y, this.width, this.height);
   }
 
   update(deltatime: number) {
-    this.pos.x += this.speed.x / deltatime;
-    this.pos.y += this.speed.y / deltatime;
+    this.rect.x += this.speed.x / deltatime;
+    this.rect.y += this.speed.y / deltatime;
   }
 
   move(keys: Keys) {
