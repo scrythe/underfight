@@ -6,10 +6,9 @@ import {
   Position,
 } from './interfaces';
 import RectObject from './rectangle';
+import { rotateAndDrawObject } from './functions';
 
 class Player {
-  private width: number;
-  private height: number;
   private playerObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: Speed;
@@ -17,9 +16,9 @@ class Player {
   private angle: number;
 
   constructor(gameWidth: number, gameHeight: number) {
-    this.width = 150;
-    this.height = 150;
-    this.playerObject = new RectObject(this.width, this.height);
+    const width = 150;
+    const height = 150;
+    this.playerObject = new RectObject(width, height);
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this._rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
@@ -34,21 +33,11 @@ class Player {
   }
 
   draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
-    const insideCameraPos = {
+    const insideCameraPos: Position = {
       x: this._rect.center.x - cameraPos.x,
       y: this._rect.center.y - cameraPos.y,
     };
-    const radian = (this.angle * Math.PI) / 180;
-    ctx.save();
-    ctx.translate(insideCameraPos.x, insideCameraPos.y);
-    ctx.rotate(radian);
-    ctx.fillRect(
-      -this._rect.width / 2,
-      -this._rect.height / 2,
-      this.width,
-      this.height
-    );
-    ctx.restore();
+    rotateAndDrawObject(ctx, insideCameraPos, this.rect, this.angle);
   }
 
   update(deltatime: number) {
