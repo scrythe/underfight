@@ -43,7 +43,6 @@ class Player {
   update(deltatime: number) {
     this._rect.x += this.speed.x / deltatime;
     this._rect.y += this.speed.y / deltatime;
-    this.angle += 1;
   }
 
   move(keys: Keys) {

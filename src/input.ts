@@ -1,4 +1,20 @@
-import { Keys } from './interfaces';
+import { Keys, KeyMap } from './interfaces';
+
+const keyMap: KeyMap = {
+  ArrowUp: 'up',
+  ArrowRight: 'right',
+  ArrowDown: 'down',
+  ArrowLeft: 'left',
+
+  w: 'up',
+  d: 'right',
+  s: 'down',
+  a: 'left',
+};
+
+function isOfKeyMap(key: string): key is keyof typeof keyMap {
+  return key in keyMap;
+}
 
 class InputHandler {
   private _keys: Keys;
@@ -12,36 +28,16 @@ class InputHandler {
     };
 
     addEventListener('keydown', ({ key }) => {
-      switch (key) {
-        case 'ArrowUp':
-          this._keys.up.pressed = true;
-          break;
-        case 'ArrowRight':
-          this._keys.right.pressed = true;
-          break;
-        case 'ArrowDown':
-          this._keys.down.pressed = true;
-          break;
-        case 'ArrowLeft':
-          this._keys.left.pressed = true;
-          break;
+      if (isOfKeyMap(key)) {
+        const pressedKey = keyMap[key];
+        this._keys[pressedKey].pressed = true;
       }
     });
 
     addEventListener('keyup', ({ key }) => {
-      switch (key) {
-        case 'ArrowUp':
-          this._keys.up.pressed = false;
-          break;
-        case 'ArrowRight':
-          this._keys.right.pressed = false;
-          break;
-        case 'ArrowDown':
-          this._keys.down.pressed = false;
-          break;
-        case 'ArrowLeft':
-          this._keys.left.pressed = false;
-          break;
+      if (isOfKeyMap(key)) {
+        const pressedKey = keyMap[key];
+        this._keys[pressedKey].pressed = false;
       }
     });
   }
