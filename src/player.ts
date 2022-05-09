@@ -14,6 +14,7 @@ class Player {
   private _rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
+  private angle: number;
 
   constructor(gameWidth: number, gameHeight: number) {
     this.width = 150;
@@ -29,19 +30,31 @@ class Player {
       x: 0,
       y: 0,
     };
+    this.angle = 0;
   }
 
   draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
     const insideCameraPos = {
-      x: this._rect.x - cameraPos.x,
-      y: this._rect.y - cameraPos.y,
+      x: this._rect.center.x - cameraPos.x,
+      y: this._rect.center.y - cameraPos.y,
     };
-    ctx.fillRect(insideCameraPos.x, insideCameraPos.y, this.width, this.height);
+    const radian = (this.angle * Math.PI) / 180;
+    ctx.save();
+    ctx.translate(insideCameraPos.x, insideCameraPos.y);
+    ctx.rotate(radian);
+    ctx.fillRect(
+      -this._rect.width / 2,
+      -this._rect.height / 2,
+      this.width,
+      this.height
+    );
+    ctx.restore();
   }
 
   update(deltatime: number) {
     this._rect.x += this.speed.x / deltatime;
     this._rect.y += this.speed.y / deltatime;
+    this.angle += 1;
   }
 
   move(keys: Keys) {
