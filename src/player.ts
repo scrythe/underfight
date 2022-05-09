@@ -9,16 +9,23 @@ import RectObject from './rectangle';
 import { rotateAndDrawObject } from './functions';
 
 class Player {
+  private playerImage: HTMLImageElement;
   private playerObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
-  private angle: number;
+  private _angle: number;
 
-  constructor(gameWidth: number, gameHeight: number) {
-    const width = 150;
-    const height = 150;
-    this.playerObject = new RectObject(width, height);
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    playerImage: HTMLImageElement
+  ) {
+    this.playerImage = playerImage;
+    this.playerObject = new RectObject(
+      this.playerImage.width,
+      this.playerImage.height
+    );
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this._rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
@@ -29,7 +36,7 @@ class Player {
       x: 0,
       y: 0,
     };
-    this.angle = 0;
+    this._angle = 0;
   }
 
   draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
@@ -37,7 +44,13 @@ class Player {
       x: this._rect.center.x - cameraPos.x,
       y: this._rect.center.y - cameraPos.y,
     };
-    rotateAndDrawObject(ctx, insideCameraPos, this.rect, this.angle);
+    rotateAndDrawObject(
+      ctx,
+      insideCameraPos,
+      this.rect,
+      this.playerImage,
+      this._angle
+    );
   }
 
   update(deltatime: number) {
@@ -77,6 +90,10 @@ class Player {
 
   get rect() {
     return this._rect;
+  }
+
+  set angle(value: number) {
+    this._angle = value;
   }
 }
 

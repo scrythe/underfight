@@ -1,4 +1,4 @@
-import { Keys, KeyMap } from './interfaces';
+import { Keys, KeyMap, Position } from './interfaces';
 
 const keyMap: KeyMap = {
   ArrowUp: 'up',
@@ -18,8 +18,11 @@ function isOfKeyMap(key: string): key is keyof typeof keyMap {
 
 class InputHandler {
   private _keys: Keys;
+  private _mousePos: Position;
 
-  constructor() {
+  constructor(gameWidth: number, gameHeight: number) {
+    this._mousePos = { x: gameWidth / 2, y: gameHeight / 2 };
+
     this._keys = {
       up: { pressed: false },
       right: { pressed: false },
@@ -40,10 +43,19 @@ class InputHandler {
         this._keys[pressedKey].pressed = false;
       }
     });
+
+    addEventListener('mousemove', ({ clientX, clientY }) => {
+      this._mousePos.x = clientX;
+      this._mousePos.y = clientY;
+    });
   }
 
   get keys(): Keys {
     return this._keys;
+  }
+
+  get mousePos() {
+    return this._mousePos;
   }
 }
 
