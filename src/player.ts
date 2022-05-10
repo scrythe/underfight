@@ -4,9 +4,11 @@ import {
   Rectangle,
   RectanlgeObject,
   Position,
+  Key,
 } from './interfaces';
 import RectObject from './rectangle';
 import { rotateAndDrawObject } from './functions';
+import Bullet from './bullet';
 
 class Player {
   private playerImage: HTMLImageElement;
@@ -15,13 +17,10 @@ class Player {
   private maxSpeed: Speed;
   private speed: Speed;
   private _angle: number;
+  private bullets: Bullet[];
 
-  constructor(
-    gameWidth: number,
-    gameHeight: number,
-    playerImage: HTMLImageElement
-  ) {
-    this.playerImage = playerImage;
+  constructor(gameWidth: number, gameHeight: number) {
+    this.playerImage = document.querySelector('#player-image')!;
     this.playerObject = new RectObject(
       this.playerImage.width,
       this.playerImage.height
@@ -37,6 +36,7 @@ class Player {
       y: 0,
     };
     this._angle = 0;
+    this.bullets = [];
   }
 
   draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
@@ -51,16 +51,20 @@ class Player {
       this.playerImage,
       this._angle
     );
+    this.drawBullets(ctx, cameraPos);
   }
 
   update(deltatime: number) {
     this._rect.x += this.speed.x / deltatime;
     this._rect.y += this.speed.y / deltatime;
+    this.updateBullets(deltatime);
   }
 
   move(keys: Keys) {
     // up or down
-    if (keys.up.pressed) {
+    if (keys.up.pressed && keys.down.pressed) {
+      this.speed.y = 0;
+    } else if (keys.up.pressed) {
       this.speed.y = -this.maxSpeed.y;
     } else if (keys.down.pressed) {
       this.speed.y = this.maxSpeed.y;
@@ -69,7 +73,9 @@ class Player {
     }
 
     // right or left
-    if (keys.right.pressed) {
+    if (keys.right.pressed && keys.left.pressed) {
+      this.speed.x = 0;
+    } else if (keys.right.pressed) {
       this.speed.x = this.maxSpeed.y;
     } else if (keys.left.pressed) {
       this.speed.x = -this.maxSpeed.y;
@@ -86,6 +92,26 @@ class Player {
     } else {
       this.speed.y = 0;
     }
+  }
+
+  shootBullet(fire: Key) {
+    if (fire.pressed) {
+      const bullet = new Bullet(this._rect.center, this._angle);
+      this.bullets.push(bullet);
+      fire.pressed = false;
+    }
+  }
+
+  updateBullets(deltatime: number) {
+    this.bullets.forEach((bullet) => {
+      bullet.update(deltatime);
+    });
+  }
+
+  drawBullets(ctx: CanvasRenderingContext2D, cameraPos: Position) {
+    this.bullets.forEach((bullet) => {
+      bullet.draw(ctx, cameraPos);
+    });
   }
 
   get rect() {

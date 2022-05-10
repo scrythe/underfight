@@ -26,6 +26,7 @@ export interface Keys {
   right: Key;
   down: Key;
   left: Key;
+  fire: Key;
 }
 
 export interface KeyMap {
@@ -38,6 +39,8 @@ export interface KeyMap {
   d: keyof Keys;
   s: keyof Keys;
   a: keyof Keys;
+
+  ' ': keyof Keys;
 }
 
 export interface Screen {
@@ -45,7 +48,7 @@ export interface Screen {
   height: number;
 }
 
-type Key = { pressed: boolean };
+export type Key = { pressed: boolean };
 
 export interface Rectangle {
   x: number;

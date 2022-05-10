@@ -12,7 +12,7 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
 let lasttime = 0;
-const game = new Game(WIDTH, HEIGHT, playerImage);
+const game = new Game(WIDTH, HEIGHT);
 
 function gameLoop(timestamp: number) {
   const deltatime = timestamp - lasttime;
