@@ -1,6 +1,7 @@
 import http from 'http';
 import { Server } from 'socket.io';
 import gameLoop from './gameLoop';
+import ServerInterface from './interfaces/socketInterface';
 
 const server = http.createServer();
 
@@ -9,10 +10,14 @@ const options = {
     origin: ['http://localhost'],
   },
 };
-const io = new Server(server, options);
+
+const WIDTH = 1536;
+const HEIGHT = 864;
+
+const io: ServerInterface = new Server(server, options);
 
 io.on('connection', (socket) => {
-  gameLoop(io);
+  gameLoop(io, socket);
 });
 
 io.listen(3000);

@@ -18,20 +18,6 @@ export interface Keys {
   fire: Key;
 }
 
-export interface KeyMap {
-  ArrowUp: keyof Keys;
-  ArrowRight: keyof Keys;
-  ArrowDown: keyof Keys;
-  ArrowLeft: keyof Keys;
-
-  w: keyof Keys;
-  d: keyof Keys;
-  s: keyof Keys;
-  a: keyof Keys;
-
-  ' ': keyof Keys;
-}
-
 export interface Screen {
   width: number;
   height: number;

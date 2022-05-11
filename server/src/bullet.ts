@@ -7,7 +7,6 @@ import {
 import RectObject from './rectangle';
 
 class Bullet {
-  private bulletImage: HTMLImageElement;
   private bulletObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: number;
@@ -15,11 +14,9 @@ class Bullet {
   private angle: number;
 
   constructor(playerPos: Position, angle: number) {
-    this.bulletImage = document.querySelector('#bullet-image')!;
-    this.bulletObject = new RectObject(
-      this.bulletImage.width,
-      this.bulletImage.height
-    );
+    const bulletWidth = 50;
+    const bulletHeight = 10;
+    this.bulletObject = new RectObject(bulletWidth, bulletHeight);
     this._rect = this.bulletObject.getRect({ center: playerPos });
     this.angle = angle;
     this.maxSpeed = 80;

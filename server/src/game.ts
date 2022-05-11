@@ -9,20 +9,20 @@ class Game {
   private gameHeight: number;
   private player: Player;
   private inputHandler: InputHandler;
-  private keys: Keys;
-  private mousePos: Position;
   private camera: CameraInterface;
   private angle: number;
 
-  constructor(gameWidth: number, gameHeight: number) {
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    inputHandler: InputHandler
+  ) {
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
 
     this.player = new Player(this.gameWidth, this.gameHeight);
 
-    this.inputHandler = new InputHandler(gameWidth, gameHeight);
-    this.keys = this.inputHandler.keys;
-    this.mousePos = this.inputHandler.mousePos;
+    this.inputHandler = inputHandler;
 
     this.camera = new Camera(this.gameWidth, this.gameHeight);
 
@@ -31,18 +31,19 @@ class Game {
 
   update() {
     this.player.update();
-    this.player.move(this.keys);
+    this.player.move(this.inputHandler.keys);
     this.player.shootBullet(this.inputHandler.fire);
     this.camera.watch(this.player.rect);
     this.calculateAngle();
   }
 
   calculateAngle() {
-    const x = this.mousePos.x - this.gameWidth / 2;
-    const y = this.mousePos.y - this.gameHeight / 2;
+    const mousePos = this.inputHandler.mousePos;
+    const x = mousePos.x - this.gameWidth / 2;
+    const y = mousePos.y - this.gameHeight / 2;
     const angle = Math.atan2(y, x);
     this.angle = angle;
-    this.player.angle = this.angle;
+    this.player.angle = angle;
   }
 
   getAllBulletStates() {

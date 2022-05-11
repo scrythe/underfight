@@ -1,22 +1,4 @@
-import { Keys, KeyMap, Position, Key } from './interfaces/interfaces';
-
-const keyMap: KeyMap = {
-  ArrowUp: 'up',
-  ArrowRight: 'right',
-  ArrowDown: 'down',
-  ArrowLeft: 'left',
-
-  w: 'up',
-  d: 'right',
-  s: 'down',
-  a: 'left',
-
-  ' ': 'fire',
-};
-
-function isOfKeyMap(key: string): key is keyof typeof keyMap {
-  return key in keyMap;
-}
+import { Keys, Position, Key } from './interfaces/interfaces';
 
 class InputHandler {
   private _keys: Keys;
@@ -32,6 +14,14 @@ class InputHandler {
       left: { pressed: false },
       fire: { pressed: false },
     };
+  }
+
+  updateKeys(keys: Keys) {
+    this._keys = keys;
+  }
+
+  updateMousePos(mousePos: Position) {
+    this._mousePos = mousePos;
   }
 
   get keys(): Keys {

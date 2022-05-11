@@ -1,13 +1,19 @@
 import Game from './game';
-import ServerInterface from './interfaces/socketInterface';
+import ServerInterface, { SocketInterface } from './interfaces/socketInterface';
+import InputHandler from './input';
 
 const WIDTH = 1536;
 const HEIGHT = 864;
 const FPS = 60;
-const game = new Game(WIDTH, HEIGHT);
+const inputHandler = new InputHandler(WIDTH, HEIGHT);
+const game = new Game(WIDTH, HEIGHT, inputHandler);
 
-function gameLoop(io: ServerInterface) {
+function gameLoop(io: ServerInterface, socket: SocketInterface) {
   const fpsDuration = 1000 / FPS;
+  socket.on('sendKeys', (keys, mousePos) => {
+    inputHandler.updateKeys(keys);
+    inputHandler.updateMousePos(mousePos);
+  });
   const gameInterval = setInterval(() => {
     game.update();
     const gameState = game.getState();

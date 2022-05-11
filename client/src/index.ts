@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
 import DrawGame from './drawGame';
 import ServerInterface from './interfaces/socketInterface';
+import InputHandler from './input';
 
 const socket: ServerInterface = io('http://localhost:3000');
 
@@ -14,7 +15,10 @@ canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
 const drawGame = new DrawGame(ctx, WIDTH, HEIGHT);
+const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
 socket.on('sendState', (state) => {
   drawGame.draw(state);
+  socket.emit('sendKeys', inputHandler.keys, inputHandler.mousePos);
+  inputHandler.fire = { pressed: false };
 });
