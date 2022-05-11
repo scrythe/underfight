@@ -1,30 +1,33 @@
-import Game from './game';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
+import { State } from './interfaces';
+import DrawGame from './drawGame';
+import {
+  ServerToClientEvents,
+  ClientToServerEvents,
+  InterServerEvents,
+  SocketData,
+} from './socketInterface';
 
-const socket = io('http://localhost:3000');
+const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io(
+  'http://localhost:3000'
+);
 
 const canvas = document.querySelector('canvas')!;
 const ctx = canvas.getContext('2d')!;
 
-const playerImage: HTMLImageElement = document.querySelector('#player-image')!;
-
-const WIDTH = window.innerWidth;
-const HEIGHT = window.innerHeight;
+const WIDTH = 1920;
+const HEIGHT = 1080;
 
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
-let lasttime = 0;
-const game = new Game(WIDTH, HEIGHT);
+socket.on('sendState', (state) => {
+  drawGame.draw(state);
+});
 
-function gameLoop(timestamp: number) {
-  const deltatime = timestamp - lasttime;
-  lasttime = timestamp;
+const drawGame = new DrawGame(ctx, WIDTH, HEIGHT);
 
-  game.update(deltatime);
-  game.draw(ctx);
-
-  requestAnimationFrame(gameLoop);
-}
-
-requestAnimationFrame(gameLoop);
+// function gameLoop() {
+//   drawGame.draw();
+//   requestAnimationFrame(gameLoop);
+// }

@@ -11,20 +11,17 @@ import { rotateAndDrawObject } from './functions';
 import Bullet from './bullet';
 
 class Player {
-  private playerImage: HTMLImageElement;
   private playerObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: Speed;
   private speed: Speed;
   private _angle: number;
-  private bullets: Bullet[];
+  private _bullets: Bullet[];
 
   constructor(gameWidth: number, gameHeight: number) {
-    this.playerImage = document.querySelector('#player-image')!;
-    this.playerObject = new RectObject(
-      this.playerImage.width,
-      this.playerImage.height
-    );
+    const width = 150;
+    const height = 150;
+    this.playerObject = new RectObject(width, height);
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this._rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
@@ -36,28 +33,13 @@ class Player {
       y: 0,
     };
     this._angle = 0;
-    this.bullets = [];
+    this._bullets = [];
   }
 
-  draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
-    const insideCameraPos: Position = {
-      x: this._rect.center.x - cameraPos.x,
-      y: this._rect.center.y - cameraPos.y,
-    };
-    rotateAndDrawObject(
-      ctx,
-      insideCameraPos,
-      this.rect,
-      this.playerImage,
-      this._angle
-    );
-    this.drawBullets(ctx, cameraPos);
-  }
-
-  update(deltatime: number) {
-    this._rect.x += this.speed.x / deltatime;
-    this._rect.y += this.speed.y / deltatime;
-    this.updateBullets(deltatime);
+  update() {
+    this._rect.x += this.speed.x;
+    this._rect.y += this.speed.y;
+    this.updateBullets();
   }
 
   move(keys: Keys) {
@@ -97,19 +79,19 @@ class Player {
   shootBullet(fire: Key) {
     if (fire.pressed) {
       const bullet = new Bullet(this._rect.center, this._angle);
-      this.bullets.push(bullet);
+      this._bullets.push(bullet);
       fire.pressed = false;
     }
   }
 
-  updateBullets(deltatime: number) {
-    this.bullets.forEach((bullet) => {
-      bullet.update(deltatime);
+  updateBullets() {
+    this._bullets.forEach((bullet) => {
+      bullet.update();
     });
   }
 
   drawBullets(ctx: CanvasRenderingContext2D, cameraPos: Position) {
-    this.bullets.forEach((bullet) => {
+    this._bullets.forEach((bullet) => {
       bullet.draw(ctx, cameraPos);
     });
   }
@@ -120,6 +102,10 @@ class Player {
 
   set angle(value: number) {
     this._angle = value;
+  }
+
+  get bullets() {
+    return this._bullets;
   }
 }
 

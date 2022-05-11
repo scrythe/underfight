@@ -39,9 +39,9 @@ class Bullet {
     );
   }
 
-  update(deltatime: number) {
-    this._rect.x += this.speed.x / deltatime;
-    this._rect.y += this.speed.y / deltatime;
+  update() {
+    this._rect.x += this.speed.x;
+    this._rect.y += this.speed.y;
   }
 
   get rect() {

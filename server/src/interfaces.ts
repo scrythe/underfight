@@ -86,6 +86,12 @@ export interface RectPosition {
   center?: Position;
 }
 
+export interface clientRect {
+  center: Position;
+  width: number;
+  height: number;
+}
+
 export interface RectanlgeObject {
   getRect(rectPos: RectPosition): Rectangle;
 }
@@ -96,11 +102,11 @@ export interface CameraInterface {
 }
 
 export interface PlayerState {
-  rect: Rectangle;
+  rect: clientRect;
 }
 
 export interface BulletState {
-  rect: Rectangle;
+  rect: clientRect;
 }
 
 export interface State {

@@ -1,5 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
+import gameLoop from './gameLoop';
 
 const server = http.createServer();
 
@@ -11,7 +12,7 @@ const options = {
 const io = new Server(server, options);
 
 io.on('connection', (socket) => {
-  console.log('yeet');
+  gameLoop(io);
 });
 
 io.listen(3000);
