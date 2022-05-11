@@ -1,11 +1,5 @@
-import {
-  Keys,
-  CameraInterface,
-  Position,
-  PlayerState,
-  BulletState,
-  State,
-} from './interfaces';
+import { Keys, CameraInterface, Position } from './interfaces/interfaces';
+import { PlayerState, BulletState, State } from './interfaces/stateInterfaces';
 import Player from './player';
 import InputHandler from './input';
 import Camera from './camera';

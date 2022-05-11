@@ -1,16 +1,3 @@
-// namespace Types {
-//   export interface Pos {
-//     x: number;
-//     y: number;
-//   }
-
-//   export interface Player {
-//     draw(ctx: CanvasRenderingContext2D): void;
-//   }
-// }
-
-// export default Types;
-
 export interface Position {
   x: number;
   y: number;
@@ -20,6 +7,8 @@ export interface Speed {
   x: number;
   y: number;
 }
+
+export type Key = { pressed: boolean };
 
 export interface Keys {
   up: Key;
@@ -47,8 +36,6 @@ export interface Screen {
   width: number;
   height: number;
 }
-
-export type Key = { pressed: boolean };
 
 export interface Rectangle {
   x: number;
@@ -86,12 +73,6 @@ export interface RectPosition {
   center?: Position;
 }
 
-export interface clientRect {
-  center: Position;
-  width: number;
-  height: number;
-}
-
 export interface RectanlgeObject {
   getRect(rectPos: RectPosition): Rectangle;
 }
@@ -99,19 +80,4 @@ export interface RectanlgeObject {
 export interface CameraInterface {
   pos: Position;
   watch(target: Rectangle): void;
-}
-
-export interface PlayerState {
-  rect: clientRect;
-}
-
-export interface BulletState {
-  rect: clientRect;
-}
-
-export interface State {
-  playerState: PlayerState;
-  bulletsState: BulletState[];
-  cameraPos: Position;
-  angle: number;
 }

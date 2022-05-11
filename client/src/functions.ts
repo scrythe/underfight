@@ -1,9 +1,10 @@
-import { Position, Rectangle } from './interfaces';
+import { Position } from './interfaces/interfaces';
+import { ClientRect } from './interfaces/stateInterfaces';
 
 export function rotateAndDrawObject(
   ctx: CanvasRenderingContext2D,
   insideCameraPos: Position,
-  rect: Rectangle,
+  rect: ClientRect,
   image: HTMLImageElement,
   angle: number
 ) {

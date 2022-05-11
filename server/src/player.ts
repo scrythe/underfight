@@ -5,9 +5,8 @@ import {
   RectanlgeObject,
   Position,
   Key,
-} from './interfaces';
+} from './interfaces/interfaces';
 import RectObject from './rectangle';
-import { rotateAndDrawObject } from './functions';
 import Bullet from './bullet';
 
 class Player {
@@ -66,16 +65,6 @@ class Player {
     }
   }
 
-  moveLeftOrRight(right = false, left: false) {
-    if (right) {
-      this.speed.y = this.maxSpeed.y;
-    } else if (left) {
-      this.speed.y = -this.maxSpeed.y;
-    } else {
-      this.speed.y = 0;
-    }
-  }
-
   shootBullet(fire: Key) {
     if (fire.pressed) {
       const bullet = new Bullet(this._rect.center, this._angle);
@@ -87,12 +76,6 @@ class Player {
   updateBullets() {
     this._bullets.forEach((bullet) => {
       bullet.update();
-    });
-  }
-
-  drawBullets(ctx: CanvasRenderingContext2D, cameraPos: Position) {
-    this._bullets.forEach((bullet) => {
-      bullet.draw(ctx, cameraPos);
     });
   }
 

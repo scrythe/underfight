@@ -1,4 +1,5 @@
-import { Position, State, PlayerState, BulletState } from './interfaces';
+import { Position } from './interfaces/interfaces';
+import { State, PlayerState, BulletState } from './interfaces/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 
 class DrawGame {

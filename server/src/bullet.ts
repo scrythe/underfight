@@ -1,6 +1,10 @@
-import { Speed, Rectangle, RectanlgeObject, Position } from './interfaces';
+import {
+  Speed,
+  Rectangle,
+  RectanlgeObject,
+  Position,
+} from './interfaces/interfaces';
 import RectObject from './rectangle';
-import { rotateAndDrawObject } from './functions';
 
 class Bullet {
   private bulletImage: HTMLImageElement;
@@ -23,20 +27,6 @@ class Bullet {
       x: Math.cos(this.angle) * this.maxSpeed,
       y: Math.sin(this.angle) * this.maxSpeed,
     };
-  }
-
-  draw(ctx: CanvasRenderingContext2D, cameraPos: Position) {
-    const insideCameraPos: Position = {
-      x: this._rect.center.x - cameraPos.x,
-      y: this._rect.center.y - cameraPos.y,
-    };
-    rotateAndDrawObject(
-      ctx,
-      insideCameraPos,
-      this.rect,
-      this.bulletImage,
-      this.angle
-    );
   }
 
   update() {

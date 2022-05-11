@@ -1,4 +1,9 @@
-import { Position, Screen, Rectangle, CameraInterface } from './interfaces';
+import {
+  Position,
+  Screen,
+  Rectangle,
+  CameraInterface,
+} from './interfaces/interfaces';
 
 class Camera implements CameraInterface {
   private _pos: Position;
