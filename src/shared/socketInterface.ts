@@ -8,8 +8,8 @@ export interface ServerToClientEvents {
 }
 
 export interface ClientToServerEvents {
-  sendKeys: (keys: Keys, mousePos: Position) => void;
-  joinGame: () => void;
+  sendKeys: (keys: Keys, mousePos: Position, name: string) => void;
+  joinGame: (name: string) => void;
 }
 
 export interface InterServerEvents {}

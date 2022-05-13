@@ -1,4 +1,4 @@
-import { Position } from '../shared/interfaces';
+import { Position, Rectangle } from '../shared/interfaces';
 
 export interface Speed {
   x: number;
@@ -8,25 +8,6 @@ export interface Speed {
 export interface Screen {
   width: number;
   height: number;
-}
-
-export interface Rectangle {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-
-  topLeft: Position;
-  topRight: Position;
-  bottomLeft: Position;
-  bottomRight: Position;
-
-  center: Position;
 }
 
 export interface RectPosition {

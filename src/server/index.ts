@@ -17,8 +17,10 @@ const game = new Game(io);
 game.startGame();
 
 io.on('connection', (socket) => {
-  socket.on('joinGame', () => game.addPlayer());
-  socket.on('sendKeys', (keys, mousePos) => game.handleInput(keys, mousePos));
+  socket.on('joinGame', (name) => game.addPlayer(name));
+  socket.on('sendKeys', (keys, mousePos, name) =>
+    game.handleInput(keys, mousePos, name)
+  );
 });
 
 io.listen(3000);

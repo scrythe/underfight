@@ -1,4 +1,4 @@
-import { CameraInterface, Position, Keys } from './interfaces';
+import { Position, Keys, Players } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
@@ -9,19 +9,14 @@ class Game {
   private GAME_HEIGHT = 864;
   private FPS = 60;
 
-  private player: Player;
-  private players: Player[];
-  private inputHandler: InputHandler;
+  private players: Players;
 
   private io: ServerInterface;
 
   constructor(io: ServerInterface) {
-    this.player = new Player(this.GAME_WIDTH, this.GAME_HEIGHT);
     this.players = [];
 
     this.io = io;
-
-    this.inputHandler = new InputHandler(this.GAME_WIDTH, this.GAME_HEIGHT);
   }
 
   startGame() {
@@ -33,64 +28,76 @@ class Game {
     }, fpsDuration);
   }
 
+  addPlayer(name: string) {
+    const player = new Player(this.GAME_WIDTH, this.GAME_HEIGHT, name);
+    this.players.push(player);
+  }
+
   updatePlayers() {
     this.players.forEach((player) => {
-      this.player.update();
-      this.player.move(this.inputHandler.keys);
-      this.player.shootBullet(this.inputHandler.fire);
+      player.update();
+      player.move();
+      player.shootBullet();
     });
   }
 
   update() {
-    this.player.update();
-    this.player.move(this.inputHandler.keys);
-    this.player.shootBullet(this.inputHandler.fire);
-    this.calculateAngle();
-  }
-
-  private calculateAngle() {
-    const mousePos = this.inputHandler.mousePos;
-    const x = mousePos.x - this.GAME_WIDTH / 2;
-    const y = mousePos.y - this.GAME_HEIGHT / 2;
-    const angle = Math.atan2(y, x);
-    this.player.angle = angle;
+    this.updatePlayers();
   }
 
   private getAllBulletStates() {
     const bulletsState: BulletState[] = [];
-    this.player.bullets.forEach((bullet) => {
-      const bulletRect = {
-        center: bullet.rect.center,
-        width: bullet.rect.width,
-        height: bullet.rect.height,
-      };
-      const bulletState = { rect: bulletRect, angle: bullet.angle };
-      bulletsState.push(bulletState);
+    this.players.forEach((player) => {
+      player.bullets.forEach((bullet) => {
+        const bulletRect = {
+          center: bullet.rect.center,
+          width: bullet.rect.width,
+          height: bullet.rect.height,
+        };
+        const bulletState = { rect: bulletRect, angle: bullet.angle };
+        bulletsState.push(bulletState);
+      });
     });
     return bulletsState;
   }
 
+  getPlayerState() {
+    const playerStates: PlayerState[] = [];
+    this.players.forEach((player) => {
+      const playerRect = {
+        center: player.rect.center,
+        width: player.rect.width,
+        height: player.rect.height,
+      };
+      const playerState: PlayerState = {
+        rect: playerRect,
+        angle: player.angle,
+        name: player.name,
+      };
+      playerStates.push(playerState);
+    });
+    return playerStates;
+  }
+
   getState(): State {
-    const playerRect = {
-      center: this.player.rect.center,
-      width: this.player.rect.width,
-      height: this.player.rect.height,
-    };
-    const playerState: PlayerState = {
-      rect: playerRect,
-      angle: this.player.angle,
-    };
+    const playerStates = this.getPlayerState();
     const bulletsState: BulletState[] = this.getAllBulletStates();
-    const state: State = { playerState, bulletsState };
+    const state: State = { playerStates, bulletsState };
     return state;
   }
 
-  handleInput(keys: Keys, mousePos: Position) {
-    this.inputHandler.updateKeys(keys);
-    this.inputHandler.updateMousePos(mousePos);
+  getSpecificPlayer(name: string) {
+    const player = this.players.find((player) => player.name == name);
+    return player;
   }
 
-  addPlayer() {}
+  handleInput(keys: Keys, mousePos: Position, name: string) {
+    const player = this.getSpecificPlayer(name);
+    if (player) {
+      player.inputHandler.updateKeys(keys);
+      player.inputHandler.updateMousePos(mousePos);
+    }
+  }
 }
 
 export default Game;

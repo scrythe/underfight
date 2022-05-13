@@ -3,6 +3,7 @@ import { ClientRect } from '../server/interfaces';
 export interface PlayerState {
   rect: ClientRect;
   angle: number;
+  name: string;
 }
 
 export interface BulletState {
@@ -11,6 +12,6 @@ export interface BulletState {
 }
 
 export interface State {
-  playerState: PlayerState;
+  playerStates: PlayerState[];
   bulletsState: BulletState[];
 }

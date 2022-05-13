@@ -1,7 +1,13 @@
-import { Speed, Rectangle, RectanlgeObject, Position } from './interfaces';
+import {
+  Speed,
+  Rectangle,
+  RectanlgeObject,
+  Position,
+  BulletType,
+} from './interfaces';
 import RectObject from './rectangle';
 
-class Bullet {
+class Bullet implements BulletType {
   private bulletObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: number;

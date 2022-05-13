@@ -11,26 +11,44 @@ class DrawGame {
   private gameWidth: number;
   private gameHeight: number;
   private player: Player;
+  private enemies: Enemies;
   private bullets: Bullets;
   private camera: Camera;
+  private name: string;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     gameWidth: number,
-    gameHeight: number
+    gameHeight: number,
+    name: string
   ) {
     this.ctx = ctx;
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
     this.player = new Player(ctx);
+    this.enemies = new Enemies(ctx);
     this.bullets = new Bullets(this.ctx);
     this.camera = new Camera(this.gameWidth, this.gameHeight);
+    this.name = name;
+  }
+
+  getMe(playerStates: PlayerState[]) {
+    const me = playerStates.find((player) => player.name == this.name);
+    return me;
   }
 
   draw(state: State) {
     this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-    this.camera.watch(state.playerState.rect);
-    this.player.draw(state.playerState, this.camera.pos);
+    const enemies = state.playerStates;
+    const me = this.getMe(state.playerStates);
+    if (me) {
+      const meIndex = enemies.indexOf(me);
+      enemies.splice(meIndex);
+      this.camera.watch(me.rect);
+      this.player.draw(me, this.camera.pos);
+      enemies.pop;
+    }
+    this.enemies.drawPlayers(enemies, this.camera.pos);
     this.bullets.draw(state.bulletsState, this.camera.pos);
   }
 }
@@ -56,6 +74,17 @@ class Player {
       this.playerImage,
       angle
     );
+  }
+}
+
+class Enemies extends Player {
+  constructor(ctx: CanvasRenderingContext2D) {
+    super(ctx);
+  }
+  drawPlayers(playerStates: PlayerState[], cameraPos: Position) {
+    playerStates.forEach((player) => {
+      super.draw(player, cameraPos);
+    });
   }
 }
 

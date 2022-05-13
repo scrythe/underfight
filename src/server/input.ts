@@ -1,6 +1,6 @@
-import { Keys, Position, Key } from './interfaces';
+import { Keys, Position, Key, InputHandlerType } from './interfaces';
 
-class InputHandler {
+class InputHandler implements InputHandlerType {
   private _keys: Keys;
   private _mousePos: Position;
 
