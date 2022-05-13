@@ -4,12 +4,9 @@
   "description": "html 5 canvas and javascript game which combines the undertale fight mechanic together with the diep.io gameplay",
   "main": "dist/index.js",
   "scripts": {
-    "serve-client": "webpack-dev-server --config client/webpack.config.js",
-    "build-client": "webpack --config client/webpack.config.js",
-    "serve-server": "nodemon ./server/src/index.ts",
-    "build-server": "tsc -p server/tsconfig.json",
-    "serve": "npm run serve-client && npm run serve-server",
-    "build": "npm run build-client && npm run build-server"
+    "serve": "webpack-dev-server",
+    "start": "nodemon ./src/server/index.ts",
+    "build": "webpack && tsc -p ./src/server/tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -27,6 +24,7 @@
   },
   "homepage": "https://github.com/scrythe/underfight#readme",
   "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.16",
     "ts-loader": "^9.3.0",
     "ts-node": "^10.7.0",

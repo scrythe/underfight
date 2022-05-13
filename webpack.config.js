@@ -1,8 +1,9 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = [
   {
-    entry: './client/src/index.ts',
+    entry: './src/client/index.ts',
     mode: 'development',
     devtool: 'eval-source-map',
     module: {
@@ -13,6 +14,12 @@ module.exports = [
         },
       ],
     },
+    plugins: [
+      new HtmlWebpackPlugin({
+        filename: 'index.html',
+        template: './src/client/html/index.html',
+      }),
+    ],
     devServer: {
       static: {
         directory: path.resolve(__dirname, 'public'),
@@ -27,7 +34,7 @@ module.exports = [
       extensions: ['.ts', '.js'],
     },
     output: {
-      filename: 'bundle.js',
+      filename: '[name].[contenthash].js',
       path: path.resolve(__dirname, 'public'),
     },
   },
