@@ -1,4 +1,4 @@
-import { Keys, Position, Key } from './interfaces/interfaces';
+import { Keys, Position, Key } from './interfaces';
 
 class InputHandler {
   private _keys: Keys;

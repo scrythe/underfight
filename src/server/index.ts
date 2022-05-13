@@ -1,6 +1,6 @@
 import http from 'http';
 import { Server } from 'socket.io';
-import gameLoop from './gameLoop';
+import Game from './game';
 import { ServerInterface } from '../shared/socketInterface';
 
 const server = http.createServer();
@@ -11,13 +11,14 @@ const options = {
   },
 };
 
-const WIDTH = 1536;
-const HEIGHT = 864;
-
 const io: ServerInterface = new Server(server, options);
 
+const game = new Game(io);
+game.startGame();
+
 io.on('connection', (socket) => {
-  gameLoop(io, socket);
+  socket.on('joinGame', () => game.addPlayer());
+  socket.on('sendKeys', (keys, mousePos) => game.handleInput(keys, mousePos));
 });
 
 io.listen(3000);

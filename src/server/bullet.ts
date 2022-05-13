@@ -1,9 +1,4 @@
-import {
-  Speed,
-  Rectangle,
-  RectanlgeObject,
-  Position,
-} from './interfaces/interfaces';
+import { Speed, Rectangle, RectanlgeObject, Position } from './interfaces';
 import RectObject from './rectangle';
 
 class Bullet {

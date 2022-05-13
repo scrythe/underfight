@@ -3,7 +3,7 @@ import {
   Position,
   RectPosition,
   RectanlgeObject,
-} from './interfaces/interfaces';
+} from './interfaces';
 
 class RectObject implements RectanlgeObject {
   private _width: number;

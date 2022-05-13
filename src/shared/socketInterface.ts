@@ -1,6 +1,6 @@
 import { State } from './stateInterfaces';
 import { Server, Socket as ServerSocket } from 'socket.io';
-import { Keys, Position } from '../server/interfaces/interfaces';
+import { Keys, Position } from '../server/interfaces';
 import { Socket as ClientSocket } from 'socket.io-client';
 
 export interface ServerToClientEvents {
@@ -9,6 +9,7 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   sendKeys: (keys: Keys, mousePos: Position) => void;
+  joinGame: () => void;
 }
 
 export interface InterServerEvents {}

@@ -1,52 +1,62 @@
-import { CameraInterface, Position } from './interfaces/interfaces';
+import { CameraInterface, Position, Keys } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
+import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import InputHandler from './input';
-import Camera from './camera';
 
 class Game {
-  private gameWidth: number;
-  private gameHeight: number;
+  private GAME_WIDTH = 1536;
+  private GAME_HEIGHT = 864;
+  private FPS = 60;
+
   private player: Player;
+  private players: Player[];
   private inputHandler: InputHandler;
-  private camera: CameraInterface;
-  private angle: number;
 
-  constructor(
-    gameWidth: number,
-    gameHeight: number,
-    inputHandler: InputHandler
-  ) {
-    this.gameWidth = gameWidth;
-    this.gameHeight = gameHeight;
+  private io: ServerInterface;
 
-    this.player = new Player(this.gameWidth, this.gameHeight);
+  constructor(io: ServerInterface) {
+    this.player = new Player(this.GAME_WIDTH, this.GAME_HEIGHT);
+    this.players = [];
 
-    this.inputHandler = inputHandler;
+    this.io = io;
 
-    this.camera = new Camera(this.gameWidth, this.gameHeight);
+    this.inputHandler = new InputHandler(this.GAME_WIDTH, this.GAME_HEIGHT);
+  }
 
-    this.angle = 0;
+  startGame() {
+    const fpsDuration = 1000 / this.FPS;
+    setInterval(() => {
+      this.update();
+      const gameState = this.getState();
+      this.io.emit('sendState', gameState);
+    }, fpsDuration);
+  }
+
+  updatePlayers() {
+    this.players.forEach((player) => {
+      this.player.update();
+      this.player.move(this.inputHandler.keys);
+      this.player.shootBullet(this.inputHandler.fire);
+    });
   }
 
   update() {
     this.player.update();
     this.player.move(this.inputHandler.keys);
     this.player.shootBullet(this.inputHandler.fire);
-    this.camera.watch(this.player.rect);
     this.calculateAngle();
   }
 
-  calculateAngle() {
+  private calculateAngle() {
     const mousePos = this.inputHandler.mousePos;
-    const x = mousePos.x - this.gameWidth / 2;
-    const y = mousePos.y - this.gameHeight / 2;
+    const x = mousePos.x - this.GAME_WIDTH / 2;
+    const y = mousePos.y - this.GAME_HEIGHT / 2;
     const angle = Math.atan2(y, x);
-    this.angle = angle;
     this.player.angle = angle;
   }
 
-  getAllBulletStates() {
+  private getAllBulletStates() {
     const bulletsState: BulletState[] = [];
     this.player.bullets.forEach((bullet) => {
       const bulletRect = {
@@ -71,10 +81,16 @@ class Game {
       angle: this.player.angle,
     };
     const bulletsState: BulletState[] = this.getAllBulletStates();
-    const cameraPos: Position = this.camera.pos;
-    const state: State = { playerState, bulletsState, cameraPos };
+    const state: State = { playerState, bulletsState };
     return state;
   }
+
+  handleInput(keys: Keys, mousePos: Position) {
+    this.inputHandler.updateKeys(keys);
+    this.inputHandler.updateMousePos(mousePos);
+  }
+
+  addPlayer() {}
 }
 
 export default Game;

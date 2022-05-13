@@ -1,6 +1,7 @@
-import { Position } from './interfaces/interfaces';
+import { Position } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
+import Camera from './camera';
 import Images from './assets';
 
 const images = new Images();
@@ -11,6 +12,7 @@ class DrawGame {
   private gameHeight: number;
   private player: Player;
   private bullets: Bullets;
+  private camera: Camera;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -22,12 +24,14 @@ class DrawGame {
     this.gameHeight = gameHeight;
     this.player = new Player(ctx);
     this.bullets = new Bullets(this.ctx);
+    this.camera = new Camera(this.gameWidth, this.gameHeight);
   }
 
   draw(state: State) {
     this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-    this.player.draw(state.playerState, state.cameraPos);
-    this.bullets.draw(state.bulletsState, state.cameraPos);
+    this.camera.watch(state.playerState.rect);
+    this.player.draw(state.playerState, this.camera.pos);
+    this.bullets.draw(state.bulletsState, this.camera.pos);
   }
 }
 

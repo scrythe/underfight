@@ -5,7 +5,7 @@ import {
   RectanlgeObject,
   Position,
   Key,
-} from './interfaces/interfaces';
+} from './interfaces';
 import RectObject from './rectangle';
 import Bullet from './bullet';
 

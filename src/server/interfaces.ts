@@ -1,4 +1,4 @@
-import { Position } from '../../shared/interfaces';
+import { Position } from '../shared/interfaces';
 
 export interface Speed {
   x: number;
@@ -55,4 +55,4 @@ export interface CameraInterface {
   watch(target: Rectangle): void;
 }
 
-export * from '../../shared/interfaces';
+export * from '../shared/interfaces';

@@ -3,6 +3,12 @@ export interface Position {
   y: number;
 }
 
+export interface ClientRect {
+  center: Position;
+  width: number;
+  height: number;
+}
+
 export type Key = { pressed: boolean };
 
 export interface Keys {
