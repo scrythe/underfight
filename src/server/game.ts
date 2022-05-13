@@ -1,5 +1,5 @@
-import { Keys, CameraInterface, Position } from './interfaces/interfaces';
-import { PlayerState, BulletState, State } from './interfaces/stateInterfaces';
+import { CameraInterface, Position } from './interfaces/interfaces';
+import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import Player from './player';
 import InputHandler from './input';
 import Camera from './camera';
@@ -54,7 +54,7 @@ class Game {
         width: bullet.rect.width,
         height: bullet.rect.height,
       };
-      const bulletState = { rect: bulletRect };
+      const bulletState = { rect: bulletRect, angle: bullet.angle };
       bulletsState.push(bulletState);
     });
     return bulletsState;
@@ -66,11 +66,13 @@ class Game {
       width: this.player.rect.width,
       height: this.player.rect.height,
     };
-    const playerState: PlayerState = { rect: playerRect };
+    const playerState: PlayerState = {
+      rect: playerRect,
+      angle: this.player.angle,
+    };
     const bulletsState: BulletState[] = this.getAllBulletStates();
     const cameraPos: Position = this.camera.pos;
-    const angle = this.angle;
-    const state: State = { playerState, bulletsState, cameraPos, angle };
+    const state: State = { playerState, bulletsState, cameraPos };
     return state;
   }
 }

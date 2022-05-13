@@ -1,6 +1,7 @@
 import { State } from './stateInterfaces';
-import { Server, Socket } from 'socket.io';
-import { Keys, Position } from './interfaces';
+import { Server, Socket as ServerSocket } from 'socket.io';
+import { Keys, Position } from '../server/interfaces/interfaces';
+import { Socket as ClientSocket } from 'socket.io-client';
 
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
@@ -14,18 +15,23 @@ export interface InterServerEvents {}
 
 export interface SocketData {}
 
-type ServerInterface = Server<
+// Client
+export type ClientInterface = ClientSocket<
+  ServerToClientEvents,
+  ClientToServerEvents
+>;
+
+// Server
+export type ServerInterface = Server<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
   SocketData
 >;
 
-export type SocketInterface = Socket<
+export type SocketInterface = ServerSocket<
   ClientToServerEvents,
   ServerToClientEvents,
   InterServerEvents,
   SocketData
 >;
-
-export default ServerInterface;

@@ -1,5 +1,5 @@
 import Game from './game';
-import ServerInterface, { SocketInterface } from './interfaces/socketInterface';
+import { ServerInterface, SocketInterface } from '../shared/socketInterface';
 import InputHandler from './input';
 
 const WIDTH = 1536;

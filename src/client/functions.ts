@@ -1,5 +1,5 @@
 import { Position } from './interfaces/interfaces';
-import { ClientRect } from './interfaces/stateInterfaces';
+import { ClientRect } from '../shared/stateInterfaces';
 
 export function rotateAndDrawObject(
   ctx: CanvasRenderingContext2D,

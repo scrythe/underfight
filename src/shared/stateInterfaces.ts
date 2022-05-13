@@ -1,4 +1,4 @@
-import { Position } from './interfaces';
+import { Position } from '../server/interfaces/interfaces';
 
 export interface ClientRect {
   center: Position;
@@ -8,15 +8,16 @@ export interface ClientRect {
 
 export interface PlayerState {
   rect: ClientRect;
+  angle: number;
 }
 
 export interface BulletState {
   rect: ClientRect;
+  angle: number;
 }
 
 export interface State {
   playerState: PlayerState;
   bulletsState: BulletState[];
   cameraPos: Position;
-  angle: number;
 }

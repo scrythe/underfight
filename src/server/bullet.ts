@@ -11,18 +11,18 @@ class Bullet {
   private _rect: Rectangle;
   private maxSpeed: number;
   private speed: Speed;
-  private angle: number;
+  private _angle: number;
 
   constructor(playerPos: Position, angle: number) {
     const bulletWidth = 50;
     const bulletHeight = 10;
     this.bulletObject = new RectObject(bulletWidth, bulletHeight);
     this._rect = this.bulletObject.getRect({ center: playerPos });
-    this.angle = angle;
+    this._angle = angle;
     this.maxSpeed = 80;
     this.speed = {
-      x: Math.cos(this.angle) * this.maxSpeed,
-      y: Math.sin(this.angle) * this.maxSpeed,
+      x: Math.cos(this._angle) * this.maxSpeed,
+      y: Math.sin(this._angle) * this.maxSpeed,
     };
   }
 
@@ -33,6 +33,10 @@ class Bullet {
 
   get rect() {
     return this._rect;
+  }
+
+  get angle() {
+    return this._angle;
   }
 }
 

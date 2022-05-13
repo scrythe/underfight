@@ -1,21 +1,8 @@
-export interface Position {
-  x: number;
-  y: number;
-}
+import { Position } from '../../shared/interfaces';
 
 export interface Speed {
   x: number;
   y: number;
-}
-
-export type Key = { pressed: boolean };
-
-export interface Keys {
-  up: Key;
-  right: Key;
-  down: Key;
-  left: Key;
-  fire: Key;
 }
 
 export interface Screen {
@@ -67,3 +54,5 @@ export interface CameraInterface {
   pos: Position;
   watch(target: Rectangle): void;
 }
+
+export * from '../../shared/interfaces';

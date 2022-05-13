@@ -1,6 +1,9 @@
 import { Position } from './interfaces/interfaces';
-import { State, PlayerState, BulletState } from './interfaces/stateInterfaces';
+import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
+import Images from './assets';
+
+const images = new Images();
 
 class DrawGame {
   private ctx: CanvasRenderingContext2D;
@@ -23,8 +26,8 @@ class DrawGame {
 
   draw(state: State) {
     this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
-    this.player.draw(state.playerState, state.angle, state.cameraPos);
-    this.bullets.draw(state.bulletsState, state.angle, state.cameraPos);
+    this.player.draw(state.playerState, state.cameraPos);
+    this.bullets.draw(state.bulletsState, state.cameraPos);
   }
 }
 
@@ -34,10 +37,10 @@ class Player {
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.playerImage = document.querySelector('#player-image')!;
+    this.playerImage = images.player;
   }
 
-  draw({ rect }: PlayerState, angle: number, cameraPos: Position) {
+  draw({ rect, angle }: PlayerState, cameraPos: Position) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -58,16 +61,16 @@ class Bullets {
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.bulletImage = document.querySelector('#bullet-image')!;
+    this.bulletImage = images.bullet;
   }
 
-  draw(bulletsState: BulletState[], angle: number, cameraPos: Position) {
+  draw(bulletsState: BulletState[], cameraPos: Position) {
     bulletsState.forEach((bulletState) => {
-      this.drawBullet(bulletState, angle, cameraPos);
+      this.drawBullet(bulletState, cameraPos);
     });
   }
 
-  drawBullet({ rect }: BulletState, angle: number, cameraPos: Position) {
+  drawBullet({ rect, angle }: BulletState, cameraPos: Position) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,

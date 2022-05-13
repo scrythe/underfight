@@ -87,6 +87,10 @@ class Player {
     this._angle = value;
   }
 
+  get angle() {
+    return this._angle;
+  }
+
   get bullets() {
     return this._bullets;
   }

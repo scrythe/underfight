@@ -1,9 +1,9 @@
 import { io } from 'socket.io-client';
 import DrawGame from './drawGame';
-import ServerInterface from './interfaces/socketInterface';
+import { ClientInterface } from '../shared/socketInterface';
 import InputHandler from './input';
 
-const socket: ServerInterface = io('http://localhost:3000');
+const socket: ClientInterface = io('http://localhost:3000');
 
 const canvas = document.querySelector('canvas')!;
 const ctx = canvas.getContext('2d')!;
