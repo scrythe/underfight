@@ -43,10 +43,9 @@ class DrawGame {
     const me = this.getMe(state.playerStates);
     if (me) {
       const meIndex = enemies.indexOf(me);
-      enemies.splice(meIndex);
+      enemies.splice(meIndex, 1);
       this.camera.watch(me.rect);
       this.player.draw(me, this.camera.pos);
-      enemies.pop;
     }
     this.enemies.drawPlayers(enemies, this.camera.pos);
     this.bullets.draw(state.bulletsState, this.camera.pos);
