@@ -1,11 +1,4 @@
-import {
-  Speed,
-  Keys,
-  Rectangle,
-  RectanlgeObject,
-  PlayerType,
-  Key,
-} from './interfaces';
+import { Speed, Rectangle, RectanlgeObject, PlayerType } from './interfaces';
 import RectObject from './rectangle';
 import Bullet from './bullet';
 import InputHandler from './input';
@@ -40,7 +33,7 @@ class Player implements PlayerType {
     };
     this._angle = 0;
     this._bullets = [];
-    this._inputHandler = new InputHandler(this.gameWidth, this.gameHeight);
+    this._inputHandler = new InputHandler();
     this._name = name;
   }
 
@@ -48,7 +41,6 @@ class Player implements PlayerType {
     this._rect.x += this.speed.x;
     this._rect.y += this.speed.y;
     this.updateBullets();
-    this.calculateAngle();
   }
 
   move() {
@@ -91,24 +83,16 @@ class Player implements PlayerType {
     });
   }
 
-  private calculateAngle() {
-    const mousePos = this._inputHandler.mousePos;
-    const x = mousePos.x - this.gameWidth / 2;
-    const y = mousePos.y - this.gameHeight / 2;
-    const angle = Math.atan2(y, x);
-    this._angle = angle;
-  }
-
   get rect() {
     return this._rect;
   }
 
-  set angle(value: number) {
-    this._angle = value;
-  }
-
   get angle() {
     return this._angle;
+  }
+
+  set angle(value: number) {
+    this._angle = value;
   }
 
   get bullets() {

@@ -18,8 +18,8 @@ game.startGame();
 
 io.on('connection', (socket) => {
   socket.on('joinGame', (name) => game.addPlayer(name));
-  socket.on('sendKeys', (keys, mousePos, name) =>
-    game.handleInput(keys, mousePos, name)
+  socket.on('sendKeys', (keys, angle, name) =>
+    game.handleInput(keys, angle, name)
   );
 });
 

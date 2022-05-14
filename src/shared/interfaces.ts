@@ -30,10 +30,8 @@ export interface Rectangle {
 
 export interface InputHandlerType {
   keys: Keys;
-  mousePos: Position;
   fire: Key;
   updateKeys: (keys: Keys) => void;
-  updateMousePos: (mousePos: Position) => void;
 }
 export interface BulletType {
   rect: Rectangle;

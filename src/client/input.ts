@@ -19,11 +19,17 @@ function isOfKeyMap(key: string): key is keyof typeof keyMap {
 }
 
 class InputHandler {
+  private gameWidth;
+  private gameHeight;
   private _keys: Keys;
   private _mousePos: Position;
+  private _angle: number;
 
   constructor(gameWidth: number, gameHeight: number) {
+    this.gameWidth = gameWidth;
+    this.gameHeight = gameHeight;
     this._mousePos = { x: gameWidth / 2, y: gameHeight / 2 };
+    this._angle = 0;
 
     this._keys = {
       up: { pressed: false },
@@ -57,12 +63,19 @@ class InputHandler {
     });
   }
 
-  get keys(): Keys {
-    return this._keys;
+  private calculateAngle() {
+    const x = this._mousePos.x - this.gameWidth / 2;
+    const y = this._mousePos.y - this.gameHeight / 2;
+    this._angle = Math.atan2(y, x);
   }
 
-  get mousePos() {
-    return this._mousePos;
+  get angle() {
+    this.calculateAngle();
+    return this._angle;
+  }
+
+  get keys(): Keys {
+    return this._keys;
   }
 
   get fire() {

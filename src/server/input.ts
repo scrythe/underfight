@@ -1,12 +1,8 @@
-import { Keys, Position, Key, InputHandlerType } from './interfaces';
+import { Keys, Key, InputHandlerType } from './interfaces';
 
 class InputHandler implements InputHandlerType {
   private _keys: Keys;
-  private _mousePos: Position;
-
-  constructor(gameWidth: number, gameHeight: number) {
-    this._mousePos = { x: gameWidth / 2, y: gameHeight / 2 };
-
+  constructor() {
     this._keys = {
       up: { pressed: false },
       right: { pressed: false },
@@ -20,16 +16,8 @@ class InputHandler implements InputHandlerType {
     this._keys = keys;
   }
 
-  updateMousePos(mousePos: Position) {
-    this._mousePos = mousePos;
-  }
-
   get keys(): Keys {
     return this._keys;
-  }
-
-  get mousePos() {
-    return this._mousePos;
   }
 
   get fire() {

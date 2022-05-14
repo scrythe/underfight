@@ -8,8 +8,8 @@ const socket: ClientInterface = io('http://localhost:3000');
 const canvas = document.querySelector('canvas')!;
 const ctx = canvas.getContext('2d')!;
 
-const WIDTH = 1536;
-const HEIGHT = 864;
+const WIDTH = window.innerWidth;
+const HEIGHT = window.innerHeight;
 
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
@@ -23,7 +23,7 @@ socket.on('connect', () => {
 
   socket.on('sendState', (state) => {
     drawGame.draw(state);
-    socket.emit('sendKeys', inputHandler.keys, inputHandler.mousePos, name);
+    socket.emit('sendKeys', inputHandler.keys, inputHandler.angle, name);
     inputHandler.fire = { pressed: false };
   });
 });

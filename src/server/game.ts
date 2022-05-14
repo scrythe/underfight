@@ -91,11 +91,11 @@ class Game {
     return player;
   }
 
-  handleInput(keys: Keys, mousePos: Position, name: string) {
+  handleInput(keys: Keys, angle: number, name: string) {
     const player = this.getSpecificPlayer(name);
     if (player) {
       player.inputHandler.updateKeys(keys);
-      player.inputHandler.updateMousePos(mousePos);
+      player.angle = angle;
     }
   }
 }
