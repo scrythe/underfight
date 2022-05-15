@@ -1,11 +1,10 @@
 import { State } from './stateInterfaces';
 import { Server, Socket as ServerSocket } from 'socket.io';
-import { Keys, Position } from '../server/interfaces';
+import { Keys } from '../server/interfaces';
 import { Socket as ClientSocket } from 'socket.io-client';
 
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
-  collision: () => void;
 }
 
 export interface ClientToServerEvents {

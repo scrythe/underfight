@@ -1,4 +1,4 @@
-import { Position } from './interfaces';
+import { Position, VerticesRect } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 import Camera from './camera';
@@ -61,7 +61,7 @@ class Player {
     this.playerImage = images.player;
   }
 
-  draw({ rect, angle }: PlayerState, cameraPos: Position) {
+  draw({ rect, angle, rotatedRectVertices }: PlayerState, cameraPos: Position) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -73,6 +73,20 @@ class Player {
       this.playerImage,
       angle
     );
+    this.drawRotatedPoints(rotatedRectVertices, cameraPos);
+  }
+
+  drawRotatedPoints(rotatedRectVertices: VerticesRect, cameraPos: Position) {
+    const vertices: Position[] = Object.values(rotatedRectVertices);
+    vertices.forEach((vertex) => {
+      const insideCameraPos: Position = {
+        x: vertex.x - cameraPos.x,
+        y: vertex.y - cameraPos.y,
+      };
+      this.ctx.beginPath();
+      this.ctx.arc(insideCameraPos.x, insideCameraPos.y, 5, 0, 2 * Math.PI);
+      this.ctx.fill();
+    });
   }
 }
 

@@ -32,14 +32,7 @@ export interface RectPosition {
   center?: Position;
 }
 
-export type Vertices = Position[];
-
 export type Edges = Vector[];
-
-export interface PolygonType {
-  vertices: Vertices;
-  edges: Edges;
-}
 
 export interface RectanlgeObject {
   getRect(rectPos: RectPosition): Rectangle;

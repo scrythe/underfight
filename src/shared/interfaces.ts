@@ -41,6 +41,7 @@ export interface BulletType {
 
 export interface PlayerType {
   rect: Rectangle;
+  rotatedRect: RotatedRectangle;
   angle: number;
   name: string;
   bullets: BulletType[];
@@ -48,6 +49,18 @@ export interface PlayerType {
   update: () => void;
   move: () => void;
   shootBullet: () => void;
+}
+
+export interface VerticesRect {
+  topLeft: Position;
+  topRight: Position;
+  bottomLeft: Position;
+  bottomRight: Position;
+}
+
+export interface RotatedRectangle {
+  vertices: VerticesRect;
+  updateRect(angle: number): void;
 }
 
 export type Players = PlayerType[];
