@@ -2,6 +2,8 @@ import { Keys, Players } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
+import checkSatCollision from './sat';
+import { RotatedRect } from './rotatedRectangle';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -12,10 +14,13 @@ class Game {
 
   private io: ServerInterface;
 
+  private collision: boolean;
+
   constructor(io: ServerInterface) {
     this.players = [];
 
     this.io = io;
+    this.collision = false;
   }
 
   startGame() {
@@ -42,6 +47,7 @@ class Game {
 
   update() {
     this.updatePlayers();
+    this.checkCollision();
   }
 
   private getAllBulletStates() {
@@ -81,10 +87,24 @@ class Game {
     return playerStates;
   }
 
+  checkCollision() {
+    if (this.players.length == 2) {
+      const RotatedRect1 = this.players[0].rotatedRect;
+      const RotatedRect2 = this.players[1].rotatedRect;
+      const collision = checkSatCollision(RotatedRect1, RotatedRect2);
+      if (collision) {
+        this.collision = true;
+      } else {
+        this.collision = false;
+      }
+    }
+  }
+
   getState(): State {
     const playerStates = this.getPlayerState();
     const bulletsState: BulletState[] = this.getAllBulletStates();
-    const state: State = { playerStates, bulletsState };
+    const collision = this.collision;
+    const state: State = { playerStates, bulletsState, collision };
     return state;
   }
 

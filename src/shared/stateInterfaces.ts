@@ -15,4 +15,5 @@ export interface BulletState {
 export interface State {
   playerStates: PlayerState[];
   bulletsState: BulletState[];
+  collision: boolean;
 }

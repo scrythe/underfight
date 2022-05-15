@@ -45,7 +45,7 @@ class DrawGame {
       const meIndex = enemies.indexOf(me);
       enemies.splice(meIndex, 1);
       this.camera.watch(me.rect);
-      this.player.draw(me, this.camera.pos);
+      this.player.draw(me, this.camera.pos, state.collision);
     }
     this.enemies.drawPlayers(enemies, this.camera.pos);
     this.bullets.draw(state.bulletsState, this.camera.pos);
@@ -63,7 +63,8 @@ class Player {
 
   draw(
     { rect, angle, rotatedRectPerpendicularVectors }: PlayerState,
-    cameraPos: Position
+    cameraPos: Position,
+    collision: boolean
   ) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
@@ -76,7 +77,9 @@ class Player {
       this.playerImage,
       angle
     );
-    this.drawVectors(rect, rotatedRectPerpendicularVectors, cameraPos);
+    if (collision) {
+      this.drawVectors(rect, rotatedRectPerpendicularVectors, cameraPos);
+    }
   }
 
   drawVectors(
@@ -108,7 +111,7 @@ class Enemies extends Player {
   }
   drawPlayers(playerStates: PlayerState[], cameraPos: Position) {
     playerStates.forEach((player) => {
-      super.draw(player, cameraPos);
+      super.draw(player, cameraPos, false);
     });
   }
 }

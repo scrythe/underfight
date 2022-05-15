@@ -22,8 +22,8 @@ class Player implements PlayerType {
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this._rect = this.playerObject.getRect({ center });
     this.maxSpeed = {
-      x: 50,
-      y: 50,
+      x: 20,
+      y: 20,
     };
     this.speed = {
       x: 0,
