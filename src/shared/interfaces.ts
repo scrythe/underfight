@@ -52,14 +52,28 @@ export interface PlayerType {
 }
 
 export interface VerticesRect {
-  topLeft: Position;
   topRight: Position;
-  bottomLeft: Position;
   bottomRight: Position;
+  bottomLeft: Position;
+  topLeft: Position;
+}
+
+export interface Vector {
+  x: number;
+  y: number;
+}
+
+export interface Edges {
+  right: Vector;
+  bottom: Vector;
+  left: Vector;
+  top: Vector;
 }
 
 export interface RotatedRectangle {
   vertices: VerticesRect;
+  edges: Edges;
+  perpendicularVectors: Edges;
   updateRect(angle: number): void;
 }
 

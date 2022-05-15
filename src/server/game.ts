@@ -68,10 +68,11 @@ class Game {
         width: player.rect.width,
         height: player.rect.height,
       };
-      const playerRotatedRectVertices = player.rotatedRect.vertices;
+      const playerPerpendicularVectors =
+        player.rotatedRect.perpendicularVectors;
       const playerState: PlayerState = {
         rect: playerRect,
-        rotatedRectVertices: playerRotatedRectVertices,
+        rotatedRectPerpendicularVectors: playerPerpendicularVectors,
         angle: player.angle,
         name: player.name,
       };

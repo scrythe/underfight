@@ -3,35 +3,53 @@ import {
   Position,
   VerticesRect,
   RotatedRectangle,
+  Edges,
 } from './interfaces';
+import { getVector } from './utils';
 
 export class RotatedRect implements RotatedRectangle {
   private rect: Rectangle;
   private _vertices: VerticesRect;
+  private _edges: Edges;
+  private _perpendicularVectors: Edges;
   constructor(rect: Rectangle) {
     this.rect = rect;
     this._vertices = {
-      topLeft: this.rect.topLeft,
       topRight: this.rect.topRight,
-      bottomLeft: this.rect.bottomLeft,
       bottomRight: this.rect.bottomRight,
+      bottomLeft: this.rect.bottomLeft,
+      topLeft: this.rect.topLeft,
     };
+    this._edges = this.calculateEdges(this._vertices);
+    this._perpendicularVectors = this.calculatePerpendicularVectors(
+      this._edges
+    );
+  }
+  updateRect(angle: number): void {
+    this._vertices = this.calculatePoints(angle);
+    this._edges = this.calculateEdges(this._vertices);
+    this._perpendicularVectors = this.calculatePerpendicularVectors(
+      this._edges
+    );
   }
 
-  updateRect(angle: number) {
-    const topLeft = this.calculateNewPoint(this.rect.topLeft, angle);
-    const topRight = this.calculateNewPoint(this.rect.topRight, angle);
-    const bottomLeft = this.calculateNewPoint(this.rect.bottomLeft, angle);
-    const bottomRight = this.calculateNewPoint(this.rect.bottomRight, angle);
-    this._vertices = {
-      topLeft,
+  private calculatePoints(angle: number) {
+    const topRight = this.calculaterotatedPoint(this.rect.topRight, angle);
+    const bottomRight = this.calculaterotatedPoint(
+      this.rect.bottomRight,
+      angle
+    );
+    const bottomLeft = this.calculaterotatedPoint(this.rect.bottomLeft, angle);
+    const topLeft = this.calculaterotatedPoint(this.rect.topLeft, angle);
+    return {
       topRight,
-      bottomLeft,
       bottomRight,
+      bottomLeft,
+      topLeft,
     };
   }
 
-  private calculateNewPoint(point: Position, angle: number): Position {
+  private calculaterotatedPoint(point: Position, angle: number): Position {
     const center = this.rect.center;
     // position center to OG coords 0,0 (easier for rotation)
     // and get new placed x and y coords of current point
@@ -50,7 +68,36 @@ export class RotatedRect implements RotatedRectangle {
     return { x: rotatedX, y: rotatedY };
   }
 
+  private calculateEdges(vertices: VerticesRect) {
+    const right = getVector(vertices.topRight, vertices.bottomRight);
+    const bottom = getVector(vertices.bottomRight, vertices.bottomLeft);
+    const left = getVector(vertices.bottomLeft, vertices.topLeft);
+    const top = getVector(vertices.topLeft, vertices.topRight);
+    return {
+      right,
+      bottom,
+      left,
+      top,
+    };
+  }
+
+  private calculatePerpendicularVectors(edges: Edges) {
+    const right = { x: -edges.right.y, y: edges.right.x };
+    const bottom = { x: -edges.bottom.y, y: edges.bottom.x };
+    const left = { x: -edges.left.y, y: edges.left.x };
+    const top = { x: -edges.top.y, y: edges.top.x };
+    return { right, bottom, left, top };
+  }
+
   get vertices() {
     return this._vertices;
+  }
+
+  get edges() {
+    return this._edges;
+  }
+
+  get perpendicularVectors() {
+    return this._perpendicularVectors;
   }
 }

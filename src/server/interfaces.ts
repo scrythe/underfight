@@ -10,11 +10,6 @@ export interface Screen {
   height: number;
 }
 
-export interface Vector {
-  x: number;
-  y: number;
-}
-
 export interface RectPosition {
   x?: number;
   y?: number;
@@ -31,8 +26,6 @@ export interface RectPosition {
 
   center?: Position;
 }
-
-export type Edges = Vector[];
 
 export interface RectanlgeObject {
   getRect(rectPos: RectPosition): Rectangle;

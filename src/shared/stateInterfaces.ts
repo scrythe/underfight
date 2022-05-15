@@ -1,8 +1,8 @@
-import { ClientRect, VerticesRect } from '../server/interfaces';
+import { ClientRect, Edges } from './interfaces';
 
 export interface PlayerState {
   rect: ClientRect;
-  rotatedRectVertices: VerticesRect;
+  rotatedRectPerpendicularVectors: Edges;
   angle: number;
   name: string;
 }
