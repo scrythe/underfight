@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch Program",
+      "name": "Debug Server",
       "type": "pwa-node",
       "request": "launch",
 
@@ -15,6 +15,12 @@
 
       "program": "${workspaceFolder}\\src\\server\\index.ts",
       "sourceMaps": true
+    },
+    {
+      "name": "Debug Client",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost"
     }
   ]
 }

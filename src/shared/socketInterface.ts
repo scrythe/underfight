@@ -5,6 +5,7 @@ import { Socket as ClientSocket } from 'socket.io-client';
 
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
+  collision: () => void;
 }
 
 export interface ClientToServerEvents {

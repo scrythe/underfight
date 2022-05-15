@@ -1,8 +1,10 @@
 import { Position, Keys, Players } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
+import Polygon from './polygonRectangle';
 import Player from './player';
 import InputHandler from './input';
+import collisionDetection from './sat';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -43,6 +45,24 @@ class Game {
 
   update() {
     this.updatePlayers();
+    this.checkCollision();
+  }
+
+  checkCollision() {
+    if (this.players.length == 2) {
+      const thisRectPolygon = new Polygon(
+        this.players[0].rect,
+        this.players[0].angle
+      );
+      const otherRectPolygon = new Polygon(
+        this.players[1].rect,
+        this.players[1].angle
+      );
+      const collision = collisionDetection(thisRectPolygon, otherRectPolygon);
+      if (collision) {
+        this.io.emit('collision');
+      }
+    }
   }
 
   private getAllBulletStates() {

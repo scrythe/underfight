@@ -10,6 +10,11 @@ export interface Screen {
   height: number;
 }
 
+export interface Vector {
+  x: number;
+  y: number;
+}
+
 export interface RectPosition {
   x?: number;
   y?: number;
@@ -25,6 +30,15 @@ export interface RectPosition {
   bottomRight?: Position;
 
   center?: Position;
+}
+
+export type Vertices = Position[];
+
+export type Edges = Vector[];
+
+export interface PolygonType {
+  vertices: Vertices;
+  edges: Edges;
 }
 
 export interface RectanlgeObject {

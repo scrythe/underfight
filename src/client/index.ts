@@ -24,6 +24,9 @@ socket.on('connect', () => {
   socket.on('sendState', (state) => {
     drawGame.draw(state);
     socket.emit('sendKeys', inputHandler.keys, inputHandler.angle, name);
+    socket.on('collision', () => {
+      console.log('collision');
+    });
     inputHandler.fire = { pressed: false };
   });
 });
