@@ -14,16 +14,14 @@ const HEIGHT = window.innerHeight;
 canvas.width = WIDTH;
 canvas.height = HEIGHT;
 
-const name = `User-${Math.random()}`;
-
 socket.on('connect', () => {
-  socket.emit('joinGame', name);
-  const drawGame = new DrawGame(ctx, WIDTH, HEIGHT, name);
+  socket.emit('joinGame');
+  const drawGame = new DrawGame(ctx, WIDTH, HEIGHT, socket.id);
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
   socket.on('sendState', (state) => {
     drawGame.draw(state);
-    socket.emit('sendKeys', inputHandler.keys, inputHandler.angle, name);
+    socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
 
     inputHandler.fire = { pressed: false };
   });

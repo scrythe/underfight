@@ -17,9 +17,10 @@ const game = new Game(io);
 game.startGame();
 
 io.on('connection', (socket) => {
-  socket.on('joinGame', (name) => game.addPlayer(name));
-  socket.on('sendKeys', (keys, angle, name) =>
-    game.handleInput(keys, angle, name)
+  socket.on('joinGame', () => game.addPlayer(socket.id));
+  socket.on('disconnect', () => game.removePlayer(socket.id));
+  socket.on('sendKeys', (keys, angle) =>
+    game.handleInput(keys, angle, socket.id)
   );
 });
 
