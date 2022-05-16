@@ -20,7 +20,7 @@ class Bullet implements BulletType {
     this.bulletObject = new RectObject(bulletWidth, bulletHeight);
     this._rect = this.bulletObject.getRect({ center: playerPos });
     this._angle = angle;
-    this.maxSpeed = 80;
+    this.maxSpeed = 5;
     this.speed = {
       x: Math.cos(this._angle) * this.maxSpeed,
       y: Math.sin(this._angle) * this.maxSpeed,
