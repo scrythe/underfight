@@ -4,7 +4,6 @@ import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
 import RotatedRect from './rotatedRectangle';
-import getHitbox from './aabb';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -84,7 +83,7 @@ class Game {
         height: player.rect.height,
       };
       const rotatedRect = new RotatedRect(player.rect, player.angle);
-      const hitbox = getHitbox(rotatedRect.vertices);
+      const hitbox = rotatedRect.hitBox;
       const playerState: PlayerState = {
         rect: playerRect,
         cornersHitbox: hitbox,

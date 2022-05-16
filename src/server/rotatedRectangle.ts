@@ -4,6 +4,7 @@ import {
   VerticesRect,
   RotatedRectangle,
   Edges,
+  Corners,
 } from './interfaces';
 import { getVector } from './utils';
 
@@ -13,6 +14,7 @@ class RotatedRect implements RotatedRectangle {
   private _vertices: VerticesRect | undefined;
   private _edges: Edges | undefined;
   private _perpendicularVectors: Edges | undefined;
+  private _hitBox: Corners | undefined;
   constructor(rect: Rectangle, angle: number) {
     this.rect = rect;
     this.angle = angle;
@@ -90,6 +92,24 @@ class RotatedRect implements RotatedRectangle {
     this._perpendicularVectors = { right, bottom, left, top };
   }
 
+  private calculateHitBox(vertices: VerticesRect) {
+    const corners = Object.values(vertices);
+    const xCoords = corners.map((corner) => corner.x);
+    const yCoords = corners.map((corner) => corner.y);
+
+    const xMax = Math.max(...xCoords);
+    const xMin = Math.min(...xCoords);
+    const yMax = Math.max(...yCoords);
+    const yMin = Math.min(...yCoords);
+
+    const topLeft = { x: xMin, y: yMin };
+    const topRight = { x: xMax, y: yMin };
+    const bottomRight = { x: xMax, y: yMax };
+    const bottomLeft = { x: xMin, y: yMax };
+
+    this._hitBox = { topLeft, topRight, bottomRight, bottomLeft };
+  }
+
   get vertices(): VerticesRect {
     if (!this._vertices) this.calculateVertices();
     return this._vertices!;
@@ -104,6 +124,11 @@ class RotatedRect implements RotatedRectangle {
     if (!this._perpendicularVectors)
       this.calculatePerpendicularVectors(this.edges);
     return this._perpendicularVectors!;
+  }
+
+  get hitBox(): Corners {
+    if (!this._hitBox) this.calculateHitBox(this.vertices);
+    return this._hitBox!;
   }
 }
 

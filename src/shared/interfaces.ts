@@ -80,6 +80,7 @@ export interface RotatedRectangle {
   vertices: VerticesRect;
   edges: Edges;
   perpendicularVectors: Edges;
+  hitBox: Corners;
 }
 
 export type Players = PlayerType[];

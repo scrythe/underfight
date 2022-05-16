@@ -19,11 +19,7 @@ function checkSatCollision(rect1: RotatedRectangle, rect2: RotatedRectangle) {
     const dotProductsB = getDotProducts(vector, Rect2Vertices);
     const dotB = getMinAndMaxDotProduct(dotProductsB);
 
-    // |A |B A| B|
-    const rightCollision = () => dotA.max < dotB.max && dotA.max > dotB.min;
-    // |B |A B| A|
-    const leftCollision = () => dotA.max > dotB.min && dotA.max > dotB.max;
-    if (rightCollision() || leftCollision()) continue;
+    if (dotA.min < dotB.max && dotA.max > dotB.min) continue;
     // no collision, return instant false
     return false;
   }
