@@ -1,7 +1,8 @@
-import { ClientRect, Edges } from './interfaces';
+import { ClientRect, Corners } from './interfaces';
 
 export interface PlayerState {
   rect: ClientRect;
+  cornersHitbox: Corners;
   angle: number;
   name: string;
 }

@@ -28,6 +28,13 @@ export interface Rectangle {
   center: Position;
 }
 
+export interface Corners {
+  topLeft: Position;
+  topRight: Position;
+  bottomRight: Position;
+  bottomLeft: Position;
+}
+
 export interface InputHandlerType {
   keys: Keys;
   fire: Key;

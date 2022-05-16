@@ -1,4 +1,4 @@
-import { Position, Edges, Vector, ClientRect } from './interfaces';
+import { Position, Edges, Vector, ClientRect, Corners } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 import Camera from './camera';
@@ -61,7 +61,11 @@ class Player {
     this.playerImage = images.player;
   }
 
-  draw({ rect, angle }: PlayerState, cameraPos: Position, collision: boolean) {
+  draw(
+    { rect, angle, cornersHitbox }: PlayerState,
+    cameraPos: Position,
+    collision: boolean
+  ) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -73,33 +77,25 @@ class Player {
       this.playerImage,
       angle
     );
+    this.drawCorners(cornersHitbox, cameraPos);
     if (collision) {
       this.ctx.beginPath();
       this.ctx.arc(insideCameraPos.x, insideCameraPos.y, 50, 0, Math.PI * 2);
       this.ctx.fill();
     }
   }
-
-  drawVectors(
-    rect: ClientRect,
-    rotatedRectPerpendicularVectors: Edges,
-    cameraPos: Position
-  ) {
-    const vectors: Vector[] = Object.values(rotatedRectPerpendicularVectors);
-    vectors.forEach((vector) => {
-      const insideCameraPosA: Position = {
-        x: rect.center.x - cameraPos.x,
-        y: rect.center.y - cameraPos.y,
+  drawCorners(corners: Corners, cameraPos: Position) {
+    const cornersList: Position[] = Object.values(corners);
+    this.ctx.beginPath();
+    cornersList.forEach((corner) => {
+      const insideCameraPos: Position = {
+        x: corner.x - cameraPos.x,
+        y: corner.y - cameraPos.y,
       };
-      const insideCameraPosB: Position = {
-        x: rect.center.x + vector.x - cameraPos.x,
-        y: rect.center.y + vector.y - cameraPos.y,
-      };
-      this.ctx.beginPath();
-      this.ctx.moveTo(insideCameraPosA.x, insideCameraPosA.y);
-      this.ctx.lineTo(insideCameraPosB.x, insideCameraPosB.y);
-      this.ctx.stroke();
+      this.ctx.lineTo(insideCameraPos.x, insideCameraPos.y);
     });
+    this.ctx.closePath();
+    this.ctx.stroke();
   }
 }
 
