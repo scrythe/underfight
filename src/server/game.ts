@@ -3,6 +3,7 @@ import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
+import checkAABBCollision from './aabb';
 import RotatedRect from './rotatedRectangle';
 
 class Game {
@@ -102,12 +103,17 @@ class Game {
       const RotatedRect1 = new RotatedRect(player1.rect, player1.angle);
       const RotatedRect2 = new RotatedRect(player2.rect, player2.angle);
 
-      const collision = checkSatCollision(RotatedRect1, RotatedRect2);
-      if (collision) {
-        this.collision = true;
-      } else {
-        this.collision = false;
-      }
+      const collisionAABB = checkAABBCollision(
+        RotatedRect1.hitBox,
+        RotatedRect2.hitBox
+      );
+      // if no collision
+      if (!collisionAABB) return (this.collision = false);
+      const collisionSAT = checkSatCollision(RotatedRect1, RotatedRect2);
+      // no sat collision
+      if (!collisionSAT) return (this.collision = false);
+      // collision
+      this.collision = true;
     }
   }
 
