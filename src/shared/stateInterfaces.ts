@@ -2,7 +2,6 @@ import { ClientRect, Edges } from './interfaces';
 
 export interface PlayerState {
   rect: ClientRect;
-  rotatedRectPerpendicularVectors: Edges;
   angle: number;
   name: string;
 }

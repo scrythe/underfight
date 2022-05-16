@@ -1,18 +1,10 @@
-import { RotatedRectangle, Vector, Position } from './interfaces';
+import { RotatedRectangle, Vector, Position, DotMinMax } from './interfaces';
 
 function checkSatCollision(rect1: RotatedRectangle, rect2: RotatedRectangle) {
-  const allPerPenDicularVectors: Vector[] = [];
-
-  const Rect1PerpendicularVectors: Vector[] = Object.values(
-    rect1.perpendicularVectors
-  );
-
-  const Rect2PerpendicularVectors: Vector[] = Object.values(
-    rect2.perpendicularVectors
-  );
-
-  allPerPenDicularVectors.push(...Rect1PerpendicularVectors);
-  allPerPenDicularVectors.push(...Rect2PerpendicularVectors);
+  const allPerPenDicularVectors: Vector[] = [
+    ...Object.values(rect1.perpendicularVectors),
+    ...Object.values(rect2.perpendicularVectors),
+  ];
 
   const Rect1Vertices: Position[] = Object.values(rect1.vertices);
 
@@ -20,21 +12,20 @@ function checkSatCollision(rect1: RotatedRectangle, rect2: RotatedRectangle) {
 
   for (let index = 0; index < allPerPenDicularVectors.length; index++) {
     const vector = allPerPenDicularVectors[index];
+
     const dotProductsA = getDotProducts(vector, Rect1Vertices);
     const dotA = getMinAndMaxDotProduct(dotProductsA);
 
     const dotProductsB = getDotProducts(vector, Rect2Vertices);
     const dotB = getMinAndMaxDotProduct(dotProductsB);
 
-    if (
-      (dotA.min < dotB.max && dotA.min > dotB.min) ||
-      (dotB.min < dotA.max && dotB.min > dotA.min)
-    ) {
-      continue;
-    } else {
-      // No Collision
-      return false;
-    }
+    // |A |B A| B|
+    const rightCollision = () => dotA.max < dotB.max && dotA.max > dotB.min;
+    // |B |A B| A|
+    const leftCollision = () => dotA.max > dotB.min && dotA.max > dotB.max;
+    if (rightCollision() || leftCollision()) continue;
+    // no collision, return instant false
+    return false;
   }
   // no gap -> collision
   return true;
@@ -49,7 +40,7 @@ function getDotProducts(vector: Vector, vertices: Position[]) {
   return dotProducts;
 }
 
-function getMinAndMaxDotProduct(dotProducts: number[]) {
+function getMinAndMaxDotProduct(dotProducts: number[]): DotMinMax {
   const max = Math.max(...dotProducts);
   const min = Math.min(...dotProducts);
   return { max, min };

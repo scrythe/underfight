@@ -61,11 +61,7 @@ class Player {
     this.playerImage = images.player;
   }
 
-  draw(
-    { rect, angle, rotatedRectPerpendicularVectors }: PlayerState,
-    cameraPos: Position,
-    collision: boolean
-  ) {
+  draw({ rect, angle }: PlayerState, cameraPos: Position, collision: boolean) {
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -78,7 +74,9 @@ class Player {
       angle
     );
     if (collision) {
-      this.drawVectors(rect, rotatedRectPerpendicularVectors, cameraPos);
+      this.ctx.beginPath();
+      this.ctx.arc(insideCameraPos.x, insideCameraPos.y, 50, 0, Math.PI * 2);
+      this.ctx.fill();
     }
   }
 

@@ -3,7 +3,7 @@ import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
-import { RotatedRect } from './rotatedRectangle';
+import getRotatedRect from './rotatedRectangle';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -35,6 +35,14 @@ class Game {
   addPlayer(name: string) {
     const player = new Player(this.GAME_WIDTH, this.GAME_HEIGHT, name);
     this.players.push(player);
+  }
+
+  removePlayer(name: string) {
+    const player = this.players.find((player) => player.name == name);
+    if (player) {
+      const playerIndex = this.players.indexOf(player);
+      this.players.splice(playerIndex, 1);
+    }
   }
 
   updatePlayers() {
@@ -74,11 +82,8 @@ class Game {
         width: player.rect.width,
         height: player.rect.height,
       };
-      const playerPerpendicularVectors =
-        player.rotatedRect.perpendicularVectors;
       const playerState: PlayerState = {
         rect: playerRect,
-        rotatedRectPerpendicularVectors: playerPerpendicularVectors,
         angle: player.angle,
         name: player.name,
       };
@@ -89,8 +94,10 @@ class Game {
 
   checkCollision() {
     if (this.players.length == 2) {
-      const RotatedRect1 = this.players[0].rotatedRect;
-      const RotatedRect2 = this.players[1].rotatedRect;
+      const player1 = this.players[0];
+      const player2 = this.players[1];
+      const RotatedRect1 = new getRotatedRect(player1.rect, player1.angle);
+      const RotatedRect2 = new getRotatedRect(player2.rect, player2.angle);
       const collision = checkSatCollision(RotatedRect1, RotatedRect2);
       if (collision) {
         this.collision = true;

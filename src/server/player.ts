@@ -2,12 +2,10 @@ import { Speed, Rectangle, RectanlgeObject, PlayerType } from './interfaces';
 import RectObject from './rectangle';
 import Bullet from './bullet';
 import InputHandler from './input';
-import { RotatedRect } from './rotatedRectangle';
 
 class Player implements PlayerType {
   private playerObject: RectanlgeObject;
   private _rect: Rectangle;
-  private _rotatedRect: RotatedRect;
   private maxSpeed: Speed;
   private speed: Speed;
   private _angle: number;
@@ -33,14 +31,12 @@ class Player implements PlayerType {
     this._bullets = [];
     this._inputHandler = new InputHandler();
     this._name = name;
-    this._rotatedRect = new RotatedRect(this._rect);
   }
 
   update() {
     this._rect.x += this.speed.x;
     this._rect.y += this.speed.y;
     this.updateBullets();
-    this.rotatedRect.updateRect(this.angle);
   }
 
   move() {
@@ -85,10 +81,6 @@ class Player implements PlayerType {
 
   get rect() {
     return this._rect;
-  }
-
-  get rotatedRect() {
-    return this._rotatedRect;
   }
 
   get angle() {

@@ -36,4 +36,9 @@ export interface CameraInterface {
   watch(target: Rectangle): void;
 }
 
+export interface DotMinMax {
+  min: number;
+  max: number;
+}
+
 export * from '../shared/interfaces';
