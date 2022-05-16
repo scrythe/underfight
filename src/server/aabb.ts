@@ -1,7 +1,7 @@
-import { RotatedRectangle, Corners } from './interfaces';
+import { VerticesRect, Corners } from './interfaces';
 
-function getHitbox(rect: RotatedRectangle): Corners {
-  const corners = Object.values(rect.vertices);
+function getHitbox(vertices: VerticesRect): Corners {
+  const corners = Object.values(vertices);
   const xCoords = corners.map((corner) => corner.x);
   const yCoords = corners.map((corner) => corner.y);
 

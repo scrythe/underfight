@@ -3,7 +3,7 @@ import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
-import getRotatedRect from './rotatedRectangle';
+import RotatedRect from './rotatedRectangle';
 import getHitbox from './aabb';
 
 class Game {
@@ -83,8 +83,8 @@ class Game {
         width: player.rect.width,
         height: player.rect.height,
       };
-      const RotatedRect = new getRotatedRect(player.rect, player.angle);
-      const hitbox = getHitbox(RotatedRect);
+      const rotatedRect = new RotatedRect(player.rect, player.angle);
+      const hitbox = getHitbox(rotatedRect.vertices);
       const playerState: PlayerState = {
         rect: playerRect,
         cornersHitbox: hitbox,
@@ -100,8 +100,9 @@ class Game {
     if (this.players.length == 2) {
       const player1 = this.players[0];
       const player2 = this.players[1];
-      const RotatedRect1 = new getRotatedRect(player1.rect, player1.angle);
-      const RotatedRect2 = new getRotatedRect(player2.rect, player2.angle);
+      const RotatedRect1 = new RotatedRect(player1.rect, player1.angle);
+      const RotatedRect2 = new RotatedRect(player2.rect, player2.angle);
+
       const collision = checkSatCollision(RotatedRect1, RotatedRect2);
       if (collision) {
         this.collision = true;
