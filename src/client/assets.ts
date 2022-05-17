@@ -1,11 +1,14 @@
-import player from './assets/player.png';
+import playerNormal from './assets/player.png';
+import playerDamaged from './assets/player-damaged.png';
 import bullet from './assets/bullet.png';
 
 class Images {
-  private _player: HTMLImageElement;
+  private _playerNormal: HTMLImageElement;
+  private _playerDamaged: HTMLImageElement;
   private _bullet: HTMLImageElement;
   constructor() {
-    this._player = this.loadImage(player);
+    this._playerNormal = this.loadImage(playerNormal);
+    this._playerDamaged = this.loadImage(playerDamaged);
     this._bullet = this.loadImage(bullet);
   }
 
@@ -15,8 +18,12 @@ class Images {
     return image;
   }
 
-  get player() {
-    return this._player;
+  get playerNormal() {
+    return this._playerNormal;
+  }
+
+  get playerDamaged() {
+    return this._playerDamaged;
   }
 
   get bullet() {

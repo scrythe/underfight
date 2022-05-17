@@ -50,6 +50,7 @@ export interface PlayerType {
   rect: Rectangle;
   angle: number;
   name: string;
+  damaged: boolean;
   bullets: BulletType[];
   inputHandler: InputHandlerType;
   update: () => void;

@@ -45,7 +45,7 @@ class DrawGame {
       const meIndex = enemies.indexOf(me);
       enemies.splice(meIndex, 1);
       this.camera.watch(me.rect);
-      this.player.draw(me, this.camera.pos, state.collision);
+      this.player.draw(me, this.camera.pos);
     }
     this.enemies.drawPlayers(enemies, this.camera.pos);
     this.bullets.draw(state.bulletsState, this.camera.pos);
@@ -54,14 +54,26 @@ class DrawGame {
 
 class Player {
   private ctx: CanvasRenderingContext2D;
-  private playerImage: HTMLImageElement;
+  private playerImages: HTMLImageElement[];
+  private playerImagesIndex: number;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.playerImage = images.player;
+    const playerImageNormal = images.playerNormal;
+    const playerImageDamaged = images.playerDamaged;
+    this.playerImages = [playerImageNormal, playerImageDamaged];
+    this.playerImagesIndex = 0;
   }
 
-  draw({ rect, angle }: PlayerState, cameraPos: Position, collision: boolean) {
+  get playerImage(): HTMLImageElement {
+    return this.playerImages[this.playerImagesIndex];
+  }
+
+  draw({ rect, angle, damaged }: PlayerState, cameraPos: Position) {
+    this.playerImagesIndex = 0;
+    if (damaged) {
+      this.playerImagesIndex = 1;
+    }
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -73,11 +85,6 @@ class Player {
       this.playerImage,
       angle
     );
-    if (collision) {
-      this.ctx.beginPath();
-      this.ctx.arc(insideCameraPos.x, insideCameraPos.y, 50, 0, Math.PI * 2);
-      this.ctx.fill();
-    }
   }
 }
 
@@ -87,7 +94,7 @@ class Enemies extends Player {
   }
   drawPlayers(playerStates: PlayerState[], cameraPos: Position) {
     playerStates.forEach((player) => {
-      super.draw(player, cameraPos, false);
+      super.draw(player, cameraPos);
     });
   }
 }

@@ -15,13 +15,10 @@ class Game {
 
   private io: ServerInterface;
 
-  private collision: boolean;
-
   constructor(io: ServerInterface) {
     this.players = [];
 
     this.io = io;
-    this.collision = false;
   }
 
   startGame() {
@@ -91,6 +88,7 @@ class Game {
         rect: playerRect,
         angle: player.angle,
         name: player.name,
+        damaged: player.damaged,
       };
       playerStates.push(playerState);
     });
@@ -120,21 +118,7 @@ class Game {
     return true;
   }
 
-  // private checkCollision() {
-  //   if (this.players.length == 2) {
-  //     const player1 = this.players[0];
-  //     const player2 = this.players[1];
-
-  //     if (
-  //       this.collide(player1.rect, player1.angle, player2.rect, player2.angle)
-  //     )
-  //       return (this.collision = true);
-  //     this.collision = false;
-  //   }
-  // }
-
   private collisionBullets() {
-    const allCollisions: boolean[] = [];
     this.players.forEach((player) => {
       const playerIndex = this.players.indexOf(player);
       const enemies = this.players.filter(
@@ -151,20 +135,17 @@ class Game {
         );
         return collision;
       });
-
-      allCollisions.push(...enemieBulletsCollision);
+      const anyCollision = enemieBulletsCollision.some(
+        (bulletCollision) => bulletCollision
+      );
+      player.damaged = anyCollision;
     });
-    const anyCollision = allCollisions.some(
-      (bulletCollision) => bulletCollision
-    );
-    this.collision = anyCollision;
   }
 
   private getState(): State {
     const playerStates = this.getPlayerState();
     const bulletsState: BulletState[] = this.getAllBulletStates();
-    const collision = this.collision;
-    const state: State = { playerStates, bulletsState, collision };
+    const state: State = { playerStates, bulletsState };
     return state;
   }
 

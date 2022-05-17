@@ -12,6 +12,7 @@ class Player implements PlayerType {
   private _bullets: Bullet[];
   private _inputHandler: InputHandler;
   private _name: string;
+  private _damaged: boolean;
 
   constructor(gameWidth: number, gameHeight: number, name: string) {
     const width = 150;
@@ -31,6 +32,7 @@ class Player implements PlayerType {
     this._bullets = [];
     this._inputHandler = new InputHandler();
     this._name = name;
+    this._damaged = false;
   }
 
   update() {
@@ -101,6 +103,14 @@ class Player implements PlayerType {
 
   get inputHandler() {
     return this._inputHandler;
+  }
+
+  get damaged() {
+    return this._damaged;
+  }
+
+  set damaged(value: boolean) {
+    this._damaged = value;
   }
 }
 

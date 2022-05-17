@@ -4,6 +4,7 @@ export interface PlayerState {
   rect: ClientRect;
   angle: number;
   name: string;
+  damaged: boolean;
 }
 
 export interface BulletState {
@@ -14,5 +15,4 @@ export interface BulletState {
 export interface State {
   playerStates: PlayerState[];
   bulletsState: BulletState[];
-  collision: boolean;
 }
