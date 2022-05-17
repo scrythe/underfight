@@ -76,8 +76,9 @@ class Player implements PlayerType {
   }
 
   private updateBullets() {
-    this._bullets.forEach((bullet) => {
+    this._bullets.forEach((bullet, index) => {
       bullet.update();
+      if (bullet.checkEndReached()) this._bullets.splice(index, 1);
     });
   }
 
