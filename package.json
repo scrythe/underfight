@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "webpack-dev-server",
     "start": "nodemon ./src/server/index.ts",
-    "build": "webpack && tsc -p ./src/server/tsconfig.json"
+    "build": "webpack && tsc -p ./src/server/tsconfig.json",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.16",
+    "standard-version": "^9.5.0",
     "ts-loader": "^9.3.0",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4",
