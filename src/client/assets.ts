@@ -5,10 +5,12 @@ import bullet from './assets/bullet.png';
 class Images {
   private _playerNormal: HTMLImageElement;
   private _playerDamaged: HTMLImageElement;
+  private _rocket: HTMLImageElement;
   private _bullet: HTMLImageElement;
   constructor() {
     this._playerNormal = this.loadImage(playerNormal);
     this._playerDamaged = this.loadImage(playerDamaged);
+    this._rocket = this.loadImage(bullet);
     this._bullet = this.loadImage(bullet);
   }
 
@@ -24,6 +26,10 @@ class Images {
 
   get playerDamaged() {
     return this._playerDamaged;
+  }
+
+  get rocket() {
+    return this._rocket;
   }
 
   get bullet() {

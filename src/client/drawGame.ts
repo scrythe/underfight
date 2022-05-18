@@ -1,4 +1,4 @@
-import { Position } from './interfaces';
+import { Position, PlayerPhase } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 import Camera from './camera';
@@ -65,7 +65,12 @@ class Player {
     this.ctx = ctx;
     const playerImageNormal = images.playerNormal;
     const playerImageDamaged = images.playerDamaged;
-    this.playerImages = [playerImageNormal, playerImageDamaged];
+    const playerImageRocket = images.rocket;
+    this.playerImages = [
+      playerImageNormal,
+      playerImageDamaged,
+      playerImageRocket,
+    ];
     this.playerImagesIndex = 0;
   }
 
@@ -73,10 +78,10 @@ class Player {
     return this.playerImages[this.playerImagesIndex];
   }
 
-  draw({ rect, angle, damaged }: PlayerState, cameraPos: Position) {
+  draw({ rect, angle, damaged, phase }: PlayerState, cameraPos: Position) {
     this.playerImagesIndex = 0;
     if (damaged) this.playerImagesIndex = 1;
-
+    if (phase == PlayerPhase.Rocket) this.playerImagesIndex = 2;
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
