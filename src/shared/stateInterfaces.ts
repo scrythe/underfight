@@ -1,4 +1,4 @@
-import { ClientRect, Corners } from './interfaces';
+import { ClientRect } from './interfaces';
 
 export interface PlayerState {
   rect: ClientRect;

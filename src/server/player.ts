@@ -1,9 +1,10 @@
-import { Speed, Rectangle, RectanlgeObject, PlayerType } from './interfaces';
+import { Speed, Rectangle, RectanlgeObject } from './interfaces';
+import { BulletState } from '../shared/stateInterfaces';
 import RectObject from './rectangle';
 import Bullet from './bullet';
 import InputHandler from './input';
 
-class Player implements PlayerType {
+class Player {
   private playerObject: RectanlgeObject;
   private _rect: Rectangle;
   private maxSpeed: Speed;
@@ -75,10 +76,28 @@ class Player implements PlayerType {
     }
   }
 
+  removeBullet(bullet: number | Bullet) {
+    let bulletIndex: number;
+    if (typeof bullet != 'number') {
+      bulletIndex = this._bullets.indexOf(bullet);
+    } else {
+      bulletIndex = bullet;
+    }
+    this._bullets.splice(bulletIndex, 1);
+  }
+
+  getBulletStates() {
+    const bulletsStates: BulletState[] = [];
+    this._bullets.forEach((bullet) => {
+      bulletsStates.push(bullet.getBulletState());
+    });
+    return bulletsStates;
+  }
+
   private updateBullets() {
     this._bullets.forEach((bullet, index) => {
       bullet.update();
-      if (bullet.checkEndReached()) this._bullets.splice(index, 1);
+      if (bullet.checkEndReached()) this.removeBullet(index);
     });
   }
 

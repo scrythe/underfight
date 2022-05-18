@@ -1,16 +1,10 @@
-import {
-  Speed,
-  Rectangle,
-  RectanlgeObject,
-  Position,
-  BulletType,
-} from './interfaces';
+import { Speed, Rectangle, RectanlgeObject, Position } from './interfaces';
 import RectObject from './rectangle';
 
-class Bullet implements BulletType {
+class Bullet {
   private bulletObject: RectanlgeObject;
   private _rect: Rectangle;
-  private maxSpeed = 80;
+  private maxSpeed = 8;
   private speed: Speed;
   private _angle: number;
   private flightLength: number;
@@ -37,6 +31,16 @@ class Bullet implements BulletType {
     this._rect.x += this.speed.x;
     this._rect.y += this.speed.y;
     this.flightLength += this.maxSpeed;
+  }
+
+  getBulletState() {
+    const bulletRect = {
+      center: this._rect.center,
+      width: this._rect.width,
+      height: this._rect.height,
+    };
+    const bulletState = { rect: bulletRect, angle: this._angle };
+    return bulletState;
   }
 
   get rect() {

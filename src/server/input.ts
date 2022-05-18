@@ -1,6 +1,6 @@
-import { Keys, Key, InputHandlerType } from './interfaces';
+import { Keys, Key } from './interfaces';
 
-class InputHandler implements InputHandlerType {
+class InputHandler {
   private _keys: Keys;
   constructor() {
     this._keys = {

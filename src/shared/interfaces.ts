@@ -3,12 +3,6 @@ export interface Position {
   y: number;
 }
 
-export interface ClientRect {
-  center: Position;
-  width: number;
-  height: number;
-}
-
 export interface Rectangle {
   x: number;
   y: number;
@@ -28,63 +22,11 @@ export interface Rectangle {
   center: Position;
 }
 
-export interface Corners {
-  topLeft: Position;
-  topRight: Position;
-  bottomRight: Position;
-  bottomLeft: Position;
+export interface ClientRect {
+  center: Position;
+  width: number;
+  height: number;
 }
-
-export interface InputHandlerType {
-  keys: Keys;
-  fire: Key;
-  updateKeys: (keys: Keys) => void;
-}
-export interface BulletType {
-  rect: Rectangle;
-  angle: number;
-  update: () => void;
-}
-
-export interface PlayerType {
-  rect: Rectangle;
-  angle: number;
-  name: string;
-  damaged: boolean;
-  bullets: BulletType[];
-  inputHandler: InputHandlerType;
-  update: () => void;
-  move: () => void;
-  shootBullet: () => void;
-}
-
-export interface VerticesRect {
-  topRight: Position;
-  bottomRight: Position;
-  bottomLeft: Position;
-  topLeft: Position;
-}
-
-export interface Vector {
-  x: number;
-  y: number;
-}
-
-export interface Edges {
-  right: Vector;
-  bottom: Vector;
-  left: Vector;
-  top: Vector;
-}
-
-export interface RotatedRectangle {
-  vertices: VerticesRect;
-  edges: Edges;
-  perpendicularVectors: Edges;
-  hitBox: Corners;
-}
-
-export type Players = PlayerType[];
 
 export type Key = { pressed: boolean };
 

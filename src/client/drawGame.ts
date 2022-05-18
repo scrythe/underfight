@@ -1,4 +1,4 @@
-import { Position, Edges, Vector, ClientRect, Corners } from './interfaces';
+import { Position } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 import Camera from './camera';

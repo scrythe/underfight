@@ -1,4 +1,4 @@
-import { Keys, Players, BulletType, Rectangle } from './interfaces';
+import { Keys, Rectangle } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
@@ -11,7 +11,7 @@ class Game {
   private GAME_HEIGHT = 864;
   private FPS = 60;
 
-  private players: Players;
+  private players: Player[];
 
   private io: ServerInterface;
 
@@ -57,23 +57,12 @@ class Game {
   }
 
   private getAllBulletStates() {
-    const bullets = this.getAllBullets();
-    const bulletsState: BulletState[] = bullets.map((bullet) => {
-      const bulletRect = {
-        center: bullet.rect.center,
-        width: bullet.rect.width,
-        height: bullet.rect.height,
-      };
-      const bulletState = { rect: bulletRect, angle: bullet.angle };
-      return bulletState;
+    const bulletsState: BulletState[] = [];
+    this.players.forEach((player) => {
+      const playerBulletsStates = player.getBulletStates();
+      bulletsState.push(...playerBulletsStates);
     });
     return bulletsState;
-  }
-
-  private getAllBullets(players = this.players) {
-    const bullets: BulletType[] = [];
-    players.forEach((player) => bullets.push(...player.bullets));
-    return bullets;
   }
 
   private getPlayerState() {
@@ -124,20 +113,23 @@ class Game {
       const enemies = this.players.filter(
         (player, index) => index !== playerIndex
       );
-      const enemieBullets = this.getAllBullets(enemies);
+      const allEnemiesBulletCollisions = enemies.map((enemy) => {
+        const enemyBulletsCollision = enemy.bullets.map((bullet, index) => {
+          const collision = this.collide(
+            bullet.rect,
+            bullet.angle,
+            player.rect,
+            player.angle
+          );
 
-      const enemieBulletsCollision = enemieBullets.map((bullet) => {
-        const collision = this.collide(
-          bullet.rect,
-          bullet.angle,
-          player.rect,
-          player.angle
-        );
-        return collision;
+          return collision;
+        });
+        return enemyBulletsCollision;
       });
-      const anyCollision = enemieBulletsCollision.some(
-        (bulletCollision) => bulletCollision
-      );
+      const anyCollision = allEnemiesBulletCollisions
+        .flat()
+        .some((bulletCollision) => bulletCollision);
+
       player.damaged = anyCollision;
     });
   }
