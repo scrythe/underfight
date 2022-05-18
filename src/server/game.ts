@@ -78,6 +78,7 @@ class Game {
         angle: player.angle,
         name: player.name,
         damaged: player.damaged,
+        charge: player.charge,
       };
       playerStates.push(playerState);
     });
@@ -121,6 +122,10 @@ class Game {
             player.rect,
             player.angle
           );
+          if (collision) {
+            enemy.removeBullet(index);
+            enemy.chargeUp();
+          }
 
           return collision;
         });

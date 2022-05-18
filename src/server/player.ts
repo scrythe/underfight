@@ -14,6 +14,7 @@ class Player {
   private _inputHandler: InputHandler;
   private _name: string;
   private _damaged: boolean;
+  private _charge: number;
 
   constructor(gameWidth: number, gameHeight: number, name: string) {
     const width = 150;
@@ -34,12 +35,17 @@ class Player {
     this._inputHandler = new InputHandler();
     this._name = name;
     this._damaged = false;
+    this._charge = 0;
   }
 
   update() {
     this._rect.x += this.speed.x;
     this._rect.y += this.speed.y;
     this.updateBullets();
+  }
+
+  chargeUp() {
+    this._charge += 1;
   }
 
   move() {
@@ -131,6 +137,10 @@ class Player {
 
   set damaged(value: boolean) {
     this._damaged = value;
+  }
+
+  get charge() {
+    return this._charge;
   }
 }
 

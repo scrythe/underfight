@@ -15,12 +15,14 @@ class DrawGame {
   private bullets: Bullets;
   private camera: Camera;
   private name: string;
+  private ui: UI;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     gameWidth: number,
     gameHeight: number,
-    name: string
+    name: string,
+    ctxUI: CanvasRenderingContext2D
   ) {
     this.ctx = ctx;
     this.gameWidth = gameWidth;
@@ -30,6 +32,7 @@ class DrawGame {
     this.bullets = new Bullets(this.ctx);
     this.camera = new Camera(this.gameWidth, this.gameHeight);
     this.name = name;
+    this.ui = new UI(ctxUI);
   }
 
   getMe(playerStates: PlayerState[]) {
@@ -46,6 +49,7 @@ class DrawGame {
       enemies.splice(meIndex, 1);
       this.camera.watch(me.rect);
       this.player.draw(me, this.camera.pos);
+      this.ui.drawCharge(me.charge);
     }
     this.enemies.drawPlayers(enemies, this.camera.pos);
     this.bullets.draw(state.bulletsState, this.camera.pos);
@@ -71,9 +75,8 @@ class Player {
 
   draw({ rect, angle, damaged }: PlayerState, cameraPos: Position) {
     this.playerImagesIndex = 0;
-    if (damaged) {
-      this.playerImagesIndex = 1;
-    }
+    if (damaged) this.playerImagesIndex = 1;
+
     const insideCameraPos: Position = {
       x: rect.center.x - cameraPos.x,
       y: rect.center.y - cameraPos.y,
@@ -126,6 +129,23 @@ class Bullets {
       this.bulletImage,
       angle
     );
+  }
+}
+
+class UI {
+  private ctx: CanvasRenderingContext2D;
+  private MAX_WIDTH = 200;
+  private CHARGE_WIDTH_PER = this.MAX_WIDTH / 10;
+  private HEIGHT = 50;
+  constructor(ctx: CanvasRenderingContext2D) {
+    this.ctx = ctx;
+    this.ctx.fillStyle = 'yellow';
+  }
+  getChargeWidth(charge: number) {
+    return charge * this.CHARGE_WIDTH_PER;
+  }
+  drawCharge(charge: number) {
+    this.ctx.fillRect(0, 0, this.getChargeWidth(charge), this.HEIGHT);
   }
 }
 

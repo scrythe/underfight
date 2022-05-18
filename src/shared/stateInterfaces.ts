@@ -5,6 +5,7 @@ export interface PlayerState {
   angle: number;
   name: string;
   damaged: boolean;
+  charge: number;
 }
 
 export interface BulletState {
