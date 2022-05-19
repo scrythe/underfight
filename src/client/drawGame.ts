@@ -168,6 +168,7 @@ class UI {
     return charge * this.CHARGE_WIDTH_PER;
   }
   drawCharge(charge: number) {
+    this.ctx.clearRect(0, 0, this.MAX_WIDTH, this.HEIGHT);
     this.ctx.fillRect(0, 0, this.getChargeWidth(charge), this.HEIGHT);
   }
 }

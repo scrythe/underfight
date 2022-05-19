@@ -36,6 +36,7 @@ export interface Keys {
   down: Key;
   left: Key;
   fire: Key;
+  chargeAttack: Key;
 }
 
 export enum PlayerPhase {

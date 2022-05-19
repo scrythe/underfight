@@ -12,6 +12,7 @@ const keyMap: KeyMap = {
   a: 'left',
 
   ' ': 'fire',
+  Enter: 'chargeAttack',
 };
 
 function isOfKeyMap(key: string): key is keyof typeof keyMap {
@@ -37,6 +38,7 @@ class InputHandler {
       down: { pressed: false },
       left: { pressed: false },
       fire: { pressed: false },
+      chargeAttack: { pressed: false },
     };
 
     addEventListener('keydown', ({ key }) => {

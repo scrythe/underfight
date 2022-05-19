@@ -46,7 +46,6 @@ class Game {
   private updatePlayers() {
     this.players.forEach((player) => {
       player.update();
-      player.move();
       player.shootBullet();
     });
   }

@@ -12,6 +12,7 @@ export interface KeyMap {
   a: keyof Keys;
 
   ' ': keyof Keys;
+  Enter: keyof Keys;
 }
 
 export interface Screen {

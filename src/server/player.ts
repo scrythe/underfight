@@ -74,6 +74,8 @@ class Player {
   private _name: string;
   private _damaged: boolean;
   private _bullets: Bullet[];
+  private switchPlayerPhaseTimestamp: number;
+  private SWITCH_PLAYER_PHASE_DELAY = 5000;
 
   constructor(gameWidth: number, gameHeight: number, name: string) {
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
@@ -84,20 +86,40 @@ class Player {
     this._name = name;
     this._damaged = false;
     this._bullets = [];
-    const randomPhaseNumber = Math.round(Math.random());
-    if (randomPhaseNumber) this.swtichPlayerPhase(PlayerPhase.Rocket);
+    this.switchPlayerPhaseTimestamp = Date.now();
+  }
+
+  private inputs() {
+    if (this.player instanceof Rocket) {
+      if (this._inputHandler.keys.chargeAttack.pressed)
+        this.swtichPlayerPhase(PlayerPhase.Ship);
+      return;
+    }
+    this.player.move(this._inputHandler.keys);
+    if (this._inputHandler.keys.chargeAttack.pressed && this._charge >= 10) {
+      if (this.swtichPlayerPhase(PlayerPhase.Rocket)) this._charge = 0;
+    }
   }
 
   swtichPlayerPhase(state: PlayerPhase) {
+    const timestamp = Date.now();
+    if (
+      this.switchPlayerPhaseTimestamp + this.SWITCH_PLAYER_PHASE_DELAY >
+      timestamp
+    )
+      return false;
     if (state == PlayerPhase.Ship) {
       this.player = new Ship(this.player.rect.center);
     } else {
       this.player = new Rocket(this.player.rect.center, this._angle);
     }
+    this.switchPlayerPhaseTimestamp = Date.now();
+    return true;
   }
 
   update() {
     this.player.update();
+    this.inputs();
     this.updateBullets();
 
     if (this.player instanceof Rocket) this.player.angle = this._angle;
@@ -105,10 +127,6 @@ class Player {
 
   chargeUp() {
     this._charge += 1;
-  }
-
-  move() {
-    if (this.player instanceof Ship) this.player.move(this._inputHandler.keys);
   }
 
   shootBullet() {

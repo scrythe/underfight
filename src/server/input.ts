@@ -9,6 +9,7 @@ class InputHandler {
       down: { pressed: false },
       left: { pressed: false },
       fire: { pressed: false },
+      chargeAttack: { pressed: false },
     };
   }
 
