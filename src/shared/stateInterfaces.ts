@@ -1,4 +1,4 @@
-import { ClientRect } from './interfaces';
+import { ClientRect, PlayerPhase } from './interfaces';
 
 export interface PlayerState {
   rect: ClientRect;
@@ -6,6 +6,7 @@ export interface PlayerState {
   name: string;
   damaged: boolean;
   charge: number;
+  phase: PlayerPhase;
 }
 
 export interface BulletState {

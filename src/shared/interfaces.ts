@@ -37,3 +37,8 @@ export interface Keys {
   left: Key;
   fire: Key;
 }
+
+export enum PlayerPhase {
+  Ship,
+  Rocket,
+}

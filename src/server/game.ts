@@ -79,6 +79,7 @@ class Game {
         name: player.name,
         damaged: player.damaged,
         charge: player.charge,
+        phase: player.playerPhase,
       };
       playerStates.push(playerState);
     });
@@ -134,7 +135,6 @@ class Game {
       const anyCollision = allEnemiesBulletCollisions
         .flat()
         .some((bulletCollision) => bulletCollision);
-
       player.damaged = anyCollision;
     });
   }
