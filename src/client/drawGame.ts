@@ -1,8 +1,9 @@
-import { Position, PlayerPhase } from './interfaces';
+import { Position, PlayerPhase, ClientRect } from './interfaces';
 import { State, PlayerState, BulletState } from '../shared/stateInterfaces';
 import { rotateAndDrawObject } from './functions';
 import Camera from './camera';
 import Images from './assets';
+import getBackground from './background';
 
 const images = new Images();
 
@@ -16,6 +17,8 @@ class DrawGame {
   private camera: Camera;
   private name: string;
   private ui: UI;
+  private backgroundRect: ClientRect;
+  private background: HTMLCanvasElement;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -33,6 +36,12 @@ class DrawGame {
     this.camera = new Camera(this.gameWidth, this.gameHeight);
     this.name = name;
     this.ui = new UI(ctxUI);
+    this.backgroundRect = {
+      center: { x: -5000, y: -5000 },
+      width: 10000,
+      height: 10000,
+    };
+    this.background = getBackground(this.backgroundRect);
   }
 
   getMe(playerStates: PlayerState[]) {
@@ -42,6 +51,15 @@ class DrawGame {
 
   draw(state: State) {
     this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+    const backgroundInCameraPos: Position = {
+      x: this.backgroundRect.center.x - this.camera.pos.x,
+      y: this.backgroundRect.center.y - this.camera.pos.y,
+    };
+    this.ctx.drawImage(
+      this.background,
+      backgroundInCameraPos.x,
+      backgroundInCameraPos.y
+    );
     const enemies = state.playerStates;
     const me = this.getMe(state.playerStates);
     if (me) {
