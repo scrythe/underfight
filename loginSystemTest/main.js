@@ -5,7 +5,7 @@ const noAccAnker = document.querySelector('.no-acc');
 loginBox.addEventListener('submit', (e) => {
   e.preventDefault();
   const ah = 'eh';
-  testFetch(ah);
+  sendPost('login.inc.php', { a: 'ah' }).then((data) => console.log(data));
 });
 
 registerBox.addEventListener('submit', (e) => {
@@ -22,18 +22,22 @@ noAccAnker.addEventListener('click', (e) => {
   registerBox.classList.toggle('active');
 });
 
-function testFetch(ah) {
-  const data = { a: 'ah' };
-  const options = {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  };
+function sendPost(url, postData) {
+  return new Promise(async (resolve, reject) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    };
 
-  fetch('http://localhost/includes/login.inc.php', options)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
+    const jsonData = await fetch(
+      `http://localhost/includes/${url}`,
+      options
+    ).catch((error) => reject(error));
+    const data = jsonData.json();
+
+    resolve(data);
+  });
 }
