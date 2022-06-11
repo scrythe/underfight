@@ -3,7 +3,7 @@ import DrawGame from './drawGame';
 import { ClientInterface } from '../shared/socketInterface';
 import InputHandler from './input';
 
-const socket: ClientInterface = io('http://localhost:3000');
+const socket: ClientInterface = io('https://young-crag-60228.herokuapp.com');
 
 const canvas: HTMLCanvasElement = document.querySelector('#game')!;
 const uicanvas: HTMLCanvasElement = document.querySelector('#ui')!;

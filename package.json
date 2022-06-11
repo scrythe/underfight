@@ -5,8 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "serve": "webpack-dev-server",
-    "start": "nodemon ./src/server/index.ts",
-    "build": "webpack && tsc -p ./src/server/tsconfig.json",
+    "serve-server": "nodemon ./src/server/index.ts",
+    "start": "node ./src/server/dist/server/index.js",
+    "build": "tsc -p ./src/server/tsconfig.json",
+    "build-client": "webpack",
     "release": "standard-version"
   },
   "repository": {
@@ -36,6 +38,7 @@
     "webpack-dev-server": "^4.9.0"
   },
   "dependencies": {
+    "express": "^4.18.1",
     "socket.io": "^4.5.0",
     "socket.io-client": "^4.5.0"
   }
