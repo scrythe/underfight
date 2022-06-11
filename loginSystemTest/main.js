@@ -1,7 +1,8 @@
 const loginBox = document.querySelector('.login-box');
 const registerBox = document.querySelector('.register-box');
 const noAccAnker = document.querySelector('.no-acc');
-const registerResponse = document.querySelector('.response');
+const registerResponse = document.querySelector('.register-box .response');
+const loginResponse = document.querySelector('.login-box .response');
 
 const mapError = {
   'empty-input': 'Please fill out all fields',
@@ -9,22 +10,18 @@ const mapError = {
   'name-or-email-exists': 'Name or Email already exists',
   'user-not-exists': "The User doesn't exists",
   'stmt-error': 'Error occured, please try again',
-  success: 'account successfully created',
+  'create-success': 'account successfully created',
+  'login-success': 'logged into account successfully',
+  'password-wrong': 'The entered Password is wrong',
 };
 
 loginBox.addEventListener('submit', (e) => {
   e.preventDefault();
-  const ah = 'eh';
-  sendPost('login.inc.php', { a: 'ah' }).then((data) => console.log(data));
+  login();
 });
 
 registerBox.addEventListener('submit', (e) => {
   e.preventDefault();
-  const email = registerBox.email.value;
-  const username = registerBox.username.value;
-  const pwd = registerBox.pwd.value;
-  const pwdRepeat = registerBox.pwdRepeat.value;
-  const data = { email, username, pwd, pwdRepeat };
   register();
 });
 
@@ -64,6 +61,18 @@ function register() {
     const data = { email, username, pwd, pwdRepeat };
     const response = await sendPost('register.inc.php', data);
     registerResponse.innerHTML = mapError[response];
+    resolve();
+  });
+}
+
+function login() {
+  return new Promise(async (resolve) => {
+    const usernameOrEmail = loginBox.usernameOrEmail.value;
+    const pwd = loginBox.pwd.value;
+
+    const data = { usernameOrEmail, pwd };
+    const response = await sendPost('login.inc.php', data);
+    loginResponse.innerHTML = mapError[response];
     resolve();
   });
 }

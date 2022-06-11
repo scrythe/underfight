@@ -23,5 +23,5 @@ if (userExists($db, $username, $email)) exitWithError('name-or-email-exists');
 if (!createUser($db, $username, $email, $pwd)) exitWithError('stmt-error');
 
 
-echo json_encode("success");
+echo json_encode("create-success");
 exit;
