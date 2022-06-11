@@ -18,7 +18,7 @@ function exitWithError($error) {
 if (emptyInput($usernameOrEmail, $pwd)) exitWithError('empty-input');
 if (!userExists($db, $usernameOrEmail, $usernameOrEmail)) exitWithError('user-not-exists');
 if (passwordWrong($db, $usernameOrEmail, $pwd)) exitWithError('password-wrong');
+$token = loginUser($db, $usernameOrEmail);
 
-
-echo json_encode("login-success");
+echo json_encode($token);
 exit;

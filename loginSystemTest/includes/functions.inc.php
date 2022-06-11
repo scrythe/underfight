@@ -26,11 +26,13 @@ function userExists($db, $username, $email) {
 }
 
 function createUser($db, $username, $email, $pwd) {
-    $sql = 'INSERT INTO user (username, email, password)
-            VALUES (?, ?, ?)';
+    $sql = 'INSERT INTO user (username, email, password, token)
+            VALUES (?, ?, ?, ?)';
     $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
+    $token = random_bytes(128);
+    $hashedToken = password_hash($token, PASSWORD_DEFAULT);
     $stmt = $db->prepare($sql);
-    $result = $stmt->execute([$username, $email, $pwdHashed]);
+    $result = $stmt->execute([$username, $email, $pwdHashed, $hashedToken]);
     return $result;
 }
 
@@ -41,7 +43,8 @@ function passwordWrong($db, $usernameOrEmail, $pwd) {
     return !$passwordCorrect;
 }
 
-function loginUser($db, $username, $email, $pwd) {
-    $user = getUser($db, $username, $email);
-    $pwdHashed = $user['password'];
+function loginUser($db, $usernameOrEmail) {
+    $user = getUser($db, $usernameOrEmail, $usernameOrEmail);
+    $token = $user['token'];
+    return $token;
 }

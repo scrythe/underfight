@@ -11,7 +11,6 @@ const mapError = {
   'user-not-exists': "The User doesn't exists",
   'stmt-error': 'Error occured, please try again',
   'create-success': 'account successfully created',
-  'login-success': 'logged into account successfully',
   'password-wrong': 'The entered Password is wrong',
 };
 
@@ -61,6 +60,10 @@ function register() {
     const data = { email, username, pwd, pwdRepeat };
     const response = await sendPost('register.inc.php', data);
     registerResponse.innerHTML = mapError[response];
+    setTimeout(() => {
+      loginBox.classList.toggle('active');
+      registerBox.classList.toggle('active');
+    }, 3000);
     resolve();
   });
 }
@@ -73,6 +76,7 @@ function login() {
     const data = { usernameOrEmail, pwd };
     const response = await sendPost('login.inc.php', data);
     loginResponse.innerHTML = mapError[response];
+    if (!mapError[response]) loginResponse.innerHTML = response;
     resolve();
   });
 }
