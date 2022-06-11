@@ -5,10 +5,10 @@ import { ServerInterface } from '../shared/socketInterface';
 import cors from 'cors';
 
 const corsOptions = {
-  origin: ['https://web003.wifiooe.at', 'http://localhost:3000'],
+  origin: ['https://web003.wifiooe.at', 'http://localhost'],
 };
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env['PORT'] || 3000;
 
 const server = express()
   .use(cors(corsOptions))
@@ -16,7 +16,7 @@ const server = express()
 
 const io: ServerInterface = new Server(server, {
   cors: {
-    origin: ['https://web003.wifiooe.at', 'http://localhost:3000'],
+    origin: ['https://web003.wifiooe.at', 'http://localhost'],
   },
 });
 

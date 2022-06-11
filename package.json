@@ -4,7 +4,7 @@
   "description": "html 5 canvas and javascript game which combines the undertale fight mechanic together with the diep.io gameplay",
   "main": "dist/index.js",
   "scripts": {
-    "serve": "webpack-dev-server",
+    "serve-client": "webpack-dev-server",
     "serve-server": "nodemon ./src/server/index.ts",
     "start": "node ./src/server/dist/server/index.js",
     "build": "tsc -p ./src/server/tsconfig.json",

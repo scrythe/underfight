@@ -12,6 +12,7 @@ function checkSatCollision(rect1: RotatedRectangle, rect2: RotatedRectangle) {
 
   for (let index = 0; index < allPerPenDicularVectors.length; index++) {
     const vector = allPerPenDicularVectors[index];
+    if (!vector) continue;
 
     const dotProductsA = getDotProducts(vector, Rect1Vertices);
     const dotA = getMinAndMaxDotProduct(dotProductsA);

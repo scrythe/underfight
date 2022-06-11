@@ -3,30 +3,28 @@ export interface Position {
   y: number;
 }
 
-export interface Rectangle {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+export interface RectPosition {
+  x?: number;
+  y?: number;
 
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
 
-  topLeft: Position;
-  topRight: Position;
-  bottomLeft: Position;
-  bottomRight: Position;
+  topLeft?: Position;
+  topRight?: Position;
+  bottomLeft?: Position;
+  bottomRight?: Position;
 
-  center: Position;
+  center?: Position;
+  midTop?: Position;
+  midRight?: Position;
+  midBottom?: Position;
+  midLeft?: Position;
 }
 
-export interface ClientRect {
-  center: Position;
-  width: number;
-  height: number;
-}
+export type RectProperties = [number, number, number, number];
 
 export type Key = { pressed: boolean };
 

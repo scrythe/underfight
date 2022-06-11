@@ -1,4 +1,4 @@
-import { Keys, Position, ClientRect } from '../shared/interfaces';
+import { Keys, Position } from '../shared/interfaces';
 
 export interface KeyMap {
   ArrowUp: keyof Keys;

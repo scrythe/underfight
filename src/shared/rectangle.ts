@@ -1,11 +1,6 @@
-import {
-  Rectangle,
-  Position,
-  RectPosition,
-  RectanlgeObject,
-} from './interfaces';
+import { Position, RectPosition, RectProperties } from './interfaces';
 
-class RectObject implements RectanlgeObject {
+class RectSurface {
   private _width: number;
   private _height: number;
 
@@ -14,6 +9,15 @@ class RectObject implements RectanlgeObject {
     this._height = height;
   }
 
+  getRect(rect: { center: Position }): Rect;
+  getRect(rect: { topLeft: Position }): Rect;
+  getRect(rect: { topRight: Position }): Rect;
+  getRect(rect: { bottomLeft: Position }): Rect;
+  getRect(rect: { bottomRight: Position }): Rect;
+  getRect(rect: { midTop: Position }): Rect;
+  getRect(rect: { midRight: Position }): Rect;
+  getRect(rect: { midBottom: Position }): Rect;
+  getRect(rect: { midLeft: Position }): Rect;
   getRect(rectPos: RectPosition) {
     const rect = new Rect(0, 0, this._width, this._height);
 
@@ -27,13 +31,21 @@ class RectObject implements RectanlgeObject {
       rect.bottomLeft = rectPos.bottomLeft;
     } else if (rectPos.bottomRight) {
       rect.bottomRight = rectPos.bottomRight;
+    } else if (rectPos.midTop) {
+      rect.midTop = rectPos.midTop;
+    } else if (rectPos.midRight) {
+      rect.midRight = rectPos.midRight;
+    } else if (rectPos.midBottom) {
+      rect.midBottom = rectPos.midBottom;
+    } else if (rectPos.midLeft) {
+      rect.midLeft = rectPos.midLeft;
     }
 
     return rect;
   }
 }
 
-class Rect implements Rectangle {
+export class Rect {
   private _x: number;
   private _y: number;
   private _width: number;
@@ -44,6 +56,25 @@ class Rect implements Rectangle {
     this._y = y;
     this._width = width;
     this._height = height;
+  }
+
+  getRectProperties(): RectProperties {
+    return [this._x, this._y, this._width, this._height];
+  }
+
+  getInsideBoxRectProperties(rect: Rect): RectProperties {
+    const { x, y } = Rect.getInsideBoxPos(
+      { x: this._x, y: this._y },
+      { x: rect.x, y: rect.y }
+    );
+
+    return [x, y, this._width, this._height];
+  }
+
+  static getInsideBoxPos(posObj: Position, posBox: Position): Position {
+    const x = posObj.x - posBox.x;
+    const y = posObj.y - posBox.y;
+    return { x, y };
   }
 
   get x() {
@@ -104,6 +135,22 @@ class Rect implements Rectangle {
     return { x: centerX, y: centerY };
   }
 
+  get midTop() {
+    return { x: this.center.x, y: this.top };
+  }
+
+  get midRight() {
+    return { x: this.right, y: this.center.y };
+  }
+
+  get midBottom() {
+    return { x: this.center.x, y: this.bottom };
+  }
+
+  get midLeft() {
+    return { x: this.left, y: this.center.y };
+  }
+
   set x(value: number) {
     this._x = value;
   }
@@ -155,6 +202,26 @@ class Rect implements Rectangle {
     this.left = value.x - halfWidth;
     this.top = value.y - halfHeight;
   }
+
+  set midTop(value: Position) {
+    this.center = { x: value.x, y: this.center.y };
+    this.top = value.y;
+  }
+
+  set midRight(value: Position) {
+    this.center = { x: this.center.x, y: value.y };
+    this.right = value.x;
+  }
+
+  set midBottom(value: Position) {
+    this.center = { x: value.x, y: this.center.y };
+    this.bottom = value.y;
+  }
+
+  set midLeft(value: Position) {
+    this.center = { x: this.center.x, y: value.y };
+    this.left = value.x;
+  }
 }
 
-export default RectObject;
+export default RectSurface;

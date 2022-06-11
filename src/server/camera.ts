@@ -1,6 +1,7 @@
-import { Position, Screen, Rectangle, CameraInterface } from './interfaces';
+import { Position, Screen } from './interfaces';
+import { Rect } from '../shared/rectangle';
 
-class Camera implements CameraInterface {
+class Camera {
   private _pos: Position;
   private screen: Screen;
 
@@ -15,7 +16,7 @@ class Camera implements CameraInterface {
     };
   }
 
-  watch(target: Rectangle) {
+  watch(target: Rect) {
     this._pos.x = target.center.x - this.screen.width / 2;
     this._pos.y = target.center.y - this.screen.height / 2;
   }

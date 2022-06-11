@@ -1,9 +1,9 @@
 import { io } from 'socket.io-client';
-import DrawGame from './drawGame';
+import Game from './game';
 import { ClientInterface } from '../shared/socketInterface';
 import InputHandler from './input';
 
-const socket: ClientInterface = io('https://young-crag-60228.herokuapp.com');
+const socket: ClientInterface = io('http://localhost:3000');
 
 const canvas: HTMLCanvasElement = document.querySelector('#game')!;
 const uicanvas: HTMLCanvasElement = document.querySelector('#ui')!;
@@ -21,11 +21,13 @@ uicanvas.height = 50;
 
 socket.on('connect', () => {
   socket.emit('joinGame');
-  const drawGame = new DrawGame(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
+  const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
   socket.on('sendState', (state) => {
-    drawGame.draw(state);
+    requestAnimationFrame(() => {
+      drawGame.draw(state);
+    });
     socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
     inputHandler.fire = { pressed: false };
   });

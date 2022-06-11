@@ -1,5 +1,4 @@
 import {
-  Rectangle,
   Position,
   VerticesRect,
   RotatedRectangle,
@@ -7,15 +6,16 @@ import {
   Corners,
 } from './interfaces';
 import { getVector } from './utils';
+import { Rect } from '../shared/rectangle';
 
 class RotatedRect implements RotatedRectangle {
-  private rect: Rectangle;
+  private rect: Rect;
   private angle: number;
   private _vertices: VerticesRect | undefined;
   private _edges: Edges | undefined;
   private _perpendicularVectors: Edges | undefined;
   private _hitBox: Corners | undefined;
-  constructor(rect: Rectangle, angle: number) {
+  constructor(rect: Rect, angle: number) {
     this.rect = rect;
     this.angle = angle;
   }

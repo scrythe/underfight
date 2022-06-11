@@ -1,6 +1,9 @@
-import { ClientRect } from './interfaces';
-
-function getBackground(rect: ClientRect) {
+function getBackground(rect: {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}) {
   const RASTER_SIZE = 25;
   const canvas = document.createElement('canvas');
   canvas.width = rect.width;

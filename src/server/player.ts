@@ -1,26 +1,19 @@
-import {
-  Speed,
-  Rectangle,
-  RectanlgeObject,
-  Keys,
-  PlayerPhase,
-  Position,
-} from './interfaces';
+import { Speed, Keys, PlayerPhase, Position } from './interfaces';
 import { BulletState } from '../shared/stateInterfaces';
-import RectObject from './rectangle';
 import { Bullet, Rocket } from './bullet';
 import InputHandler from './input';
+import RectSurface, { Rect } from '../shared/rectangle';
 
 class Ship {
-  private playerObject: RectanlgeObject;
-  private _rect: Rectangle;
+  private playerObject: RectSurface;
+  private _rect: Rect;
   private maxSpeed: Speed;
   private speed: Speed;
 
   constructor(playerPos: Position) {
     const width = 150;
     const height = 150;
-    this.playerObject = new RectObject(width, height);
+    this.playerObject = new RectSurface(width, height);
     this._rect = this.playerObject.getRect({ center: playerPos });
     this.maxSpeed = {
       x: 20,

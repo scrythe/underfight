@@ -1,10 +1,11 @@
-import { Keys, Rectangle } from './interfaces';
+import { Keys } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import { ServerInterface } from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
 import checkAABBCollision from './aabb';
 import RotatedRect from './rotatedRectangle';
+import { Rect } from '../shared/rectangle';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -67,13 +68,12 @@ class Game {
   private getPlayerState() {
     const playerStates: PlayerState[] = [];
     this.players.forEach((player) => {
-      const playerRect = {
-        center: player.rect.center,
-        width: player.rect.width,
-        height: player.rect.height,
+      const pos = {
+        x: player.rect.center.x,
+        y: player.rect.center.y,
       };
       const playerState: PlayerState = {
-        rect: playerRect,
+        pos,
         angle: player.angle,
         name: player.name,
         damaged: player.damaged,
@@ -85,12 +85,7 @@ class Game {
     return playerStates;
   }
 
-  private collide(
-    rect1: Rectangle,
-    angle1: number,
-    rect2: Rectangle,
-    angle2: number
-  ) {
+  private collide(rect1: Rect, angle1: number, rect2: Rect, angle2: number) {
     const rotatedRect1 = new RotatedRect(rect1, angle1);
     const rotatedRect2 = new RotatedRect(rect2, angle2);
 
@@ -112,7 +107,7 @@ class Game {
     this.players.forEach((player) => {
       const playerIndex = this.players.indexOf(player);
       const enemies = this.players.filter(
-        (player, index) => index !== playerIndex
+        (_player, index) => index !== playerIndex
       );
       const allEnemiesBulletCollisions = enemies.map((enemy) => {
         const enemyBulletsCollision = enemy.bullets.map((bullet, index) => {

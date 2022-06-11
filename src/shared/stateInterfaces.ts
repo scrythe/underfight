@@ -1,7 +1,7 @@
-import { ClientRect, PlayerPhase } from './interfaces';
+import { PlayerPhase, Position } from './interfaces';
 
 export interface PlayerState {
-  rect: ClientRect;
+  pos: Position;
   angle: number;
   name: string;
   damaged: boolean;
@@ -10,7 +10,7 @@ export interface PlayerState {
 }
 
 export interface BulletState {
-  rect: ClientRect;
+  pos: Position;
   angle: number;
 }
 

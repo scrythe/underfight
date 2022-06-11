@@ -1,9 +1,9 @@
-import { Speed, Rectangle, RectanlgeObject, Position } from './interfaces';
-import RectObject from './rectangle';
+import { Speed, Position } from './interfaces';
+import RectSurface, { Rect } from '../shared/rectangle';
 
 class AbsractBullet {
-  private bulletObject: RectanlgeObject;
-  protected _rect: Rectangle;
+  private bulletObject: RectSurface;
+  protected _rect: Rect;
   protected maxSpeed = 8;
   protected speed: Speed;
   protected _angle: number;
@@ -11,7 +11,7 @@ class AbsractBullet {
   constructor(playerPos: Position, angle: number) {
     const bulletWidth = 50;
     const bulletHeight = 10;
-    this.bulletObject = new RectObject(bulletWidth, bulletHeight);
+    this.bulletObject = new RectSurface(bulletWidth, bulletHeight);
     this._rect = this.bulletObject.getRect({ center: playerPos });
     this._angle = angle;
     this.speed = {
@@ -47,25 +47,24 @@ export class Bullet extends AbsractBullet {
     return this.flightLength >= this.maxLength;
   }
 
-  update() {
+  override update() {
     super.update();
     this.flightLength += this.maxSpeed;
   }
 
   getBulletState() {
-    const bulletRect = {
-      center: this._rect.center,
-      width: this._rect.width,
-      height: this._rect.height,
+    const pos = {
+      x: this._rect.center.x,
+      y: this._rect.center.y,
     };
-    const bulletState = { rect: bulletRect, angle: this._angle };
+    const bulletState = { pos, angle: this._angle };
     return bulletState;
   }
 }
 
 export class Rocket extends AbsractBullet {
   private acceleration = 1.02;
-  protected maxSpeed = 35;
+  protected override maxSpeed = 35;
   private currentSpeed: number;
   constructor(playerPos: Position, angle: number) {
     super(playerPos, angle);
@@ -81,12 +80,12 @@ export class Rocket extends AbsractBullet {
     };
   }
 
-  update() {
+  override update() {
     super.update();
     this.updateSpeed();
   }
 
-  set angle(value: number) {
+  override set angle(value: number) {
     this._angle = value;
   }
 }
