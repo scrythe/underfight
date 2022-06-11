@@ -9,20 +9,22 @@
   </head>
 
   <body>
-    <form class="signup-box login-box active">
+    <form class="signup-box login-box">
       <h2>Login</h2>
-      <input type="text" class="username" placeholder="Username" />
-      <input type="password" class="password" placeholder="Password" />
-      <input type="submit" class="login-btn" value="Login" />
+      <input type="text" name="username" placeholder="Username" />
+      <input type="password" name="password" placeholder="Password" />
+      <input type="submit" name="login-btn" value="Login" />
       <a href="" class="no-acc">No account?</a>
     </form>
 
-    <form class="signup-box register-box">
+    <form class="signup-box register-box active">
       <h2>Register</h2>
-      <input type="email" class="email" placeholder="Email" />
-      <input type="text" class="username" placeholder="Username" />
-      <input type="password" class="password" placeholder="Password" />
+      <input type="email" name="email" placeholder="Email" />
+      <input type="text" name="username" placeholder="Username" />
+      <input type="password" name="pwd" placeholder="Password" />
+      <input type="password" name="pwdRepeat" placeholder="Repeat password" />
       <input type="submit" class="login-btn" value="Register" />
+      <h3 class="response"></h3>
     </form>
   </body>
 </html>
