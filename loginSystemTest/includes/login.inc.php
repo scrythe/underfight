@@ -1,5 +1,11 @@
 <?php
 
-$ah = $_POST['a'];
+$jsonData = file_get_contents("php://input");
+$data = json_decode($jsonData);
 
-echo "$ah h";
+$test = $data->a;
+
+// $ah = $_POST['a'];
+
+
+echo json_encode($test);

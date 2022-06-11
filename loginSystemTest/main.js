@@ -5,7 +5,7 @@ const noAccAnker = document.querySelector('.no-acc');
 loginBox.addEventListener('submit', (e) => {
   e.preventDefault();
   const ah = 'eh';
-  testAjax(ah);
+  testFetch(ah);
 });
 
 registerBox.addEventListener('submit', (e) => {
@@ -22,14 +22,18 @@ noAccAnker.addEventListener('click', (e) => {
   registerBox.classList.toggle('active');
 });
 
-function testAjax(ah) {
-  const requestData = `a=${ah}`;
-
-  const request = new XMLHttpRequest();
-  request.open('POST', 'includes/login.inc.php');
-  request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  request.onload = () => {
-    console.log(request.responseText);
+function testFetch(ah) {
+  const data = { a: 'ah' };
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify(data),
   };
-  request.send(requestData);
+
+  fetch('http://localhost/includes/login.inc.php', options)
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((error) => console.log(error));
 }
