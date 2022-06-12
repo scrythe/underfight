@@ -19,13 +19,13 @@ body {
 
 .signup-box {
   width: 380px;
-  height: 450px;
   margin: calc(6% + 66px) auto 6%;
   background-color: #023047;
   display: none;
   flex-direction: column;
   align-items: center;
   color: aliceblue;
+  padding-bottom: 40px;
 }
 
 .signup-box.active {
@@ -65,7 +65,7 @@ body {
   color: #caf0f8;
 }
 
-.signup-box .login-btn {
+.signup-box .btn {
   width: 200px;
   color: #023e8a;
   border-color: #0077b6;
