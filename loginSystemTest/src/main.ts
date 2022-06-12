@@ -34,10 +34,15 @@ function isOfMapError(key: any): key is keyof typeof mapError {
   return key in mapError;
 }
 
-const token = sessionStorage.getItem('token');
+const userToken = sessionStorage.getItem('token');
 
-if (!token) {
+if (!userToken) {
   loginBox.classList.add('active');
+} else {
+  const [selector, token] = userToken.split(':');
+  sendPost<string>('authorizeToken.php', { selector, token }).then((data) => {
+    console.log(data);
+  });
 }
 
 loginBox.addEventListener('submit', (e) => {

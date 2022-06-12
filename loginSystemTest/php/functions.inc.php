@@ -71,3 +71,51 @@ function loginUser($db, $usernameOrEmail) {
     $userToken = createToken($db, $userID);
     return $userToken;
 }
+
+function autorizeToken($db) {
+}
+
+function areHexTokens($selector, $token) {
+    $isHexSelector = ctype_xdigit($selector);
+    $isHexToken = ctype_xdigit($token);
+    return ($isHexSelector && $isHexToken);
+}
+
+function getToken($db, $selector) {
+    $sql = "SELECT token FROM tokens
+            WHERE selector = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$selector]);
+    $token = $stmt->fetch();
+    if (!$token) return 'no-token-found';
+    return $token[0];
+}
+
+function checkToken($token, $hashedToken) {
+    $tokenBin = hex2bin($token);
+    return password_verify($tokenBin, $hashedToken);
+}
+
+function getTokenID($db, $selector) {
+    $sql = "SELECT tokenID from tokens WHERE selector = ?";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([$selector]);
+    $token = $stmt->fetch();
+    return $token[0];
+}
+
+function getUserOfToken($db, $selector) {
+    $sql = "SELECT * FROM users WHERE tokenID = ?";
+    $stmt = $db->prepare($sql);
+    $tokenID = getTokenID($db, $selector);
+    $stmt->execute([$tokenID]);
+    $user = $stmt->fetch();
+    return $user;
+}
+
+// $sql = 'SELECT * FROM users
+//             WHERE username = ? OR email = ?';
+//     $stmt = $db->prepare($sql);
+//     $stmt->execute([$username, $email]);
+//     $user = $stmt->fetch();
+//     return $user;
