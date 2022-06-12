@@ -1,7 +1,7 @@
 <?php
 
 $host = 'localhost';
-$dbname = 'users';
+$dbname = 'underfight';
 $name = 'root';
 $pwd = '';
 

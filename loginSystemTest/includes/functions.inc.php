@@ -12,7 +12,7 @@ function passwordMatch($pwd, $pwdVerify) {
 }
 
 function getUser($db, $username, $email) {
-    $sql = 'SELECT * FROM user
+    $sql = 'SELECT * FROM users
             WHERE username = ? OR email = ?';
     $stmt = $db->prepare($sql);
     $stmt->execute([$username, $email]);
@@ -26,7 +26,7 @@ function userExists($db, $username, $email) {
 }
 
 function createUser($db, $username, $email, $pwd) {
-    $sql = 'INSERT INTO user (username, email, password, token)
+    $sql = 'INSERT INTO users (username, email, password, token)
             VALUES (?, ?, ?, ?)';
     $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
     $token = random_bytes(128);
