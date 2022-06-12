@@ -26,14 +26,36 @@ function userExists($db, $username, $email) {
 }
 
 function createUser($db, $username, $email, $pwd) {
-    $sql = 'INSERT INTO users (username, email, password, token)
-            VALUES (?, ?, ?, ?)';
-    $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
-    $token = random_bytes(128);
-    $hashedToken = password_hash($token, PASSWORD_DEFAULT);
+    $sql = 'INSERT INTO users (username, email, password)
+            VALUES (?, ?, ?)';
     $stmt = $db->prepare($sql);
-    $result = $stmt->execute([$username, $email, $pwdHashed, $hashedToken]);
+    $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
+    $result = $stmt->execute([$username, $email, $pwdHashed]);
     return $result;
+}
+
+function updateUserToken($db, $userID, $tokenID) {
+    $sql = "UPDATE users SET tokenID = ? WHERE userID = ?";
+    $stmt = $db->prepare($sql);
+    $result = $stmt->execute([$tokenID, $userID]);
+    return $result;
+}
+
+function createToken($db, $userID) {
+    $selector = bin2hex(random_bytes(8));
+    $token = random_bytes(32);
+    $hexToken = bin2hex($token);
+    $userToken = "$selector:$hexToken";
+
+    $sql = 'INSERT INTO tokens (selector, token)
+            VALUES (?, ?)';
+    $stmt = $db->prepare($sql);
+    $hashedToken = password_hash($token, PASSWORD_DEFAULT);
+    $result = $stmt->execute([$selector, $hashedToken]);
+    $tokenID = $db->lastInsertId();
+
+    updateUserToken($db, $userID, $tokenID);
+    return $userToken;
 }
 
 function passwordWrong($db, $usernameOrEmail, $pwd) {
@@ -45,6 +67,7 @@ function passwordWrong($db, $usernameOrEmail, $pwd) {
 
 function loginUser($db, $usernameOrEmail) {
     $user = getUser($db, $usernameOrEmail, $usernameOrEmail);
-    $token = $user['token'];
-    return $token;
+    $userID = $user['userID'];
+    $userToken = createToken($db, $userID);
+    return $userToken;
 }
