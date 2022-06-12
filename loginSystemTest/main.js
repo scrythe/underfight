@@ -14,6 +14,12 @@ const mapError = {
   'password-wrong': 'The entered Password is wrong',
 };
 
+const token = sessionStorage.getItem('token');
+
+if (!token) {
+  loginBox.classList.add('active');
+}
+
 loginBox.addEventListener('submit', (e) => {
   e.preventDefault();
   login();
@@ -75,8 +81,12 @@ function login() {
 
     const data = { usernameOrEmail, pwd };
     const response = await sendPost('login.inc.php', data);
-    loginResponse.innerHTML = mapError[response];
-    if (!mapError[response]) loginResponse.innerHTML = response;
+    if (!mapError[response]) {
+      sessionStorage.setItem('token', response);
+      loginBox.classList.remove('active');
+    } else {
+      loginResponse.innerHTML = mapError[response];
+    }
     resolve();
   });
 }
