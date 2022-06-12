@@ -1,8 +1,24 @@
-const loginBox = document.querySelector('.login-box');
-const registerBox = document.querySelector('.register-box');
-const noAccAnker = document.querySelector('.no-acc');
-const registerResponse = document.querySelector('.register-box .response');
-const loginResponse = document.querySelector('.login-box .response');
+const loginBox = document.querySelector('.login-box') as LoginForm;
+const registerBox = document.querySelector('.register-box') as RegisterForm;
+const noAccAnker = document.querySelector('.no-acc') as HTMLAnchorElement;
+const registerResponse = document.querySelector(
+  '.register-box .response'
+) as HTMLHeadingElement;
+const loginResponse = document.querySelector(
+  '.login-box .response'
+) as HTMLHeadingElement;
+
+interface LoginForm extends HTMLFormElement {
+  usernameOrEmail: HTMLInputElement;
+  pwd: HTMLInputElement;
+}
+
+interface RegisterForm extends HTMLFormElement {
+  email: HTMLInputElement;
+  username: HTMLInputElement;
+  pwd: HTMLInputElement;
+  pwdRepeat: HTMLInputElement;
+}
 
 const mapError = {
   'empty-input': 'Please fill out all fields',
@@ -13,6 +29,10 @@ const mapError = {
   'create-success': 'account successfully created',
   'password-wrong': 'The entered Password is wrong',
 };
+
+function isOfMapError(key: any): key is keyof typeof mapError {
+  return key in mapError;
+}
 
 const token = sessionStorage.getItem('token');
 
@@ -36,7 +56,7 @@ noAccAnker.addEventListener('click', (e) => {
   registerBox.classList.toggle('active');
 });
 
-function sendPost(url, postData) {
+function sendPost<T>(file: string, postData: Object): Promise<T> {
   return new Promise(async (resolve, reject) => {
     const options = {
       method: 'POST',
@@ -46,25 +66,25 @@ function sendPost(url, postData) {
       body: JSON.stringify(postData),
     };
 
-    const jsonData = await fetch(
-      `http://localhost/includes/${url}`,
-      options
-    ).catch((error) => reject(error));
-    const data = jsonData.json();
+    const url = `http://localhost/includes/${file}`;
 
+    const jsonData = await fetch(url, options).catch((error) => reject(error));
+    if (!jsonData) return;
+    const data: T = await jsonData.json();
     resolve(data);
   });
 }
 
-function register() {
-  return new Promise(async (resolve) => {
+function register(): Promise<void> {
+  return new Promise(async (resolve, reject) => {
     const email = registerBox.email.value;
     const username = registerBox.username.value;
     const pwd = registerBox.pwd.value;
     const pwdRepeat = registerBox.pwdRepeat.value;
 
     const data = { email, username, pwd, pwdRepeat };
-    const response = await sendPost('register.inc.php', data);
+    const response = await sendPost<string>('register.inc.php', data);
+    if (!isOfMapError(response)) return reject();
     registerResponse.innerHTML = mapError[response];
     setTimeout(() => {
       loginBox.classList.toggle('active');
@@ -74,14 +94,14 @@ function register() {
   });
 }
 
-function login() {
-  return new Promise(async (resolve) => {
+function login(): Promise<void> {
+  return new Promise(async (resolve, _reject) => {
     const usernameOrEmail = loginBox.usernameOrEmail.value;
     const pwd = loginBox.pwd.value;
 
     const data = { usernameOrEmail, pwd };
-    const response = await sendPost('login.inc.php', data);
-    if (!mapError[response]) {
+    const response = await sendPost<string>('login.inc.php', data);
+    if (!isOfMapError(response)) {
       sessionStorage.setItem('token', response);
       loginBox.classList.remove('active');
     } else {

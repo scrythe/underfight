@@ -9,6 +9,7 @@
     "start": "node ./src/server/dist/server/index.js",
     "build": "tsc -p ./src/server/tsconfig.json",
     "build-client": "webpack",
+    "build-login": "tsc -p ./loginSystemTest/src",
     "release": "standard-version"
   },
   "repository": {
