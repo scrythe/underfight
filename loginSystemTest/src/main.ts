@@ -66,7 +66,7 @@ function sendPost<T>(file: string, postData: Object): Promise<T> {
       body: JSON.stringify(postData),
     };
 
-    const url = `http://localhost/includes/${file}`;
+    const url = `http://localhost/php/${file}`;
 
     const jsonData = await fetch(url, options).catch((error) => reject(error));
     if (!jsonData) return;
@@ -83,7 +83,7 @@ function register(): Promise<void> {
     const pwdRepeat = registerBox.pwdRepeat.value;
 
     const data = { email, username, pwd, pwdRepeat };
-    const response = await sendPost<string>('register.inc.php', data);
+    const response = await sendPost<string>('register.php', data);
     if (!isOfMapError(response)) return reject();
     registerResponse.innerHTML = mapError[response];
     setTimeout(() => {
@@ -100,7 +100,7 @@ function login(): Promise<void> {
     const pwd = loginBox.pwd.value;
 
     const data = { usernameOrEmail, pwd };
-    const response = await sendPost<string>('login.inc.php', data);
+    const response = await sendPost<string>('login.php', data);
     if (!isOfMapError(response)) {
       sessionStorage.setItem('token', response);
       loginBox.classList.remove('active');
