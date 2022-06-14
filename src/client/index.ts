@@ -2,6 +2,9 @@ import { io } from 'socket.io-client';
 import Game from './game';
 import { ClientInterface } from '../shared/socketInterface';
 import InputHandler from './input';
+import './assets/logo.png';
+import './style/style.css';
+import './main';
 
 const socket: ClientInterface = io('http://localhost:3000');
 

@@ -1,27 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-/* const server = {
-  entry: './src/server/index.ts',
-  mode: 'development',
-  devtool: 'eval-source-map',
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        use: 'ts-loader',
-      },
-    ],
-  },
-  resolve: {
-    extensions: ['.ts', '.js'],
-  },
-  output: {
-    filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist2'),
-  },
-};
- */
 module.exports = {
   entry: './src/client/index.ts',
   mode: 'development',
@@ -35,6 +15,13 @@ module.exports = {
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
+      },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
@@ -43,6 +30,7 @@ module.exports = {
       filename: 'index.html',
       template: './src/client/html/index.html',
     }),
+    new MiniCssExtractPlugin(),
   ],
   devServer: {
     static: {
