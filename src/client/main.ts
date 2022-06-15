@@ -71,7 +71,7 @@ function sendPost<T>(file: string, postData: Object): Promise<T> {
       body: JSON.stringify(postData),
     };
 
-    const url = `http://localhost/php/${file}`;
+    const url = `http://localhost:593/${file}`;
 
     const jsonData = await fetch(url, options).catch((error) => reject(error));
     if (!jsonData) return;
