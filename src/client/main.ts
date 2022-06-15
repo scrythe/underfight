@@ -94,6 +94,7 @@ function register(): Promise<void> {
     const response = await sendPost<string>('register.php', data);
     if (!isOfMapError(response)) return reject();
     registerResponse.innerHTML = mapError[response];
+    if (response != 'create-success') return resolve();
     setTimeout(() => {
       loginBox.classList.toggle('active');
       registerBox.classList.toggle('active');
