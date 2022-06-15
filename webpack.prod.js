@@ -11,6 +11,7 @@ module.exports = merge(common, {
       'process.env.SOCKET_URL': JSON.stringify(
         'https://young-crag-60228.herokuapp.com'
       ),
+      'process.env.PHP_URL': JSON.stringify('https://web003.wifiooe.at/php'),
     }),
   ],
 });

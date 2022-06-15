@@ -13,6 +13,8 @@ const loginRegisterSection = document.querySelector(
   '.login-register-section'
 ) as HTMLElement;
 
+const phpUrl = process.env['PHP_URL'] || 'http://localhost:593';
+
 interface LoginForm extends HTMLFormElement {
   usernameOrEmail: HTMLInputElement;
   pwd: HTMLInputElement;
@@ -72,7 +74,7 @@ function sendPost<T>(file: string, postData: Object): Promise<T> {
       body: JSON.stringify(postData),
     };
 
-    const url = `http://localhost:593/${file}`;
+    const url = `${phpUrl}/${file}`;
 
     const jsonData = await fetch(url, options).catch((error) => reject(error));
     if (!jsonData) return;

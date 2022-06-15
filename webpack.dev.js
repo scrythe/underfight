@@ -21,6 +21,7 @@ module.exports = merge(common, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.SOCKET_URL': JSON.stringify('http://localhost:3000'),
+      'process.env.PHP_URL': JSON.stringify('http://localhost:593'),
     }),
   ],
 });
