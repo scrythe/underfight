@@ -4,11 +4,18 @@ import { ClientInterface } from '../shared/socketInterface';
 import InputHandler from './input';
 import './assets/logo.png';
 import './style/style.css';
-import './main';
+import { onLogin } from './main';
+
+import ClientEventEmitter from './clientEventEmitter';
+const clientEventEmitter = new ClientEventEmitter();
+
+clientEventEmitter.on('startGame', () => {
+  startSocketGame();
+});
+
+onLogin(clientEventEmitter);
 
 const socketUrl = process.env['SOCKET_URL'] || 'http://localhost:3000';
-
-const socket: ClientInterface = io(socketUrl);
 
 const canvas: HTMLCanvasElement = document.querySelector('#game')!;
 const uicanvas: HTMLCanvasElement = document.querySelector('#ui')!;
@@ -24,9 +31,11 @@ canvas.height = HEIGHT;
 uicanvas.width = 200;
 uicanvas.height = 50;
 
-function startScoketGame() {
+function startSocketGame() {
   const userToken = sessionStorage.getItem('token');
   if (!userToken) return;
+  const socket: ClientInterface = io(socketUrl);
+
   socket.on('connect', () => {
     socket.emit('joinGame');
     const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
@@ -42,4 +51,4 @@ function startScoketGame() {
   });
 }
 
-startScoketGame();
+startSocketGame();

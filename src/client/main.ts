@@ -1,3 +1,5 @@
+import ClientEventEmitter from './clientEventEmitter';
+
 const loginBox = document.querySelector('.login-box') as LoginForm;
 const registerBox = document.querySelector('.register-box') as RegisterForm;
 const noAccAnker = document.querySelector('.no-acc') as HTMLAnchorElement;
@@ -49,11 +51,6 @@ if (!userToken) {
   });
 }
 
-loginBox.addEventListener('submit', (e) => {
-  e.preventDefault();
-  login();
-});
-
 registerBox.addEventListener('submit', (e) => {
   e.preventDefault();
   register();
@@ -103,7 +100,7 @@ function register(): Promise<void> {
   });
 }
 
-function login(): Promise<void> {
+function login(clientEventEmitter: ClientEventEmitter): Promise<void> {
   return new Promise(async (resolve, _reject) => {
     const usernameOrEmail = loginBox.usernameOrEmail.value;
     const pwd = loginBox.pwd.value;
@@ -114,9 +111,17 @@ function login(): Promise<void> {
       sessionStorage.setItem('token', response);
       loginRegisterSection.classList.remove('active');
       loginBox.classList.remove('active');
+      clientEventEmitter.emit('startGame');
     } else {
       loginResponse.innerHTML = mapError[response];
     }
     resolve();
+  });
+}
+
+export function onLogin(clientEventEmitter: ClientEventEmitter) {
+  loginBox.addEventListener('submit', (e) => {
+    e.preventDefault();
+    login(clientEventEmitter);
   });
 }
