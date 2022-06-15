@@ -1,5 +1,5 @@
-import Player from './Player';
-import Enemies from './Enemies';
+import Player from './player';
+import Enemies from './enemies';
 import Bullet from './Bullet';
 import Camera from './camera';
 import UI from './UI';

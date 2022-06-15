@@ -1,4 +1,4 @@
-import Player from './Player';
+import Player from './player';
 import { PlayerState } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
 
