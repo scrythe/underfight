@@ -6,7 +6,9 @@ import './assets/logo.png';
 import './style/style.css';
 import './main';
 
-const socket: ClientInterface = io('http://localhost:3000');
+const socketUrl = process.env['SOCKET_URL'] || 'http://localhost:3000';
+
+const socket: ClientInterface = io(socketUrl);
 
 const canvas: HTMLCanvasElement = document.querySelector('#game')!;
 const uicanvas: HTMLCanvasElement = document.querySelector('#ui')!;
