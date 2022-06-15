@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/client/index.ts',
-  mode: 'development',
   devtool: 'eval-source-map',
   module: {
     rules: [
@@ -32,21 +31,11 @@ module.exports = {
     }),
     new MiniCssExtractPlugin(),
   ],
-  devServer: {
-    static: {
-      directory: path.resolve(__dirname, 'dist'),
-    },
-    port: 80,
-    open: true,
-    hot: true,
-    compress: true,
-    historyApiFallback: true,
-  },
   resolve: {
     extensions: ['.ts', '.js'],
   },
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist/client'),
   },
 };
