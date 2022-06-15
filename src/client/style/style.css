@@ -26,11 +26,17 @@ html {
   height: 100%;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
+.login-register-section {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
   flex-direction: column;
   background-color: #14213d;
+}
+
+.login-register-section.active {
+  display: flex;
 }
 
 .signup-box {

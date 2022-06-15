@@ -24,16 +24,22 @@ canvas.height = HEIGHT;
 uicanvas.width = 200;
 uicanvas.height = 50;
 
-socket.on('connect', () => {
-  socket.emit('joinGame');
-  const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
-  const inputHandler = new InputHandler(WIDTH, HEIGHT);
+function startScoketGame() {
+  const userToken = sessionStorage.getItem('token');
+  if (!userToken) return;
+  socket.on('connect', () => {
+    socket.emit('joinGame');
+    const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
+    const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
-  socket.on('sendState', (state) => {
-    requestAnimationFrame(() => {
-      drawGame.draw(state);
+    socket.on('sendState', (state) => {
+      requestAnimationFrame(() => {
+        drawGame.draw(state);
+      });
+      socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
+      inputHandler.fire = { pressed: false };
     });
-    socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
-    inputHandler.fire = { pressed: false };
   });
-});
+}
+
+startScoketGame();

@@ -7,55 +7,57 @@
     <title>underfight</title>
   </head>
   <body>
-    <img src="assets/logo.png" class="logo" alt="underfight logo" />
-    <form class="signup-box login-box">
-      <h2>Login</h2>
-      <input
-        type="text"
-        name="usernameOrEmail"
-        placeholder="Username or Email"
-        autocomplete="username"
-      />
-      <input
-        type="password"
-        name="pwd"
-        placeholder="Password"
-        autocomplete="current-password"
-      />
-      <input type="submit" class="btn login-btn" value="Login" />
-      <h3 class="response"></h3>
-      <a href="" class="no-acc">No account?</a>
-    </form>
+    <section class="login-register-section">
+      <img src="assets/logo.png" class="logo" alt="underfight logo" />
+      <form class="signup-box login-box">
+        <h2>Login</h2>
+        <input
+          type="text"
+          name="usernameOrEmail"
+          placeholder="Username or Email"
+          autocomplete="username"
+        />
+        <input
+          type="password"
+          name="pwd"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <input type="submit" class="btn login-btn" value="Login" />
+        <h3 class="response"></h3>
+        <a href="" class="no-acc">No account?</a>
+      </form>
 
-    <form class="signup-box register-box">
-      <h2>Register</h2>
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-        autocomplete="email"
-      />
-      <input
-        type="text"
-        name="username"
-        placeholder="Username"
-        autocomplete="username"
-      />
-      <input
-        type="password"
-        name="pwd"
-        placeholder="Password"
-        autocomplete="current-password"
-      />
-      <input
-        type="password"
-        name="pwdRepeat"
-        placeholder="Repeat password"
-        autocomplete="current-password"
-      />
-      <input type="submit" class="btn register-btn" value="Register" />
-      <h3 class="response"></h3>
-    </form>
+      <form class="signup-box register-box">
+        <h2>Register</h2>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          autocomplete="email"
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          autocomplete="username"
+        />
+        <input
+          type="password"
+          name="pwd"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <input
+          type="password"
+          name="pwdRepeat"
+          placeholder="Repeat password"
+          autocomplete="current-password"
+        />
+        <input type="submit" class="btn register-btn" value="Register" />
+        <h3 class="response"></h3>
+      </form>
+    </section>
     <canvas id="game"></canvas>
     <canvas id="ui"></canvas>
   </body>

@@ -7,6 +7,9 @@ const registerResponse = document.querySelector(
 const loginResponse = document.querySelector(
   '.login-box .response'
 ) as HTMLHeadingElement;
+const loginRegisterSection = document.querySelector(
+  '.login-register-section'
+) as HTMLElement;
 
 interface LoginForm extends HTMLFormElement {
   usernameOrEmail: HTMLInputElement;
@@ -37,6 +40,7 @@ function isOfMapError(key: any): key is keyof typeof mapError {
 const userToken = sessionStorage.getItem('token');
 
 if (!userToken) {
+  loginRegisterSection.classList.add('active');
   loginBox.classList.add('active');
 } else {
   const [selector, token] = userToken.split(':');
@@ -108,6 +112,7 @@ function login(): Promise<void> {
     const response = await sendPost<string>('login.php', data);
     if (!isOfMapError(response)) {
       sessionStorage.setItem('token', response);
+      loginRegisterSection.classList.remove('active');
       loginBox.classList.remove('active');
     } else {
       loginResponse.innerHTML = mapError[response];

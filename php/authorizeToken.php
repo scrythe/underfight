@@ -1,5 +1,9 @@
 <?php
 
+header('Access-Control-Allow-Origin: http://localhost');
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
+
 require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
 
