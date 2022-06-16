@@ -48,9 +48,9 @@ if (!userToken) {
   loginBox.classList.add('active');
 } else {
   const [selector, token] = userToken.split(':');
-  sendPost<string>('authorizeToken.php', { selector, token }).then((data) => {
-    console.log(data);
-  });
+  sendPost<string>('authorizeToken.php', { selector, token })
+    .then()
+    .catch((error) => console.error(error));
 }
 
 registerBox.addEventListener('submit', (e) => {

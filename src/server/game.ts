@@ -70,22 +70,10 @@ class Game {
     return bulletsState;
   }
 
-  private getPlayerState() {
+  private getPlayerStates() {
     const playerStates: PlayerState[] = [];
     this.players.forEach((player) => {
-      const pos = {
-        x: player.rect.center.x,
-        y: player.rect.center.y,
-      };
-      const playerState: PlayerState = {
-        pos,
-        angle: player.angle,
-        name: player.name,
-        damaged: player.damaged,
-        charge: player.charge,
-        phase: player.playerPhase,
-        username: player.username,
-      };
+      const playerState = player.getState();
       playerStates.push(playerState);
     });
     return playerStates;
@@ -140,7 +128,7 @@ class Game {
   }
 
   private getState(): State {
-    const playerStates = this.getPlayerState();
+    const playerStates = this.getPlayerStates();
     const bulletsState: BulletState[] = this.getAllBulletStates();
     const state: State = { playerStates, bulletsState };
     return state;

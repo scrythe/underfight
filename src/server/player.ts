@@ -1,5 +1,5 @@
 import { Speed, Keys, PlayerPhase, Position } from './interfaces';
-import { BulletState } from '../shared/stateInterfaces';
+import { BulletState, PlayerState } from '../shared/stateInterfaces';
 import { Bullet, Rocket } from './bullet';
 import InputHandler from './input';
 import RectSurface, { Rect } from '../shared/rectangle';
@@ -162,6 +162,23 @@ class Player {
       bulletIndex = bullet;
     }
     this._bullets.splice(bulletIndex, 1);
+  }
+
+  getState() {
+    const pos = {
+      x: this.rect.center.x,
+      y: this.rect.center.y,
+    };
+    const playerState: PlayerState = {
+      pos,
+      angle: this.angle,
+      name: this.name,
+      damaged: this.damaged,
+      charge: this.charge,
+      phase: this.playerPhase,
+      username: this.username,
+    };
+    return playerState;
   }
 
   get angle() {

@@ -11,9 +11,7 @@ const corsOptions = {
 
 const PORT = process.env['PORT'] || 3000;
 
-const server = express()
-  .use(cors(corsOptions))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+const server = express().use(cors(corsOptions)).listen(PORT);
 
 const io: ServerInterface = new Server(server, {
   cors: {
