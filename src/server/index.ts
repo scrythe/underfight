@@ -3,6 +3,7 @@ import express from 'express';
 import Game from './game';
 import { ServerInterface } from '../shared/socketInterface';
 import cors from 'cors';
+import { getUser, isUser } from './user';
 
 const corsOptions = {
   origin: ['https://web003.wifiooe.at', 'http://localhost'],
@@ -24,7 +25,13 @@ const game = new Game(io);
 game.startGame();
 
 io.on('connection', (socket) => {
-  socket.on('joinGame', () => game.addPlayer(socket.id));
+  socket.on('joinGame', (userToken) => {
+    getUser(userToken).then((user) => {
+      if (!isUser(user)) return;
+      game.addPlayer(socket.id);
+      user;
+    });
+  });
   socket.on('disconnect', () => game.removePlayer(socket.id));
   socket.on('sendKeys', (keys, angle) =>
     game.handleInput(keys, angle, socket.id)

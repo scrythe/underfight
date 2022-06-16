@@ -37,7 +37,7 @@ function startSocketGame() {
   const socket: ClientInterface = io(socketUrl);
 
   socket.on('connect', () => {
-    socket.emit('joinGame');
+    socket.emit('joinGame', userToken);
     const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
     const inputHandler = new InputHandler(WIDTH, HEIGHT);
 

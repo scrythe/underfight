@@ -9,7 +9,7 @@ export interface ServerToClientEvents {
 
 export interface ClientToServerEvents {
   sendKeys: (keys: Keys, angle: number) => void;
-  joinGame: () => void;
+  joinGame: (token: string) => void;
 }
 
 export interface InterServerEvents {}

@@ -41,3 +41,12 @@ export enum PlayerPhase {
   Ship,
   Rocket,
 }
+
+export interface User {
+  userID: number;
+  username: string;
+  email: string;
+  password: string;
+  tokenID: number;
+  created_at: string;
+}
