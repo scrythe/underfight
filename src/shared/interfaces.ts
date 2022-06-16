@@ -50,3 +50,22 @@ export interface User {
   tokenID: number;
   created_at: string;
 }
+
+export type RegisterApiResponses =
+  | 'empty-input'
+  | 'pwd-not-match'
+  | 'name-or-email-exists'
+  | 'stmt-error'
+  | 'create-success';
+
+export type LoginApiResponses =
+  | 'empty-input'
+  | 'user-not-exists'
+  | 'password-wrong'
+  | string;
+
+export type AuthTokenApiResponses =
+  | 'empty-token'
+  | 'not-hex-tokens'
+  | 'invalid-token'
+  | User;

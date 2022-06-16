@@ -1,3 +1,4 @@
+import { sendAuthToken, sendLogin, sendRegister } from './api';
 import ClientEventEmitter from './clientEventEmitter';
 
 const loginBox = document.querySelector('.login-box') as LoginForm;
@@ -12,8 +13,6 @@ const loginResponse = document.querySelector(
 const loginRegisterSection = document.querySelector(
   '.login-register-section'
 ) as HTMLElement;
-
-const phpUrl = process.env['PHP_URL'] || 'http://localhost:593';
 
 interface LoginForm extends HTMLFormElement {
   usernameOrEmail: HTMLInputElement;
@@ -48,7 +47,7 @@ if (!userToken) {
   loginBox.classList.add('active');
 } else {
   const [selector, token] = userToken.split(':');
-  sendPost<string>('authorizeToken.php', { selector, token })
+  sendAuthToken(selector, token)
     .then()
     .catch((error) => console.error(error));
 }
@@ -64,35 +63,15 @@ noAccAnker.addEventListener('click', (e) => {
   registerBox.classList.toggle('active');
 });
 
-function sendPost<T>(file: string, postData: Object): Promise<T> {
-  return new Promise(async (resolve, reject) => {
-    const options = {
-      method: 'POST',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(postData),
-    };
-
-    const url = `${phpUrl}/${file}`;
-
-    const jsonData = await fetch(url, options).catch((error) => reject(error));
-    if (!jsonData) return;
-    const data: T = await jsonData.json();
-    resolve(data);
-  });
-}
-
 function register(): Promise<void> {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     const email = registerBox.email.value;
     const username = registerBox.username.value;
     const pwd = registerBox.pwd.value;
     const pwdRepeat = registerBox.pwdRepeat.value;
 
     const data = { email, username, pwd, pwdRepeat };
-    const response = await sendPost<string>('register.php', data);
-    if (!isOfMapError(response)) return reject();
+    const response = await sendRegister(data);
     registerResponse.innerHTML = mapError[response];
     if (response != 'create-success') return resolve();
     setTimeout(() => {
@@ -104,12 +83,12 @@ function register(): Promise<void> {
 }
 
 function login(clientEventEmitter: ClientEventEmitter): Promise<void> {
-  return new Promise(async (resolve, _reject) => {
+  return new Promise(async (resolve) => {
     const usernameOrEmail = loginBox.usernameOrEmail.value;
     const pwd = loginBox.pwd.value;
 
     const data = { usernameOrEmail, pwd };
-    const response = await sendPost<string>('login.php', data);
+    const response = await sendLogin(data);
     if (!isOfMapError(response)) {
       sessionStorage.setItem('token', response);
       loginRegisterSection.classList.remove('active');
