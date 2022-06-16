@@ -7,6 +7,7 @@ export interface PlayerState {
   damaged: boolean;
   charge: number;
   phase: PlayerPhase;
+  username: string;
 }
 
 export interface BulletState {

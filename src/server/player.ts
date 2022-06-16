@@ -69,8 +69,14 @@ class Player {
   private _bullets: Bullet[];
   private switchPlayerPhaseTimestamp: number;
   private SWITCH_PLAYER_PHASE_DELAY = 5000;
+  private _username: string;
 
-  constructor(gameWidth: number, gameHeight: number, name: string) {
+  constructor(
+    gameWidth: number,
+    gameHeight: number,
+    name: string,
+    username: string
+  ) {
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this.player = new Ship(center);
     this._angle = 0;
@@ -80,6 +86,7 @@ class Player {
     this._damaged = false;
     this._bullets = [];
     this.switchPlayerPhaseTimestamp = Date.now();
+    this._username = username;
   }
 
   private inputs() {
@@ -196,6 +203,10 @@ class Player {
   get playerPhase() {
     if (this.player instanceof Ship) return PlayerPhase.Ship;
     return PlayerPhase.Rocket;
+  }
+
+  get username() {
+    return this._username;
   }
 }
 

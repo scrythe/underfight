@@ -28,8 +28,7 @@ io.on('connection', (socket) => {
   socket.on('joinGame', (userToken) => {
     getUser(userToken).then((user) => {
       if (!isUser(user)) return;
-      game.addPlayer(socket.id);
-      user;
+      game.addPlayer(socket.id, user.username);
     });
   });
   socket.on('disconnect', () => game.removePlayer(socket.id));

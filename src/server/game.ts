@@ -31,8 +31,13 @@ class Game {
     }, fpsDuration);
   }
 
-  addPlayer(name: string) {
-    const player = new Player(this.GAME_WIDTH, this.GAME_HEIGHT, name);
+  addPlayer(name: string, username: string) {
+    const player = new Player(
+      this.GAME_WIDTH,
+      this.GAME_HEIGHT,
+      name,
+      username
+    );
     this.players.push(player);
   }
 
@@ -79,6 +84,7 @@ class Game {
         damaged: player.damaged,
         charge: player.charge,
         phase: player.playerPhase,
+        username: player.username,
       };
       playerStates.push(playerState);
     });
