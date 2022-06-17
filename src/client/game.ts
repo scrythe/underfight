@@ -6,6 +6,7 @@ import UI from './ui';
 import getBackground from './background';
 import { PlayerState, State } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
+import Images from './assets';
 
 class Game {
   private ctx: CanvasRenderingContext2D;
@@ -30,14 +31,23 @@ class Game {
     gameWidth: number,
     gameHeight: number,
     username: string,
-    ctxUI: CanvasRenderingContext2D
+    ctxUI: CanvasRenderingContext2D,
+    images: Images
   ) {
     this.ctx = ctx;
     this.gameWidth = gameWidth;
     this.gameHeight = gameHeight;
-    this.player = new Player();
-    this.enemies = new Enemies();
-    this.bullet = new Bullet();
+    this.player = new Player(
+      images.playerNormal,
+      images.playerDamaged,
+      images.bullet
+    );
+    this.enemies = new Enemies(
+      images.playerNormal,
+      images.playerDamaged,
+      images.bullet
+    );
+    this.bullet = new Bullet(images.bullet);
     this.camera = new Camera(this.gameWidth, this.gameHeight);
     this.username = username;
     this.ui = new UI(ctxUI);

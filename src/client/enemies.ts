@@ -3,8 +3,12 @@ import { PlayerState } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
 
 class Enemies extends Player {
-  constructor() {
-    super();
+  constructor(
+    playerImageNormal: HTMLImageElement,
+    playerImageDamaged: HTMLImageElement,
+    bulletImage: HTMLImageElement
+  ) {
+    super(playerImageNormal, playerImageDamaged, bulletImage);
   }
   drawPlayers(
     ctx: CanvasRenderingContext2D,

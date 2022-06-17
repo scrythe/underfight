@@ -1,10 +1,7 @@
-import Images from './assets';
 import { PlayerState } from '../shared/stateInterfaces';
 import { Position } from '../shared/interfaces';
 import { rotateAndDrawObject } from './functions';
 import { ShipConst } from '../shared/gameConstants';
-
-const images = new Images();
 
 class Ship {
   private playerImages: [HTMLImageElement, HTMLImageElement];
@@ -12,9 +9,10 @@ class Ship {
   private width = ShipConst.width;
   private height = ShipConst.height;
 
-  constructor() {
-    const playerImageNormal = images.playerNormal;
-    const playerImageDamaged = images.playerDamaged;
+  constructor(
+    playerImageNormal: HTMLImageElement,
+    playerImageDamaged: HTMLImageElement
+  ) {
     this.playerImages = [playerImageNormal, playerImageDamaged];
     this.playerImagesIndex = 0;
   }

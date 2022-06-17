@@ -1,18 +1,15 @@
-import Images from './assets';
 import { BulletState } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
 import { rotateAndDrawObject } from './functions';
 import { AbractBulletConst } from '../shared/gameConstants';
-
-const images = new Images();
 
 class AbstractBullet {
   private bulletImage: HTMLImageElement;
   private width = AbractBulletConst.width;
   private height = AbractBulletConst.height;
 
-  constructor() {
-    this.bulletImage = images.bullet;
+  constructor(bulletImage: HTMLImageElement) {
+    this.bulletImage = bulletImage;
   }
 
   draw(

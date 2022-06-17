@@ -9,6 +9,8 @@ import { onLogin } from './main';
 import ClientEventEmitter from './clientEventEmitter';
 import { getUser, isUser } from './user';
 import { User } from './interfaces';
+import Images from './assets';
+
 const clientEventEmitter = new ClientEventEmitter();
 
 clientEventEmitter.on('startGame', () => {
@@ -47,10 +49,18 @@ async function startSocketGame() {
   });
 }
 
-function onConnect(socket: ClientInterface, userToken: string, user: User) {
+async function onConnect(
+  socket: ClientInterface,
+  userToken: string,
+  user: User
+) {
   console.log('emit');
   socket.emit('joinGame', userToken);
-  const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI);
+
+  await Images.preloadAssets();
+  const images = new Images();
+
+  const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI, images);
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
   socket.on('sendState', (state) => {

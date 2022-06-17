@@ -8,9 +8,13 @@ class Player {
   private ship: Ship;
   private rocket: Rocket;
 
-  constructor() {
-    this.ship = new Ship();
-    this.rocket = new Rocket();
+  constructor(
+    playerImageNormal: HTMLImageElement,
+    playerImageDamaged: HTMLImageElement,
+    bulletImage: HTMLImageElement
+  ) {
+    this.ship = new Ship(playerImageNormal, playerImageDamaged);
+    this.rocket = new Rocket(bulletImage);
   }
 
   draw(
