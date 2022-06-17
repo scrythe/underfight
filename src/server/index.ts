@@ -24,11 +24,10 @@ const game = new Game(io);
 game.startGame();
 
 io.on('connection', (socket) => {
-  socket.on('joinGame', (userToken) => {
-    getUser(userToken).then((user) => {
-      if (!isUser(user)) return;
-      onNewPlayer(socket, user);
-    });
+  socket.on('joinGame', async (userToken) => {
+    const user = await getUser(userToken);
+    if (!isUser(user)) return;
+    onNewPlayer(socket, user);
   });
   socket.on('disconnect', () => game.removePlayer(socket.id));
 });

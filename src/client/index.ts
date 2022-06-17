@@ -8,6 +8,7 @@ import { onLogin } from './main';
 
 import ClientEventEmitter from './clientEventEmitter';
 import { getUser, isUser } from './user';
+import { User } from './interfaces';
 const clientEventEmitter = new ClientEventEmitter();
 
 clientEventEmitter.on('startGame', () => {
@@ -32,28 +33,32 @@ canvas.height = HEIGHT;
 uicanvas.width = 200;
 uicanvas.height = 50;
 
-function startSocketGame() {
+async function startSocketGame() {
   const userToken = sessionStorage.getItem('token');
   if (!userToken) return;
 
-  getUser(userToken).then((user) => {
-    if (!isUser(user)) return;
-    const socket: ClientInterface = io(socketUrl);
+  const user = await getUser(userToken);
+  if (!isUser(user)) return;
 
-    socket.on('connect', () => {
-      console.log('emit');
-      socket.emit('joinGame', userToken);
-      const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI);
-      const inputHandler = new InputHandler(WIDTH, HEIGHT);
+  const socket: ClientInterface = io(socketUrl);
 
-      socket.on('sendState', (state) => {
-        requestAnimationFrame(() => {
-          drawGame.draw(state);
-        });
-        socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
-        inputHandler.fire = { pressed: false };
-      });
+  socket.on('connect', () => {
+    onConnect(socket, userToken, user);
+  });
+}
+
+function onConnect(socket: ClientInterface, userToken: string, user: User) {
+  console.log('emit');
+  socket.emit('joinGame', userToken);
+  const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI);
+  const inputHandler = new InputHandler(WIDTH, HEIGHT);
+
+  socket.on('sendState', (state) => {
+    requestAnimationFrame(() => {
+      drawGame.draw(state);
     });
+    socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
+    inputHandler.fire = { pressed: false };
   });
 }
 
