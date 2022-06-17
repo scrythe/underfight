@@ -58,7 +58,7 @@ class Game {
       height: 10000,
     };
     this.background = getBackground(this.backgroundRect);
-    this.ctx.font = '18px Arial';
+    this.ctx.font = '20px Roboto';
     ctx.textAlign = 'center';
   }
 
