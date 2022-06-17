@@ -29,7 +29,7 @@ module.exports = {
       filename: 'index.html',
       template: './src/client/html/index.html',
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({ filename: '[name].[contenthash].css' }),
   ],
   resolve: {
     extensions: ['.ts', '.js'],
