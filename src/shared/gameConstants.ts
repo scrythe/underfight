@@ -1,9 +1,9 @@
 export const ShipConst = {
-  width: 150,
-  height: 150,
+  width: 75,
+  height: 75,
 };
 
 export const AbractBulletConst = {
-  width: 50,
-  height: 10,
+  width: 40,
+  height: 8,
 };

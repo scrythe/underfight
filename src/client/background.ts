@@ -4,7 +4,7 @@ function getBackground(rect: {
   width: number;
   height: number;
 }) {
-  const RASTER_SIZE = 25;
+  const RASTER_SIZE = 30;
   const canvas = document.createElement('canvas');
   canvas.width = rect.width;
   canvas.height = rect.height;
