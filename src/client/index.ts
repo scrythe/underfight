@@ -7,6 +7,7 @@ import './style/style.css';
 import { onLogin } from './main';
 
 import ClientEventEmitter from './clientEventEmitter';
+import { getUser, isUser } from './user';
 const clientEventEmitter = new ClientEventEmitter();
 
 clientEventEmitter.on('startGame', () => {
@@ -34,19 +35,24 @@ uicanvas.height = 50;
 function startSocketGame() {
   const userToken = sessionStorage.getItem('token');
   if (!userToken) return;
-  const socket: ClientInterface = io(socketUrl);
 
-  socket.on('connect', () => {
-    socket.emit('joinGame', userToken);
-    const drawGame = new Game(ctx, WIDTH, HEIGHT, socket.id, ctxUI);
-    const inputHandler = new InputHandler(WIDTH, HEIGHT);
+  getUser(userToken).then((user) => {
+    if (!isUser(user)) return;
+    const socket: ClientInterface = io(socketUrl);
 
-    socket.on('sendState', (state) => {
-      requestAnimationFrame(() => {
-        drawGame.draw(state);
+    socket.on('connect', () => {
+      console.log('emit');
+      socket.emit('joinGame', userToken);
+      const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI);
+      const inputHandler = new InputHandler(WIDTH, HEIGHT);
+
+      socket.on('sendState', (state) => {
+        requestAnimationFrame(() => {
+          drawGame.draw(state);
+        });
+        socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
+        inputHandler.fire = { pressed: false };
       });
-      socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
-      inputHandler.fire = { pressed: false };
     });
   });
 }

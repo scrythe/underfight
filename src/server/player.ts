@@ -64,29 +64,29 @@ class Player {
   private _angle: number;
   private _charge: number;
   private _inputHandler: InputHandler;
-  private _name: string;
   private _damaged: boolean;
   private _bullets: Bullet[];
   private switchPlayerPhaseTimestamp: number;
   private SWITCH_PLAYER_PHASE_DELAY = 5000;
   private _username: string;
+  private _socketID: string;
 
   constructor(
     gameWidth: number,
     gameHeight: number,
-    name: string,
-    username: string
+    username: string,
+    socketID: string
   ) {
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this.player = new Ship(center);
     this._angle = 0;
     this._charge = 0;
     this._inputHandler = new InputHandler();
-    this._name = name;
     this._damaged = false;
     this._bullets = [];
     this.switchPlayerPhaseTimestamp = Date.now();
     this._username = username;
+    this._socketID = socketID;
   }
 
   private inputs() {
@@ -172,13 +172,16 @@ class Player {
     const playerState: PlayerState = {
       pos,
       angle: this.angle,
-      name: this.name,
       damaged: this.damaged,
       charge: this.charge,
       phase: this.playerPhase,
       username: this.username,
     };
     return playerState;
+  }
+
+  get socketID() {
+    return this._socketID;
   }
 
   get angle() {
@@ -191,10 +194,6 @@ class Player {
 
   get charge() {
     return this._charge;
-  }
-
-  get name() {
-    return this._name;
   }
 
   get inputHandler() {

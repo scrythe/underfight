@@ -3,7 +3,6 @@ import { PlayerPhase, Position } from './interfaces';
 export interface PlayerState {
   pos: Position;
   angle: number;
-  name: string;
   damaged: boolean;
   charge: number;
   phase: PlayerPhase;

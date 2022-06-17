@@ -1,9 +1,10 @@
 import { Server } from 'socket.io';
 import express from 'express';
 import Game from './game';
-import { ServerInterface } from '../shared/socketInterface';
+import { ServerInterface, SocketInterface } from '../shared/socketInterface';
 import cors from 'cors';
 import { getUser, isUser } from './user';
+import { User } from './interfaces';
 
 const corsOptions = {
   origin: ['https://web003.wifiooe.at', 'http://localhost'],
@@ -26,11 +27,15 @@ io.on('connection', (socket) => {
   socket.on('joinGame', (userToken) => {
     getUser(userToken).then((user) => {
       if (!isUser(user)) return;
-      game.addPlayer(socket.id, user.username);
+      onNewPlayer(socket, user);
     });
   });
   socket.on('disconnect', () => game.removePlayer(socket.id));
+});
+
+function onNewPlayer(socket: SocketInterface, user: User) {
+  game.addPlayer(user.username, socket.id);
   socket.on('sendKeys', (keys, angle) =>
     game.handleInput(keys, angle, socket.id)
   );
-});
+}

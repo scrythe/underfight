@@ -31,18 +31,18 @@ class Game {
     }, fpsDuration);
   }
 
-  addPlayer(name: string, username: string) {
+  addPlayer(username: string, socketID: string) {
     const player = new Player(
       this.GAME_WIDTH,
       this.GAME_HEIGHT,
-      name,
-      username
+      username,
+      socketID
     );
     this.players.push(player);
   }
 
-  removePlayer(name: string) {
-    const player = this.players.find((player) => player.name == name);
+  removePlayer(socketID: string) {
+    const player = this.players.find((player) => player.socketID == socketID);
     if (player) {
       const playerIndex = this.players.indexOf(player);
       this.players.splice(playerIndex, 1);
@@ -134,13 +134,13 @@ class Game {
     return state;
   }
 
-  private getSpecificPlayer(name: string) {
-    const player = this.players.find((player) => player.name == name);
+  private getSpecificPlayer(socketID: string) {
+    const player = this.players.find((player) => player.socketID == socketID);
     return player;
   }
 
-  handleInput(keys: Keys, angle: number, name: string) {
-    const player = this.getSpecificPlayer(name);
+  handleInput(keys: Keys, angle: number, socketID: string) {
+    const player = this.getSpecificPlayer(socketID);
     if (player) {
       player.inputHandler.updateKeys(keys);
       player.angle = angle;

@@ -15,7 +15,7 @@ class Game {
   private enemies: Enemies;
   private bullet: Bullet;
   private camera: Camera;
-  private name: string;
+  private username: string;
   private ui: UI;
   private backgroundRect: {
     x: number;
@@ -29,7 +29,7 @@ class Game {
     ctx: CanvasRenderingContext2D,
     gameWidth: number,
     gameHeight: number,
-    name: string,
+    username: string,
     ctxUI: CanvasRenderingContext2D
   ) {
     this.ctx = ctx;
@@ -39,7 +39,7 @@ class Game {
     this.enemies = new Enemies();
     this.bullet = new Bullet();
     this.camera = new Camera(this.gameWidth, this.gameHeight);
-    this.name = name;
+    this.username = username;
     this.ui = new UI(ctxUI);
     this.backgroundRect = {
       x: -5000,
@@ -51,7 +51,7 @@ class Game {
   }
 
   getMe(playerStates: PlayerState[]) {
-    const me = playerStates.find((player) => player.name == this.name);
+    const me = playerStates.find((player) => player.username == this.username);
     return me;
   }
 

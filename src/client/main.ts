@@ -1,5 +1,6 @@
 import { sendAuthToken, sendLogin, sendRegister } from './api';
 import ClientEventEmitter from './clientEventEmitter';
+import { getUser, isUser } from './user';
 
 const loginBox = document.querySelector('.login-box') as LoginForm;
 const registerBox = document.querySelector('.register-box') as RegisterForm;
@@ -46,6 +47,11 @@ if (!userToken) {
   loginRegisterSection.classList.add('active');
   loginBox.classList.add('active');
 } else {
+  getUser(userToken)
+    .then((data) => {
+      if (!isUser(data)) return console.error('failed to auth token');
+    })
+    .catch((error) => console.error(error));
   const [selector, token] = userToken.split(':');
   sendAuthToken(selector, token)
     .then()
