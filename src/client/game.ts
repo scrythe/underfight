@@ -2,7 +2,7 @@ import Player from './player';
 import Enemies from './enemies';
 import { Bullet } from './bullet';
 import Camera from './camera';
-import UI from './UI';
+import UI from './ui';
 import getBackground from './background';
 import { PlayerState, State } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
