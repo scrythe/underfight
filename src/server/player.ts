@@ -3,6 +3,7 @@ import { BulletState, PlayerState } from '../shared/stateInterfaces';
 import { Bullet, Rocket } from './bullet';
 import InputHandler from './input';
 import RectSurface, { Rect } from '../shared/rectangle';
+import { ShipConst } from '../shared/gameConstants';
 
 class Ship {
   private playerObject: RectSurface;
@@ -11,13 +12,13 @@ class Ship {
   private speed: Speed;
 
   constructor(playerPos: Position) {
-    const width = 150;
-    const height = 150;
+    const width = ShipConst.width;
+    const height = ShipConst.height;
     this.playerObject = new RectSurface(width, height);
     this._rect = this.playerObject.getRect({ center: playerPos });
     this.maxSpeed = {
-      x: 20,
-      y: 20,
+      x: 6,
+      y: 6,
     };
     this.speed = {
       x: 0,
@@ -122,7 +123,11 @@ class Player {
     this.inputs();
     this.updateBullets();
 
-    if (this.player instanceof Rocket) this.player.angle = this._angle;
+    if (this.player instanceof Rocket) {
+      this.player.angle = this._angle;
+      if (this.player.checkEndReached())
+        this.swtichPlayerPhase(PlayerPhase.Ship);
+    }
   }
 
   chargeUp() {

@@ -5,7 +5,7 @@ import { AbractBulletConst } from '../shared/gameConstants';
 class AbsractBullet {
   private bulletObject: RectSurface;
   protected _rect: Rect;
-  protected maxSpeed = 8;
+  protected maxSpeed = 10;
   protected speed: Speed;
   protected _angle: number;
 
@@ -64,12 +64,20 @@ export class Bullet extends AbsractBullet {
 }
 
 export class Rocket extends AbsractBullet {
+  private flightLength: number;
+  private maxLength = 1000;
+
   private acceleration = 1.02;
   protected override maxSpeed = 35;
   private currentSpeed: number;
   constructor(playerPos: Position, angle: number) {
     super(playerPos, angle);
     this.currentSpeed = 5;
+    this.flightLength = 0;
+  }
+
+  checkEndReached() {
+    return this.flightLength >= this.maxLength;
   }
 
   updateSpeed() {
@@ -79,6 +87,7 @@ export class Rocket extends AbsractBullet {
       x: Math.cos(this._angle) * this.currentSpeed,
       y: Math.sin(this._angle) * this.currentSpeed,
     };
+    this.flightLength += this.maxSpeed;
   }
 
   override update() {
