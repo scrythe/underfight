@@ -24,7 +24,7 @@ class Ship {
 
   draw(
     ctx: CanvasRenderingContext2D,
-    { pos, angle, damaged }: PlayerState,
+    { pos, angle, damaged, username }: PlayerState,
     cameraPos: Position
   ) {
     this.playerImagesIndex = 0;
@@ -41,6 +41,17 @@ class Ship {
       this.playerImage,
       angle
     );
+
+    const textPos = {
+      x: insideCameraPos.x,
+      y: insideCameraPos.y - ShipConst.height / 1.5,
+    };
+
+    ctx.fillStyle = 'black';
+    ctx.lineWidth = 3;
+    ctx.strokeText(username, textPos.x, textPos.y);
+    ctx.fillStyle = 'white';
+    ctx.fillText(username, textPos.x, textPos.y);
   }
 }
 

@@ -58,6 +58,8 @@ class Game {
       height: 10000,
     };
     this.background = getBackground(this.backgroundRect);
+    this.ctx.font = '18px Arial';
+    ctx.textAlign = 'center';
   }
 
   getMe(playerStates: PlayerState[]) {

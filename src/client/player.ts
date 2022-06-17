@@ -24,7 +24,6 @@ class Player {
   ) {
     const phase = playerState.phase;
     const player = phase == PlayerPhase.Rocket ? this.rocket : this.ship;
-    console.log(playerState.username);
 
     player.draw(ctx, playerState, cameraPos);
   }
