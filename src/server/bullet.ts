@@ -1,5 +1,6 @@
 import { Speed, Position } from './interfaces';
 import RectSurface, { Rect } from '../shared/rectangle';
+import { AbractBulletConst } from '../shared/gameConstants';
 
 class AbsractBullet {
   private bulletObject: RectSurface;
@@ -9,8 +10,8 @@ class AbsractBullet {
   protected _angle: number;
 
   constructor(playerPos: Position, angle: number) {
-    const bulletWidth = 50;
-    const bulletHeight = 10;
+    const bulletWidth = AbractBulletConst.width;
+    const bulletHeight = AbractBulletConst.height;
     this.bulletObject = new RectSurface(bulletWidth, bulletHeight);
     this._rect = this.bulletObject.getRect({ center: playerPos });
     this._angle = angle;

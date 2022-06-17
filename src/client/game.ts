@@ -1,6 +1,6 @@
 import Player from './player';
 import Enemies from './enemies';
-import Bullet from './Bullet';
+import { Bullet } from './bullet';
 import Camera from './camera';
 import UI from './UI';
 import getBackground from './background';

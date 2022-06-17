@@ -2,13 +2,14 @@ import Images from './assets';
 import { BulletState } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
 import { rotateAndDrawObject } from './functions';
+import { AbractBulletConst } from '../shared/gameConstants';
 
 const images = new Images();
 
-class Bullet {
+class AbstractBullet {
   private bulletImage: HTMLImageElement;
-  private width = 50;
-  private height = 10;
+  private width = AbractBulletConst.width;
+  private height = AbractBulletConst.height;
 
   constructor() {
     this.bulletImage = images.bullet;
@@ -34,4 +35,6 @@ class Bullet {
   }
 }
 
-export default Bullet;
+export class Bullet extends AbstractBullet {}
+
+export class Rocket extends AbstractBullet {}

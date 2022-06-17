@@ -2,7 +2,7 @@ import { PlayerState } from '../shared/stateInterfaces';
 import { Position } from '../shared/interfaces';
 import { PlayerPhase } from '../shared/interfaces';
 import Ship from './ship';
-import Rocket from './rocket';
+import { Rocket } from './bullet';
 
 class Player {
   private ship: Ship;

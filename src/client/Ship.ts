@@ -2,14 +2,15 @@ import Images from './assets';
 import { PlayerState } from '../shared/stateInterfaces';
 import { Position } from '../shared/interfaces';
 import { rotateAndDrawObject } from './functions';
+import { ShipConst } from '../shared/gameConstants';
 
 const images = new Images();
 
 class Ship {
   private playerImages: [HTMLImageElement, HTMLImageElement];
   private playerImagesIndex: number;
-  private width = 150;
-  private height = 150;
+  private width = ShipConst.width;
+  private height = ShipConst.height;
 
   constructor() {
     const playerImageNormal = images.playerNormal;
