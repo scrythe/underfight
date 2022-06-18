@@ -71,6 +71,8 @@ class Player {
   private SWITCH_PLAYER_PHASE_DELAY = 5000;
   private _username: string;
   private _socketID: string;
+  private hp: number;
+  private maxHealth = ShipConst.maxHealth;
 
   constructor(
     gameWidth: number,
@@ -88,6 +90,7 @@ class Player {
     this.switchPlayerPhaseTimestamp = Date.now();
     this._username = username;
     this._socketID = socketID;
+    this.hp = this.maxHealth;
   }
 
   private inputs() {
@@ -128,6 +131,10 @@ class Player {
       if (this.player.checkEndReached())
         this.swtichPlayerPhase(PlayerPhase.Ship);
     }
+  }
+
+  takeDamage() {
+    this.hp -= 1;
   }
 
   chargeUp() {
@@ -181,6 +188,7 @@ class Player {
       charge: this.charge,
       phase: this.playerPhase,
       username: this.username,
+      hp: this.hp,
     };
     return playerState;
   }

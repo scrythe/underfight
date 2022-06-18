@@ -124,6 +124,7 @@ class Game {
         .flat()
         .some((bulletCollision) => bulletCollision);
       player.damaged = anyCollision;
+      if (anyCollision) player.takeDamage();
     });
   }
 

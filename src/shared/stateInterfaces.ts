@@ -7,6 +7,7 @@ export interface PlayerState {
   charge: number;
   phase: PlayerPhase;
   username: string;
+  hp: number;
 }
 
 export interface BulletState {
