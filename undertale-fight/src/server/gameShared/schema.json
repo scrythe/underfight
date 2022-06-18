@@ -1,0 +1,87 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$ref": "#/definitions/Schema",
+  "definitions": {
+    "Schema": {
+      "type": "object",
+      "properties": {
+        "$schema": {
+          "type": "string"
+        },
+        "bonesData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BoneData"
+          }
+        }
+      },
+      "required": [
+        "$schema",
+        "bonesData"
+      ],
+      "additionalProperties": false
+    },
+    "BoneData": {
+      "type": "object",
+      "properties": {
+        "start": {
+          "type": "number"
+        },
+        "position": {
+          "$ref": "#/definitions/Position"
+        },
+        "attacks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Attack"
+          }
+        },
+        "end": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "start",
+        "position",
+        "attacks",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "Position": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "Attack": {
+      "type": "object",
+      "properties": {
+        "speed": {
+          "$ref": "#/definitions/Speed"
+        },
+        "end": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "speed",
+        "end"
+      ],
+      "additionalProperties": false
+    },
+    "Speed": {
+      "$ref": "#/definitions/Position"
+    }
+  }
+}
