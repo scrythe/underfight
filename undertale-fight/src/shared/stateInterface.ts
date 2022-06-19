@@ -1,4 +1,4 @@
-import { HeartType, Position } from './interface';
+import { BoneType, HeartType, Position } from './interface';
 
 export interface PlayerState {
   heartType: HeartType;
@@ -7,6 +7,7 @@ export interface PlayerState {
 
 export interface BoneState {
   bonePos: Position;
+  boneType: BoneType;
 }
 
 export interface State {

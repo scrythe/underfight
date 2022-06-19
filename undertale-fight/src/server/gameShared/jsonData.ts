@@ -32,6 +32,7 @@ class JsonData {
           },
         ],
         end: 50,
+        boneType: 'LongBone',
       },
     ],
   };

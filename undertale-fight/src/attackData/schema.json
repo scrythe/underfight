@@ -15,7 +15,10 @@
           }
         }
       },
-      "required": ["$schema", "bonesData"],
+      "required": [
+        "$schema",
+        "bonesData"
+      ],
       "additionalProperties": false
     },
     "BoneData": {
@@ -35,9 +38,18 @@
         },
         "end": {
           "type": "number"
+        },
+        "boneType": {
+          "$ref": "#/definitions/BoneType"
         }
       },
-      "required": ["start", "position", "attacks", "end"],
+      "required": [
+        "start",
+        "position",
+        "attacks",
+        "end",
+        "boneType"
+      ],
       "additionalProperties": false
     },
     "Position": {
@@ -50,7 +62,10 @@
           "type": "number"
         }
       },
-      "required": ["x", "y"],
+      "required": [
+        "x",
+        "y"
+      ],
       "additionalProperties": false
     },
     "Attack": {
@@ -63,11 +78,21 @@
           "type": "number"
         }
       },
-      "required": ["speed", "end"],
+      "required": [
+        "speed",
+        "end"
+      ],
       "additionalProperties": false
     },
     "Speed": {
       "$ref": "#/definitions/Position"
+    },
+    "BoneType": {
+      "type": "string",
+      "enum": [
+        "NormalBone",
+        "LongBone"
+      ]
     }
   }
 }

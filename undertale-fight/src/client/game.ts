@@ -6,7 +6,6 @@ import { State } from '../shared/stateInterface';
 import InputHandler from './inputs';
 import './customCtx';
 import { ClientInterface } from '../shared/serverInterface';
-import Bone from './bone';
 
 class Game {
   private ctx: CanvasRenderingContext2D;
@@ -16,8 +15,6 @@ class Game {
   private bonesWave: BoneWave;
   private WIDTH = 960;
   private HEIGHT = 720;
-  private bone: Bone;
-  private inputHandler: InputHandler;
 
   constructor(canvas: HTMLCanvasElement, socket: ClientInterface) {
     canvas.width = this.WIDTH;
@@ -31,11 +28,10 @@ class Game {
     };
 
     this.screen = screenObject.getRect({ topLeft: screenPos });
-    this.inputHandler = new InputHandler(socket, canvas);
+    new InputHandler(socket, canvas);
     this.fightBox = new FightBox(this.screen);
     this.player = new Player();
     this.bonesWave = new BoneWave();
-    this.bone = new Bone();
   }
 
   draw(state: State) {
@@ -44,9 +40,6 @@ class Game {
     this.player.draw(this.ctx, state.playerState);
     this.bonesWave.draw(this.fightBox.ctxBox, state.boneStates);
     this.fightBox.drawBoxToScreen(this.ctx);
-    this.bone.draw(this.fightBox.ctxBox, {
-      bonePos: this.inputHandler.hoveredPos,
-    });
   }
 }
 

@@ -1,10 +1,8 @@
 import RectObject, { Rect } from '../../shared/rectangle';
-import { Speed, Attack, BoneData } from '../../shared/interface';
+import { Speed, Attack, BoneData, BoneType } from '../../shared/interface';
 import { BoneState } from '../../shared/stateInterface';
 
 class Bone {
-  protected WIDTH = 10;
-  protected HEIGHT = 50;
   private _rect: Rect;
   private speed: Speed;
   private frame: number;
@@ -18,9 +16,15 @@ class Bone {
     end: 0,
   };
   private end: number;
+  private _boneType: BoneType;
 
-  constructor({ position, attacks, end }: BoneData) {
-    const boneObject = new RectObject(this.WIDTH, this.HEIGHT);
+  constructor(
+    { position, attacks, end }: BoneData,
+    width: number,
+    height: number,
+    boneType: BoneType
+  ) {
+    const boneObject = new RectObject(width, height);
     this._rect = boneObject.getRect({ topLeft: position });
     this.speed = { x: 0, y: 0 };
     this.frame = 0;
@@ -28,6 +32,7 @@ class Bone {
     this.currentAttack = this.attacks[0] || this.defaultAttack;
     this.end = end;
     this.updateState();
+    this._boneType = boneType;
   }
 
   private updateAttackSequence() {
@@ -64,16 +69,30 @@ class Bone {
     return this.frame >= this.end;
   }
 
+  get boneType() {
+    return this._boneType;
+  }
+
   getBoneState(): BoneState {
     const bonePos = { x: this._rect.x, y: this._rect.y };
-    const state = { bonePos };
+    const boneType = this.boneType;
+    const state = { bonePos, boneType };
     return state;
   }
 }
 
-export class LongBone extends Bone {
-  protected override WIDTH = 10;
-  protected override HEIGHT = 100;
+export class NormalBone extends Bone {
+  constructor(bonesData: BoneData) {
+    const width = 10;
+    const height = 50;
+    super(bonesData, width, height, 'NormalBone');
+  }
 }
 
-export default Bone;
+export class LongBone extends Bone {
+  constructor(bonesData: BoneData) {
+    const width = 10;
+    const height = 100;
+    super(bonesData, width, height, 'LongBone');
+  }
+}

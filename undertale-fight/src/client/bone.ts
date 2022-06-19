@@ -1,19 +1,33 @@
 import { BoneState } from '../shared/stateInterface';
 
-class Bone {
-  protected WIDTH = 10;
-  protected HEIGHT = 50;
+class AbstractBone {
+  protected width: number;
+  protected height: number;
+
+  constructor(width: number, height: number) {
+    this.width = width;
+    this.height = height;
+  }
 
   draw(ctx: CanvasRenderingContext2D, boneState: BoneState) {
     ctx.fillStyle = 'gray';
     const bonePos = boneState.bonePos;
-    ctx.drawInBox(bonePos.x, bonePos.y, this.WIDTH, this.HEIGHT);
+    ctx.drawInBox(bonePos.x, bonePos.y, this.width, this.height);
   }
 }
 
-export class LongBone extends Bone {
-  protected override WIDTH = 10;
-  protected override HEIGHT = 100;
+export class NormalBone extends AbstractBone {
+  constructor() {
+    const width = 10;
+    const height = 50;
+    super(width, height);
+  }
 }
 
-export default Bone;
+export class LongBone extends AbstractBone {
+  constructor() {
+    const width = 10;
+    const height = 100;
+    super(width, height);
+  }
+}
