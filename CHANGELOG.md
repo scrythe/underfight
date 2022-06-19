@@ -2,6 +2,54 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/scrythe/underfight/compare/v1.0.0...v1.1.0) (2022-06-19)
+
+
+### Features
+
+* a bit design improvements on login ([fada9c0](https://github.com/scrythe/underfight/commit/fada9c0420e652d1089401cb5f2da4658203d4a4))
+* able to upload game online ([b6682fa](https://github.com/scrythe/underfight/commit/b6682fa6446f3076a22c4afa208a22ba0743271d))
+* add basic ajax code ([1615cf7](https://github.com/scrythe/underfight/commit/1615cf7d4fd86731e556dfc97769b8327e346a7e))
+* add bone stab attack ([a3664b0](https://github.com/scrythe/underfight/commit/a3664b05c98b7c5f5ad3dfb4b4f7ef21ffeb51d9))
+* add design for login system ([24dfa37](https://github.com/scrythe/underfight/commit/24dfa3798cc87a22014c4e64be7259e834230db9))
+* add hash to end of css file ([389128d](https://github.com/scrythe/underfight/commit/389128d0055ddc47bc543788908f093a040c24e3))
+* add health bar indicatir ([4b3b74f](https://github.com/scrythe/underfight/commit/4b3b74fab6696dcdc3caa1ffcfe2b04f85d24439))
+* add login method ([d82e39d](https://github.com/scrythe/underfight/commit/d82e39d50ffac02394c2fd14cc9bb36dad762720))
+* add moveable grid background ([c81fc69](https://github.com/scrythe/underfight/commit/c81fc6930a399ef567f77b0e635e1c20d101669b))
+* add production stuff to use for real website ([a94f0cb](https://github.com/scrythe/underfight/commit/a94f0cbd9a6e84f281320a19df778ec2955bba3b))
+* add register method ([efc88b0](https://github.com/scrythe/underfight/commit/efc88b0463394cbb09310eb26b018a42f4bf667d))
+* add rocket which is controlled by mouse ([234f373](https://github.com/scrythe/underfight/commit/234f3738976a3e18b8387bdd38ea9bdefa7219a4))
+* add token authorize / login method ([e60a48c](https://github.com/scrythe/underfight/commit/e60a48c018d8663df21c6e95f9ba4caef598d301))
+* better font ([6f039c9](https://github.com/scrythe/underfight/commit/6f039c90e7f0cf3600a2e4251ed9a02c9cf7900a))
+* bullet remove on hit and charge is displays ([6ab5bed](https://github.com/scrythe/underfight/commit/6ab5bedbd4f6dd6a9dcc5a758e0aff2ce394d289))
+* change between rocket and player when charge ([f7c7d04](https://github.com/scrythe/underfight/commit/f7c7d045d2a9d6f14b1256f91159db5e7619719e))
+* create own logo ([b15f814](https://github.com/scrythe/underfight/commit/b15f8148608005af984ec121f6a5f9a3ec5a5b3a))
+* create token ([0a03cd1](https://github.com/scrythe/underfight/commit/0a03cd1836e766317d24c4100652e50dbe7ae336))
+* display game if logged in ([4ab73cc](https://github.com/scrythe/underfight/commit/4ab73ccd08a807e99a8c6d21cbe8cded0d5d57bd))
+* display username above ship ([68a9cc2](https://github.com/scrythe/underfight/commit/68a9cc28c93b2b0284809b92e64dc2ab5017eae3))
+* get user in backend ([d86c98b](https://github.com/scrythe/underfight/commit/d86c98bc79c9a207d55ba4aa35e9cfa883125aa7))
+* if not logged in, show login box ([05be313](https://github.com/scrythe/underfight/commit/05be3138d273935bcccdd6c150dc0769eb7933ea))
+* improvements to make experience friendlier ([49ef1be](https://github.com/scrythe/underfight/commit/49ef1be0205dcfb8f1203b175b83b3bc2dc68a44))
+* integrated loginsystem in main code ([7baae24](https://github.com/scrythe/underfight/commit/7baae2442a8425660f49dab168e197d9fe688d7f))
+* lot refactoring and bug fixing... ([721926f](https://github.com/scrythe/underfight/commit/721926fa2a00d7d1a544f250c8237ace875ccfcc))
+* more secure token ([839b39f](https://github.com/scrythe/underfight/commit/839b39f63a0e73764bb40663aaf6c88b8b7456bb))
+* preload assets before loading game ([b9f1dd3](https://github.com/scrythe/underfight/commit/b9f1dd3071e12c3bc7d1c6148f4c4e77e1d1c3f6))
+* read username ([2327aa8](https://github.com/scrythe/underfight/commit/2327aa8a66e1abba7e4becb9d964f58e91c280ad))
+* refactor and don't send socketID to client.. ([9e7f40a](https://github.com/scrythe/underfight/commit/9e7f40a39bdd6d290ca5590a5e219b9dd2310b9a))
+* resize files and background ([b939d6f](https://github.com/scrythe/underfight/commit/b939d6fb82fd311514ad6613b2d9713bc079a85e))
+* rewrote main.js with typescript ([d6fc4c4](https://github.com/scrythe/underfight/commit/d6fc4c4043069a53f37eb2fb549c30af91a468b9))
+* seperate dev and prod ([28eeef1](https://github.com/scrythe/underfight/commit/28eeef13ed6ef34551d2522bd98fd6259283d1e9))
+* setup undertale fight system ([bbffd62](https://github.com/scrythe/underfight/commit/bbffd622516135968642c219412072dad25bc178))
+* use fetch api instead of ajax ([0789e2b](https://github.com/scrythe/underfight/commit/0789e2bb15eac3e2058010a3912cd2b5632e2847))
+* website design improvements ([adac5f6](https://github.com/scrythe/underfight/commit/adac5f6082da14dcb358303d5ed0521861c12021))
+
+
+### Bug Fixes
+
+* design fix + only redirect login if register ([bc8b0f9](https://github.com/scrythe/underfight/commit/bc8b0f97f70cbb0c7bed286e20614e590184b697))
+* php cors fix ([8092e24](https://github.com/scrythe/underfight/commit/8092e2403b9d5e4ef7ae2d2d33ea1107f0a2f671))
+* when logged in, game starts aswell ([31d008e](https://github.com/scrythe/underfight/commit/31d008ecaa2d72cd2d5272e84efd5f788a743359))
+
 ## 1.0.0 (2022-05-17)
 
 
