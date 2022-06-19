@@ -3,8 +3,8 @@ import { Speed, Attack, BoneData } from '../../shared/interface';
 import { BoneState } from '../../shared/stateInterface';
 
 class Bone {
-  private WIDTH = 10;
-  private HEIGHT = 50;
+  protected WIDTH = 10;
+  protected HEIGHT = 50;
   private _rect: Rect;
   private speed: Speed;
   private frame: number;
@@ -69,6 +69,11 @@ class Bone {
     const state = { bonePos };
     return state;
   }
+}
+
+export class LongBone extends Bone {
+  protected override WIDTH = 10;
+  protected override HEIGHT = 100;
 }
 
 export default Bone;

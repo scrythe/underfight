@@ -1,11 +1,11 @@
-import Bone from './bone';
+import { LongBone } from './bone';
 import { BoneState } from '../shared/stateInterface';
 
 class BoneWave {
-  private bone: Bone;
+  private bone: LongBone;
 
   constructor() {
-    this.bone = new Bone();
+    this.bone = new LongBone();
   }
 
   draw(ctx: CanvasRenderingContext2D, boneStates: BoneState[]) {
