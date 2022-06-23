@@ -1,9 +1,9 @@
 import RectObject, { Rect } from '../shared/rectangle';
 import InputHandler from './inputs';
-import { Keys } from '../shared/interface';
+import { AttackType, Keys } from '../shared/interface';
 import Player from './player';
 import FightBox from './fightBox';
-import BoneWave from './boneWave';
+import BoneWave from './boneGroup';
 import JsonData from './jsonData';
 import { State } from '../shared/stateInterface';
 import { SocketInterface } from '../shared/serverInterface';
@@ -32,7 +32,11 @@ class Game {
   private HEIGHT = GameConst.height;
   private inputHandler: InputHandler;
 
-  constructor(attacker: SocketInterface, runner: SocketInterface) {
+  constructor(
+    attacker: SocketInterface,
+    runner: SocketInterface,
+    attack: AttackType
+  ) {
     const screenObject = new RectObject(this.WIDTH, this.HEIGHT);
     const screenPos = {
       x: 0,
@@ -41,7 +45,7 @@ class Game {
     this.attacker = attacker;
     this.runner = runner;
     this.screen = screenObject.getRect({ topLeft: screenPos });
-    this.jsonData = new JsonData();
+    this.jsonData = new JsonData(attack);
     this.inputHandler = new InputHandler(this.runner);
     this.keys = this.inputHandler.keys;
     this.fightBox = new FightBox(this.screen);

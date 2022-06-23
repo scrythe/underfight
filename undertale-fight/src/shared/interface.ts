@@ -89,3 +89,11 @@ export interface Schema {
 }
 
 export type RectProperties = [number, number, number, number];
+
+export interface AttackMap {
+  BoneStab: string;
+  BoneWave: string;
+  BoneJumpWave: string;
+}
+
+export type AttackType = keyof AttackMap;

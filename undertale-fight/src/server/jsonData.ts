@@ -1,18 +1,16 @@
 import Ajv, { ValidateFunction } from 'ajv';
 import schema from '../attackData/schema.json';
-import { Schema } from '../shared/interface';
+import { AttackMap, AttackType, Schema } from '../shared/interface';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
 const attackDataFolderPath = join(__dirname, '../', 'attackData');
 
-const attackMap = {
+const attackMap: AttackMap = {
   BoneStab: join(attackDataFolderPath, 'boneStab.json'),
   BoneWave: join(attackDataFolderPath, 'boneWave.json'),
   BoneJumpWave: join(attackDataFolderPath, 'boneJumpWave.json'),
 };
-
-type AttackType = keyof typeof attackMap;
 
 class JsonData {
   private ajv: Ajv;
@@ -40,10 +38,10 @@ class JsonData {
     ],
   };
 
-  constructor() {
+  constructor(attack: AttackType) {
     this.ajv = new Ajv();
     this.validate = this.ajv.compile(this.schema);
-    this.data = this.loadFile('BoneWave');
+    this.data = this.loadFile(attack);
   }
 
   private loadFile(attack: AttackType) {
