@@ -1,9 +1,10 @@
 import { Keys, Position, HeartType } from '../../shared/interface';
 import RectObject, { Rect } from '../../shared/rectangle';
+import { HeartConst } from '../../shared/gameConstants';
 
 class Heart {
-  private WIDTH = 16;
-  private HEIGHT = 16;
+  private WIDTH = HeartConst.width;
+  private HEIGHT = HeartConst.height;
   protected speed: number;
   protected _rect: Rect;
   private _heartType: HeartType;

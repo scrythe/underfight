@@ -1,8 +1,14 @@
 import RectObject, { Rect } from '../../shared/rectangle';
 import { Speed, Attack, BoneData, BoneType } from '../../shared/interface';
 import { BoneState } from '../../shared/stateInterface';
+import {
+  AbstractBoneConst,
+  LongBoneConst,
+  NormalBoneConst,
+  VeryLongBoneConst,
+} from '../../shared/gameConstants';
 
-class Bone {
+class AbstractBone {
   private _rect: Rect;
   private speed: Speed;
   private frame: number;
@@ -20,11 +26,10 @@ class Bone {
 
   constructor(
     { position, attacks, end }: BoneData,
-    width: number,
     height: number,
     boneType: BoneType
   ) {
-    const boneObject = new RectObject(width, height);
+    const boneObject = new RectObject(AbstractBoneConst.width, height);
     this._rect = boneObject.getRect({ topLeft: position });
     this.speed = { x: 0, y: 0 };
     this.frame = 0;
@@ -81,26 +86,23 @@ class Bone {
   }
 }
 
-export class NormalBone extends Bone {
+export class NormalBone extends AbstractBone {
   constructor(bonesData: BoneData) {
-    const width = 10;
-    const height = 50;
-    super(bonesData, width, height, 'NormalBone');
+    const height = NormalBoneConst.height;
+    super(bonesData, height, 'NormalBone');
   }
 }
 
-export class LongBone extends Bone {
+export class LongBone extends AbstractBone {
   constructor(bonesData: BoneData) {
-    const width = 10;
-    const height = 100;
-    super(bonesData, width, height, 'LongBone');
+    const height = LongBoneConst.height;
+    super(bonesData, height, 'LongBone');
   }
 }
 
-export class VeryLongBone extends Bone {
+export class VeryLongBone extends AbstractBone {
   constructor(bonesData: BoneData) {
-    const width = 10;
-    const height = 150;
-    super(bonesData, width, height, 'VeryLongBone');
+    const height = VeryLongBoneConst.height;
+    super(bonesData, height, 'VeryLongBone');
   }
 }

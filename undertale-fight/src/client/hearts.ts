@@ -1,8 +1,9 @@
 import { Position } from '../shared/interface';
+import { HeartConst } from '../shared/gameConstants';
 
 class Heart {
-  private WIDTH = 16;
-  private HEIGHT = 16;
+  private WIDTH = HeartConst.width;
+  private HEIGHT = HeartConst.height;
 
   protected draw(ctx: CanvasRenderingContext2D, playerPos: Position) {
     ctx.fillRect(playerPos.x, playerPos.y, this.WIDTH, this.HEIGHT);

@@ -9,6 +9,7 @@ import { State } from '../../shared/stateInterface';
 import { ServerInterface, SocketInterface } from '../../shared/serverInterface';
 import { Server } from 'socket.io';
 import GameEventEmitter from './gameEventEmitter';
+import { GameConst } from '../../shared/gameConstants';
 
 enum GameState {
   running,
@@ -29,8 +30,8 @@ class Game {
   private MS_PER_UPDATE = 1000 / this.FPS;
   private io: Server;
   private gameState: GameState;
-  private WIDTH = 960;
-  private HEIGHT = 720;
+  private WIDTH = GameConst.width;
+  private HEIGHT = GameConst.height;
   private inputHandler: InputHandler;
 
   constructor(io: ServerInterface) {

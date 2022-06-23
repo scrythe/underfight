@@ -1,11 +1,17 @@
 import { BoneState } from '../shared/stateInterface';
+import {
+  AbstractBoneConst,
+  NormalBoneConst,
+  LongBoneConst,
+  VeryLongBoneConst,
+} from '../shared/gameConstants';
 
 class AbstractBone {
   protected width: number;
   protected height: number;
 
-  constructor(width: number, height: number) {
-    this.width = width;
+  constructor(height: number) {
+    this.width = AbstractBoneConst.width;
     this.height = height;
   }
 
@@ -18,24 +24,21 @@ class AbstractBone {
 
 export class NormalBone extends AbstractBone {
   constructor() {
-    const width = 10;
-    const height = 50;
-    super(width, height);
+    const height = NormalBoneConst.height;
+    super(height);
   }
 }
 
 export class LongBone extends AbstractBone {
   constructor() {
-    const width = 10;
-    const height = 100;
-    super(width, height);
+    const height = LongBoneConst.height;
+    super(height);
   }
 }
 
 export class VeryLongBone extends AbstractBone {
   constructor() {
-    const width = 10;
-    const height = 150;
-    super(width, height);
+    const height = VeryLongBoneConst.height;
+    super(height);
   }
 }

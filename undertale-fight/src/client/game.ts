@@ -6,6 +6,7 @@ import { State } from '../shared/stateInterface';
 import InputHandler from './inputs';
 import './customCtx';
 import { ClientInterface } from '../shared/serverInterface';
+import { GameConst } from '../shared/gameConstants';
 
 class Game {
   private ctx: CanvasRenderingContext2D;
@@ -13,8 +14,8 @@ class Game {
   private fightBox: FightBox;
   private player: Player;
   private bonesWave: BoneWave;
-  private WIDTH = 960;
-  private HEIGHT = 720;
+  private WIDTH = GameConst.width;
+  private HEIGHT = GameConst.height;
 
   constructor(canvas: HTMLCanvasElement, socket: ClientInterface) {
     canvas.width = this.WIDTH;
