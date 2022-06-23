@@ -9,7 +9,7 @@
     "build:client": "webpack --config webpack.prod.js",
     "build:server": "tsc -p ./src/server/tsconfig.json",
     "schema": "node ./src/server/gameShared/generateSchema.js",
-    "create-bonewave": "ts-node ./src/attackData/createBoneWave.ts"
+    "create-bonejumpwave": "ts-node ./src/attackData/createBoneJumpWave.ts"
   },
   "repository": {
     "type": "git",
