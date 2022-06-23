@@ -55,10 +55,6 @@ class JsonData {
     return attackData;
   }
 
-  reloadFile() {
-    this.data = this.loadFile('BoneWave');
-  }
-
   get bonesData() {
     return structuredClone(this.data.bonesData);
   }

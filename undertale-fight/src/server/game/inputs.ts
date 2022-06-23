@@ -1,10 +1,10 @@
 import { Keys } from '../../shared/interface';
-import GameEventEmitter from './gameEventEmitter';
+import { SocketInterface } from '../../shared/serverInterface';
 
 class InputHandler {
   private _keys: Keys;
 
-  constructor(gameEventEmitter: GameEventEmitter) {
+  constructor(runner: SocketInterface) {
     this._keys = {
       up: { pressed: false },
       right: { pressed: false },
@@ -13,7 +13,7 @@ class InputHandler {
       fire: { pressed: false },
     };
 
-    gameEventEmitter.on('sendKey', (pressedKey, value) => {
+    runner.on('sendKey', (pressedKey, value) => {
       this._keys[pressedKey].pressed = value;
     });
   }

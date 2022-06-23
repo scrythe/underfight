@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import Game from './game/game';
 import { Server } from 'socket.io';
-import { ServerInterface } from '../shared/serverInterface';
+import { ServerInterface, SocketInterface } from '../shared/serverInterface';
 
 const server = createServer();
 
@@ -13,14 +13,25 @@ const options = {
 
 const io: ServerInterface = new Server(server, options);
 
-const game = new Game(io);
-game.startGame();
+let connectedSockets: SocketInterface[] = [];
+
+function isFull() {
+  const connectedSocketsAmount = connectedSockets.length;
+  if (connectedSocketsAmount >= 1) return true;
+  return false;
+}
 
 io.on('connection', (socket) => {
-  game.switchSocket(socket);
-  socket.on('startGame', () => {
-    game.restart();
-  });
+  if (isFull()) return;
+  connectedSockets.push(socket);
+  if (isFull()) startGame();
 });
+
+function startGame() {
+  const [runner] = connectedSockets;
+  if (!runner) return;
+  const game = new Game(io, runner);
+  game.startGame();
+}
 
 io.listen(3000);

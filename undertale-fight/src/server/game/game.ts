@@ -8,7 +8,6 @@ import JsonData from '../gameShared/jsonData';
 import { State } from '../../shared/stateInterface';
 import { ServerInterface, SocketInterface } from '../../shared/serverInterface';
 import { Server } from 'socket.io';
-import GameEventEmitter from './gameEventEmitter';
 import { GameConst } from '../../shared/gameConstants';
 
 enum GameState {
@@ -17,7 +16,7 @@ enum GameState {
 }
 
 class Game {
-  private gameEventEmitter: GameEventEmitter;
+  private runner: SocketInterface;
   private screen: Rect;
   private jsonData: JsonData;
   private fightBox: FightBox;
@@ -34,16 +33,16 @@ class Game {
   private HEIGHT = GameConst.height;
   private inputHandler: InputHandler;
 
-  constructor(io: ServerInterface) {
+  constructor(io: ServerInterface, runner: SocketInterface) {
     const screenObject = new RectObject(this.WIDTH, this.HEIGHT);
     const screenPos = {
       x: 0,
       y: 0,
     };
-    this.gameEventEmitter = new GameEventEmitter();
+    this.runner = runner;
     this.screen = screenObject.getRect({ topLeft: screenPos });
     this.jsonData = new JsonData();
-    this.inputHandler = new InputHandler(this.gameEventEmitter);
+    this.inputHandler = new InputHandler(this.runner);
     this.keys = this.inputHandler.keys;
     this.fightBox = new FightBox(this.screen);
     this.player = new Player(this.fightBox.innerBox);
@@ -61,21 +60,6 @@ class Game {
 
   stopGame() {
     this.gameState = GameState.stopped;
-  }
-
-  loadFrame(frame: number) {
-    this.stopGame();
-    this.restart();
-    for (let currentFrame = 0; currentFrame <= frame; currentFrame++) {
-      this.update();
-    }
-    this.startGame();
-    this.previous = performance.now();
-  }
-
-  restart() {
-    this.jsonData.reloadFile();
-    this.bonesWave.restart(this.jsonData.bonesData);
   }
 
   loopGame() {
@@ -96,12 +80,6 @@ class Game {
   update() {
     this.player.update(this.keys);
     this.bonesWave.update();
-  }
-
-  switchSocket(socket: SocketInterface) {
-    socket.on('sendKey', (...params) => {
-      this.gameEventEmitter.emit('sendKey', ...params);
-    });
   }
 
   getState(): State {
