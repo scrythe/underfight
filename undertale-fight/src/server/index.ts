@@ -1,5 +1,5 @@
 import { createServer } from 'http';
-import Game from './game/game';
+import Game from './game';
 import { Server } from 'socket.io';
 import { ServerInterface, SocketInterface } from '../shared/serverInterface';
 

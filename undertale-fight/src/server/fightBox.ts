@@ -1,6 +1,6 @@
-import RectObject, { Rect } from '../../shared/rectangle';
-import { FightBoxType } from '../../shared/interface';
-import { FightBoxConst } from '../../shared/gameConstants';
+import RectObject, { Rect } from '../shared/rectangle';
+import { FightBoxType } from '../shared/interface';
+import { FightBoxConst } from '../shared/gameConstants';
 
 class FightBox {
   private fightBox: FightBoxType<Rect>;

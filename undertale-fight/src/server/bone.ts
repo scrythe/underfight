@@ -1,12 +1,12 @@
-import RectObject, { Rect } from '../../shared/rectangle';
-import { Speed, Attack, BoneData, BoneType } from '../../shared/interface';
-import { BoneState } from '../../shared/stateInterface';
+import RectObject, { Rect } from '../shared/rectangle';
+import { Speed, Attack, BoneData, BoneType } from '../shared/interface';
+import { BoneState } from '../shared/stateInterface';
 import {
   AbstractBoneConst,
   LongBoneConst,
   NormalBoneConst,
   VeryLongBoneConst,
-} from '../../shared/gameConstants';
+} from '../shared/gameConstants';
 
 class AbstractBone {
   private _rect: Rect;

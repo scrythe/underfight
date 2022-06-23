@@ -1,10 +1,10 @@
 import Ajv, { ValidateFunction } from 'ajv';
-import schema from './schema.json';
-import { Schema } from '../../shared/interface';
+import schema from '../attackData/schema.json';
+import { Schema } from '../shared/interface';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const attackDataFolderPath = join(__dirname, '../../', 'attackData');
+const attackDataFolderPath = join(__dirname, '../', 'attackData');
 
 const attackMap = {
   BoneStab: join(attackDataFolderPath, 'boneStab.json'),

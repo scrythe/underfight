@@ -8,8 +8,7 @@
     "serve:server": "nodemon ./src/server/index.ts",
     "build:client": "webpack --config webpack.prod.js",
     "build:server": "tsc -p ./src/server/tsconfig.json",
-    "schema": "node ./src/server/gameShared/generateSchema.js",
-    "create-bonejumpwave": "ts-node ./src/attackData/createBoneJumpWave.ts"
+    "schema": "node ./src/attackData/generateSchema.js"
   },
   "repository": {
     "type": "git",
