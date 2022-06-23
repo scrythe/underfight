@@ -89,6 +89,10 @@ class AbstractBone {
     const state = { bonePos, boneType };
     return state;
   }
+
+  get rect() {
+    return this._rect;
+  }
 }
 
 export class NormalBone extends AbstractBone {

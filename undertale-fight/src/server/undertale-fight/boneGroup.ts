@@ -13,12 +13,12 @@ const boneMap: BoneMap<
 };
 
 class BoneWave {
-  private bones: Array<NormalBone | LongBone | VeryLongBone>;
+  private _bones: Array<NormalBone | LongBone | VeryLongBone>;
   private unusedBonesData: BoneData[];
   private frame: number;
 
   constructor(bonesData: BoneData[]) {
-    this.bones = [];
+    this._bones = [];
     this.unusedBonesData = bonesData;
     this.frame = 0;
   }
@@ -29,12 +29,12 @@ class BoneWave {
   }
 
   private removeBone(bone: NormalBone | LongBone | VeryLongBone) {
-    const boneIndex = this.bones.indexOf(bone);
-    this.bones.splice(boneIndex, 1);
+    const boneIndex = this._bones.indexOf(bone);
+    this._bones.splice(boneIndex, 1);
   }
 
   private removeFinishedBones() {
-    const finishedBones = this.bones.filter((bone) => bone.isBoneFinished());
+    const finishedBones = this._bones.filter((bone) => bone.isBoneFinished());
     finishedBones.forEach((bone) => this.removeBone(bone));
   }
 
@@ -52,13 +52,13 @@ class BoneWave {
   private addBone(boneData: BoneData) {
     const boneClass = boneMap[boneData.boneType];
     const bone = new boneClass(boneData);
-    this.bones.push(bone);
+    this._bones.push(bone);
   }
 
   update() {
     this.addStartedBones();
     this.removeFinishedBones();
-    this.bones.forEach((bone) => {
+    this._bones.forEach((bone) => {
       bone.update();
     });
     this.frame += 1;
@@ -66,11 +66,15 @@ class BoneWave {
 
   getBoneStates(): BoneState[] {
     const boneStates: BoneState[] = [];
-    this.bones.forEach((bone) => {
+    this._bones.forEach((bone) => {
       const boneState = bone.getBoneState();
       boneStates.push(boneState);
     });
     return boneStates;
+  }
+
+  get bones() {
+    return this._bones;
   }
 }
 

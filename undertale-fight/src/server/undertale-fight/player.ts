@@ -16,13 +16,10 @@ class Player {
   private SPEED = 2;
   private box: Rect;
   private heart: RedHeart | BlueHeart;
-  private lastTimeSwitched: number;
-  private switchDelay = 200;
 
   constructor(box: Rect) {
     this.box = box;
-    this.heart = new RedHeart(this.box, this.box.center, this.SPEED);
-    this.lastTimeSwitched = Date.now();
+    this.heart = new RedHeart(this.box, this.box.midBottom, this.SPEED);
   }
 
   private checkAndPlaceInsideBox() {
@@ -39,29 +36,13 @@ class Player {
       this.heart.rect.left = this.box.left;
   }
 
-  private canSwitch() {
-    const currentTime = Date.now();
-    return this.lastTimeSwitched + this.switchDelay <= currentTime;
-  }
-
-  private switchHeart(heartType: HeartType): void;
-  private switchHeart(): void;
-  private switchHeart(heartType?: HeartType) {
-    if (!heartType) {
-      heartType = 'RedHeart';
-      if (this.heart.heartType == 'RedHeart') heartType = 'BlueHeart';
-    }
-    if (!this.canSwitch()) return;
+  switchHeart(heartType: HeartType) {
     const heart = heartMap[heartType];
     this.heart = new heart(this.box, this.heart.rect.center, this.SPEED);
-    this.lastTimeSwitched = Date.now();
   }
 
   inputs(keys: Keys) {
     this.heart.inputs(keys);
-    if (keys.fire.pressed) {
-      this.switchHeart();
-    }
   }
 
   update(keys: Keys) {

@@ -3,11 +3,12 @@ import InputHandler from './inputs';
 import { AttackType, Keys } from '../../shared/undertale-fight/interface';
 import Player from './player';
 import FightBox from './fightBox';
-import BoneWave from './boneGroup';
+import BoneGroup from './boneGroup';
 import JsonData from './jsonData';
 import { State } from '../../shared/undertale-fight/stateInterface';
 import { SocketInterface } from '../../shared/undertale-fight/serverInterface';
 import { GameConst } from '../../shared/undertale-fight/gameConstants';
+import checkAABBCollision from './aabb';
 
 enum GameState {
   running,
@@ -22,7 +23,7 @@ class Game {
   private fightBox: FightBox;
   private keys: Keys;
   private player: Player;
-  private bonesWave: BoneWave;
+  private boneGroup: BoneGroup;
   private previous: number;
   private lag: number;
   private FPS = 60;
@@ -50,10 +51,13 @@ class Game {
     this.keys = this.inputHandler.keys;
     this.fightBox = new FightBox(this.screen);
     this.player = new Player(this.fightBox.innerBox);
-    this.bonesWave = new BoneWave(this.jsonData.bonesData);
+    this.boneGroup = new BoneGroup(this.jsonData.bonesData);
     this.previous = performance.now();
     this.lag = 0;
     this.gameState = GameState.stopped;
+
+    if (attack == 'BoneWave') this.player.switchHeart('RedHeart');
+    else this.player.switchHeart('BlueHeart');
   }
 
   startGame() {
@@ -63,6 +67,16 @@ class Game {
 
   stopGame() {
     this.gameState = GameState.stopped;
+  }
+
+  checkCollision() {
+    const bones = this.boneGroup.bones;
+    bones.forEach((bone) => {
+      const boneRect = bone.rect;
+      const playerRect = this.player.rect;
+      const collision = checkAABBCollision(boneRect, playerRect);
+      if (collision) return;
+    });
   }
 
   loopGame() {
@@ -87,12 +101,13 @@ class Game {
 
   update() {
     this.player.update(this.keys);
-    this.bonesWave.update();
+    this.boneGroup.update();
+    this.checkCollision();
   }
 
   getState(): State {
     const playerState = this.player.getPlayerState();
-    const boneStates = this.bonesWave.getBoneStates();
+    const boneStates = this.boneGroup.getBoneStates();
     const state = { playerState, boneStates };
     return state;
   }
