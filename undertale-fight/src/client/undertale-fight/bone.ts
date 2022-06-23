@@ -1,10 +1,10 @@
-import { BoneState } from '../../shared/stateInterface';
+import { BoneState } from '../../shared/undertale-fight/stateInterface';
 import {
   AbstractBoneConst,
   NormalBoneConst,
   LongBoneConst,
   VeryLongBoneConst,
-} from '../../shared/gameConstants';
+} from '../../shared/undertale-fight/gameConstants';
 
 class AbstractBone {
   protected width: number;

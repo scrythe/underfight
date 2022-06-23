@@ -1,4 +1,4 @@
-import { Rect } from '../../shared/rectangle';
+import { Rect } from '../../shared/undertale-fight/rectangle';
 
 declare global {
   interface CanvasRenderingContext2D {

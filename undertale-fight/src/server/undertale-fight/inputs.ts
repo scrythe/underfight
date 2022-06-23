@@ -1,5 +1,5 @@
-import { Keys } from '../../shared/interface';
-import { SocketInterface } from '../../shared/serverInterface';
+import { Keys } from '../../shared/undertale-fight/interface';
+import { SocketInterface } from '../../shared/undertale-fight/serverInterface';
 
 class InputHandler {
   private _keys: Keys;

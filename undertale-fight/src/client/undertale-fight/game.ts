@@ -1,12 +1,12 @@
-import RectObject, { Rect } from '../../shared/rectangle';
+import RectObject, { Rect } from '../../shared/undertale-fight/rectangle';
 import Player from './player';
 import FightBox from './fightBox';
 import BoneWave from './boneWave';
-import { State } from '../../shared/stateInterface';
+import { State } from '../../shared/undertale-fight/stateInterface';
 import InputHandler from './inputs';
 import './customCtx';
-import { ClientInterface } from '../../shared/serverInterface';
-import { GameConst } from '../../shared/gameConstants';
+import { ClientInterface } from '../../shared/undertale-fight/serverInterface';
+import { GameConst } from '../../shared/undertale-fight/gameConstants';
 
 class Game {
   private ctx: CanvasRenderingContext2D;

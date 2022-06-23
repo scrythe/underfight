@@ -1,6 +1,6 @@
-import RectObject, { Rect } from '../../shared/rectangle';
-import { FightBoxType } from '../../shared/interface';
-import { FightBoxConst } from '../../shared/gameConstants';
+import RectObject, { Rect } from '../../shared/undertale-fight/rectangle';
+import { FightBoxType } from '../../shared/undertale-fight/interface';
+import { FightBoxConst } from '../../shared/undertale-fight/gameConstants';
 
 class FightBox {
   private fightBox: FightBoxType<Rect>;

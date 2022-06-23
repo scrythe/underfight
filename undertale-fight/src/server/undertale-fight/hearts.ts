@@ -1,6 +1,10 @@
-import { Keys, Position, HeartType } from '../../shared/interface';
-import RectObject, { Rect } from '../../shared/rectangle';
-import { HeartConst } from '../../shared/gameConstants';
+import {
+  Keys,
+  Position,
+  HeartType,
+} from '../../shared/undertale-fight/interface';
+import RectObject, { Rect } from '../../shared/undertale-fight/rectangle';
+import { HeartConst } from '../../shared/undertale-fight/gameConstants';
 
 class Heart {
   private WIDTH = HeartConst.width;

@@ -1,6 +1,10 @@
 import Ajv, { ValidateFunction } from 'ajv';
 import schema from '../../attackData/schema.json';
-import { AttackMap, AttackType, Schema } from '../../shared/interface';
+import {
+  AttackMap,
+  AttackType,
+  Schema,
+} from '../../shared/undertale-fight/interface';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 

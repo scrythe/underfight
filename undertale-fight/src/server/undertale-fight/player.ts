@@ -1,7 +1,11 @@
-import { Keys, HeartType, HeartMap } from '../../shared/interface';
-import { Rect } from '../../shared/rectangle';
+import {
+  Keys,
+  HeartType,
+  HeartMap,
+} from '../../shared/undertale-fight/interface';
+import { Rect } from '../../shared/undertale-fight/rectangle';
 import { RedHeart, BlueHeart } from './hearts';
-import { PlayerState } from '../../shared/stateInterface';
+import { PlayerState } from '../../shared/undertale-fight/stateInterface';
 
 const heartMap: HeartMap<typeof RedHeart, typeof BlueHeart> = {
   RedHeart,

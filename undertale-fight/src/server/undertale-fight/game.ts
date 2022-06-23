@@ -1,13 +1,13 @@
-import RectObject, { Rect } from '../../shared/rectangle';
+import RectObject, { Rect } from '../../shared/undertale-fight/rectangle';
 import InputHandler from './inputs';
-import { AttackType, Keys } from '../../shared/interface';
+import { AttackType, Keys } from '../../shared/undertale-fight/interface';
 import Player from './player';
 import FightBox from './fightBox';
 import BoneWave from './boneGroup';
 import JsonData from './jsonData';
-import { State } from '../../shared/stateInterface';
-import { SocketInterface } from '../../shared/serverInterface';
-import { GameConst } from '../../shared/gameConstants';
+import { State } from '../../shared/undertale-fight/stateInterface';
+import { SocketInterface } from '../../shared/undertale-fight/serverInterface';
+import { GameConst } from '../../shared/undertale-fight/gameConstants';
 
 enum GameState {
   running,

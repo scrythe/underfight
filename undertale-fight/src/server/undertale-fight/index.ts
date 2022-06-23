@@ -1,8 +1,11 @@
 import { createServer } from 'http';
 import Game from './game';
 import { Server } from 'socket.io';
-import { ServerInterface, SocketInterface } from '../../shared/serverInterface';
-import { AttackType } from '../../shared/interface';
+import {
+  ServerInterface,
+  SocketInterface,
+} from '../../shared/undertale-fight/serverInterface';
+import { AttackType } from '../../shared/undertale-fight/interface';
 
 const server = createServer();
 

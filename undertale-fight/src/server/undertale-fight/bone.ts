@@ -1,12 +1,17 @@
-import RectObject, { Rect } from '../../shared/rectangle';
-import { Speed, Attack, BoneData, BoneType } from '../../shared/interface';
-import { BoneState } from '../../shared/stateInterface';
+import RectObject, { Rect } from '../../shared/undertale-fight/rectangle';
+import {
+  Speed,
+  Attack,
+  BoneData,
+  BoneType,
+} from '../../shared/undertale-fight/interface';
+import { BoneState } from '../../shared/undertale-fight/stateInterface';
 import {
   AbstractBoneConst,
   LongBoneConst,
   NormalBoneConst,
   VeryLongBoneConst,
-} from '../../shared/gameConstants';
+} from '../../shared/undertale-fight/gameConstants';
 
 class AbstractBone {
   private _rect: Rect;

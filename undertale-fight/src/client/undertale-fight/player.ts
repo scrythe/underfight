@@ -1,6 +1,6 @@
 import { RedHeart, BlueHeart } from './hearts';
-import { PlayerState } from '../../shared/stateInterface';
-import { HeartMap } from '../../shared/interface';
+import { PlayerState } from '../../shared/undertale-fight/stateInterface';
+import { HeartMap } from '../../shared/undertale-fight/interface';
 
 const heartMap: HeartMap<RedHeart, BlueHeart> = {
   RedHeart: new RedHeart(),
