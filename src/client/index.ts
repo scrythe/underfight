@@ -10,6 +10,7 @@ import ClientEventEmitter from './clientEventEmitter';
 import { getUser, isUser } from './user';
 import { User } from './interfaces';
 import Images from './assets';
+import { State } from '../shared/stateInterfaces';
 
 const clientEventEmitter = new ClientEventEmitter();
 
@@ -60,15 +61,35 @@ async function onConnect(
   await Images.preloadAssets();
   const images = new Images();
 
-  const drawGame = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI, images);
+  const game = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI, images);
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
-  socket.on('sendState', (state) => {
+  function sendStateFunction(state: State) {
     requestAnimationFrame(() => {
-      drawGame.draw(state);
+      game.draw(state);
     });
     socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
     inputHandler.fire = { pressed: false };
+  }
+
+  socket.on('sendState', (state) => sendStateFunction(state));
+
+  socket.on('switchMode', (mode) => {
+    const canvas = document.querySelector('canvas')!;
+    const body = document.querySelector('body')!;
+    if (mode == 'undertale') {
+      canvas.classList.add('undertale-fight');
+      body.classList.add('undertale-fight');
+      canvas.width = 960;
+      canvas.height = 720;
+      socket.off('sendState');
+    } else {
+      canvas.width = WIDTH;
+      canvas.height = HEIGHT;
+      canvas.classList.remove('undertale-fight');
+      body.classList.remove('undertale-fight');
+      socket.on('sendState', (state) => sendStateFunction(state));
+    }
   });
 }
 

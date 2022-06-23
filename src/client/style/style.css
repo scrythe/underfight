@@ -13,6 +13,7 @@
 .asset {
   display: none;
 }
+
 #ui {
   position: absolute;
   right: 0;
@@ -83,6 +84,7 @@ html {
   transition: all 0.1s ease-out;
   outline: none;
 }
+
 .signup-box .no-acc {
   margin: 8px 0;
   color: #caf0f8;
@@ -93,4 +95,15 @@ html {
   color: #023e8a;
   border-color: #0077b6;
   background-color: #00b4d8;
+}
+
+canvas.undertale-fight {
+  background-color: black;
+}
+
+body.undertale-fight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }

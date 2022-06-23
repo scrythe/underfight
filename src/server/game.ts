@@ -27,7 +27,7 @@ class Game {
     setInterval(() => {
       this.update();
       const gameState = this.getState();
-      this.io.emit('sendState', gameState);
+      this.io.to('deepio').emit('sendState', gameState);
     }, fpsDuration);
   }
 

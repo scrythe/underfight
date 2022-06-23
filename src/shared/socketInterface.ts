@@ -3,8 +3,11 @@ import { Server, Socket as ServerSocket } from 'socket.io';
 import { Keys } from './interfaces';
 import { Socket as ClientSocket } from 'socket.io-client';
 
+type GameMode = 'deepio' | 'undertale';
+
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
+  switchMode: (mode: GameMode) => void;
 }
 
 export interface ClientToServerEvents {
