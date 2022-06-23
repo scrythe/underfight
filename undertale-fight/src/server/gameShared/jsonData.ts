@@ -1,15 +1,18 @@
 import Ajv, { ValidateFunction } from 'ajv';
 import schema from './schema.json';
-import { BoneData, Schema } from '../../shared/interface';
-import { writeFile, readFileSync } from 'fs';
+import { Schema } from '../../shared/interface';
+import { readFileSync } from 'fs';
 import { join } from 'path';
 
-const attackDataFilePath = join(
-  __dirname,
-  '../../',
-  'attackData',
-  'attackData.json'
-);
+const attackDataFolderPath = join(__dirname, '../../', 'attackData');
+
+const attackMap = {
+  BoneStab: join(attackDataFolderPath, 'boneStab.json'),
+  BoneWave: join(attackDataFolderPath, 'boneWave.json'),
+  BoneJumpWave: join(attackDataFolderPath, 'boneJumpWave.json'),
+};
+
+type AttackType = keyof typeof attackMap;
 
 class JsonData {
   private ajv: Ajv;
@@ -40,10 +43,11 @@ class JsonData {
   constructor() {
     this.ajv = new Ajv();
     this.validate = this.ajv.compile(this.schema);
-    this.data = this.loadFile();
+    this.data = this.loadFile('BoneWave');
   }
 
-  private loadFile() {
+  private loadFile(attack: AttackType) {
+    const attackDataFilePath = attackMap[attack];
     const jsonString = readFileSync(attackDataFilePath, 'utf8');
     const data = JSON.parse(jsonString);
     const valid = this.validate(data);
@@ -52,16 +56,7 @@ class JsonData {
   }
 
   reloadFile() {
-    this.data = this.loadFile();
-  }
-
-  addNewBone(bone: BoneData) {
-    const data = JSON.parse(JSON.stringify(this.data));
-    data.bonesData.push(bone);
-    const dataString = JSON.stringify(this.data, null, 2);
-    writeFile(attackDataFilePath, dataString, (err) => {
-      if (err) throw err;
-    });
+    this.data = this.loadFile('BoneWave');
   }
 
   get bonesData() {
