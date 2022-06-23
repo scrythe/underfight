@@ -17,7 +17,7 @@ let connectedSockets: SocketInterface[] = [];
 
 function isFull() {
   const connectedSocketsAmount = connectedSockets.length;
-  if (connectedSocketsAmount >= 1) return true;
+  if (connectedSocketsAmount >= 2) return true;
   return false;
 }
 
@@ -28,9 +28,10 @@ io.on('connection', (socket) => {
 });
 
 function startGame() {
-  const [runner] = connectedSockets;
+  const [attacker, runner] = connectedSockets;
+  if (!attacker) return;
   if (!runner) return;
-  const game = new Game(io, runner);
+  const game = new Game(attacker, runner);
   game.startGame();
 }
 

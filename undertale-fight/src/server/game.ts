@@ -6,8 +6,7 @@ import FightBox from './fightBox';
 import BoneWave from './boneWave';
 import JsonData from './jsonData';
 import { State } from '../shared/stateInterface';
-import { ServerInterface, SocketInterface } from '../shared/serverInterface';
-import { Server } from 'socket.io';
+import { SocketInterface } from '../shared/serverInterface';
 import { GameConst } from '../shared/gameConstants';
 
 enum GameState {
@@ -16,6 +15,7 @@ enum GameState {
 }
 
 class Game {
+  private attacker: SocketInterface;
   private runner: SocketInterface;
   private screen: Rect;
   private jsonData: JsonData;
@@ -27,18 +27,18 @@ class Game {
   private lag: number;
   private FPS = 60;
   private MS_PER_UPDATE = 1000 / this.FPS;
-  private io: Server;
   private gameState: GameState;
   private WIDTH = GameConst.width;
   private HEIGHT = GameConst.height;
   private inputHandler: InputHandler;
 
-  constructor(io: ServerInterface, runner: SocketInterface) {
+  constructor(attacker: SocketInterface, runner: SocketInterface) {
     const screenObject = new RectObject(this.WIDTH, this.HEIGHT);
     const screenPos = {
       x: 0,
       y: 0,
     };
+    this.attacker = attacker;
     this.runner = runner;
     this.screen = screenObject.getRect({ topLeft: screenPos });
     this.jsonData = new JsonData();
@@ -49,7 +49,6 @@ class Game {
     this.bonesWave = new BoneWave(this.jsonData.bonesData);
     this.previous = performance.now();
     this.lag = 0;
-    this.io = io;
     this.gameState = GameState.stopped;
   }
 
@@ -70,11 +69,16 @@ class Game {
     while (this.lag >= this.MS_PER_UPDATE) {
       this.update();
       const gameState = this.getState();
-      this.io.emit('sendState', gameState);
+      this.emitState(gameState);
       this.lag -= this.MS_PER_UPDATE;
     }
     this.previous = current;
     setImmediate(() => this.loopGame());
+  }
+
+  emitState(gameState: State) {
+    this.attacker.emit('sendState', gameState);
+    this.runner.emit('sendState', gameState);
   }
 
   update() {
