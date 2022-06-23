@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/client/index.ts',
+  entry: './src/client/undertale-fight/index.ts',
   devtool: 'eval-source-map',
   module: {
     rules: [

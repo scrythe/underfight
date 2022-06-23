@@ -1,6 +1,6 @@
-import { BoneState } from '../shared/stateInterface';
+import { BoneState } from '../../shared/stateInterface';
 import { NormalBone, LongBone, VeryLongBone } from './bone';
-import { BoneData, BoneMap } from '../shared/interface';
+import { BoneData, BoneMap } from '../../shared/interface';
 
 const boneMap: BoneMap<
   typeof NormalBone,

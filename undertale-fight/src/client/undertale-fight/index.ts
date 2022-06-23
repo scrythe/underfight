@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { ClientInterface } from '../shared/serverInterface';
+import { ClientInterface } from '../../shared/serverInterface';
 import Game from './game';
 
 const socket: ClientInterface = io('http://localhost:3000');

@@ -1,8 +1,8 @@
 import { createServer } from 'http';
 import Game from './game';
 import { Server } from 'socket.io';
-import { ServerInterface, SocketInterface } from '../shared/serverInterface';
-import { AttackType } from '../shared/interface';
+import { ServerInterface, SocketInterface } from '../../shared/serverInterface';
+import { AttackType } from '../../shared/interface';
 
 const server = createServer();
 

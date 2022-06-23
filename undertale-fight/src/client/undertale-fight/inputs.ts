@@ -1,5 +1,5 @@
-import { KeyMap, Position } from '../shared/interface';
-import { ClientInterface } from '../shared/serverInterface';
+import { KeyMap, Position } from '../../shared/interface';
+import { ClientInterface } from '../../shared/serverInterface';
 
 const keyMap: KeyMap = {
   ArrowUp: 'up',

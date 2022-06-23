@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "scripts": {
     "serve:client": "webpack-dev-server --config webpack.dev.js",
-    "serve:server": "nodemon ./src/server/index.ts",
+    "serve:server": "nodemon",
     "build:client": "webpack --config webpack.prod.js",
-    "build:server": "tsc -p ./src/server/tsconfig.json",
+    "build:server": "tsc -p ./src/server/undertale-fight/tsconfig.json",
     "schema": "node ./src/attackData/generateSchema.js"
   },
   "repository": {

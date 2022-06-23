@@ -1,4 +1,4 @@
-import { Rect } from '../shared/rectangle';
+import { Rect } from '../../shared/rectangle';
 
 declare global {
   interface CanvasRenderingContext2D {

@@ -1,5 +1,5 @@
-import { Position } from '../shared/interface';
-import { HeartConst } from '../shared/gameConstants';
+import { Position } from '../../shared/interface';
+import { HeartConst } from '../../shared/gameConstants';
 
 class Heart {
   private WIDTH = HeartConst.width;

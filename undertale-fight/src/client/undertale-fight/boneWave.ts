@@ -1,6 +1,6 @@
 import { NormalBone, LongBone, VeryLongBone } from './bone';
-import { BoneState } from '../shared/stateInterface';
-import { BoneMap } from '../shared/interface';
+import { BoneState } from '../../shared/stateInterface';
+import { BoneMap } from '../../shared/interface';
 
 const boneMap: BoneMap<NormalBone, LongBone, VeryLongBone> = {
   NormalBone: new NormalBone(),

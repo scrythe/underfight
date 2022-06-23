@@ -3,5 +3,5 @@
   "compilerOptions": {
     "outDir": "../../dist/server"
   },
-  "include": ["./", "../shared"]
+  "include": ["./undertale-fight", "../shared"]
 }
