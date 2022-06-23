@@ -4,218 +4,866 @@
     {
       "start": 0,
       "position": {
-        "x": 367,
-        "y": 610
+        "x": 570,
+        "y": 517
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 386,
-        "y": 610
+        "x": 570,
+        "y": 327
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 405,
-        "y": 610
+        "x": 598.125,
+        "y": 507
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 424,
-        "y": 610
+        "x": 598.125,
+        "y": 317
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 443,
-        "y": 610
+        "x": 626.25,
+        "y": 497
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 461,
-        "y": 610
+        "x": 626.25,
+        "y": 307
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 480,
-        "y": 610
+        "x": 654.375,
+        "y": 487
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 499,
-        "y": 610
+        "x": 654.375,
+        "y": 297
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 518,
-        "y": 610
+        "x": 682.5,
+        "y": 477
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 536,
-        "y": 610
+        "x": 682.5,
+        "y": 287
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 555,
-        "y": 610
+        "x": 710.625,
+        "y": 467
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
     },
     {
       "start": 0,
       "position": {
-        "x": 575,
-        "y": 610
+        "x": 710.625,
+        "y": 277
       },
       "attacks": [
         {
           "speed": {
-            "x": 0,
-            "y": -10
+            "x": -8,
+            "y": 0
           },
-          "end": 10
+          "end": 3600
         }
       ],
-      "end": 50,
-      "boneType": "LongBone"
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 738.75,
+        "y": 477
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 738.75,
+        "y": 287
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 766.875,
+        "y": 487
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 766.875,
+        "y": 297
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 795,
+        "y": 497
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 795,
+        "y": 307
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 823.125,
+        "y": 507
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 823.125,
+        "y": 317
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 851.25,
+        "y": 517
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 851.25,
+        "y": 327
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 879.375,
+        "y": 527
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 879.375,
+        "y": 337
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 907.5,
+        "y": 537
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 907.5,
+        "y": 347
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 935.625,
+        "y": 527
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 935.625,
+        "y": 337
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 963.75,
+        "y": 517
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 963.75,
+        "y": 327
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 991.875,
+        "y": 507
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 991.875,
+        "y": 317
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1020,
+        "y": 497
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1020,
+        "y": 307
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1048.125,
+        "y": 487
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1048.125,
+        "y": 297
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1076.25,
+        "y": 477
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1076.25,
+        "y": 287
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1104.375,
+        "y": 467
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1104.375,
+        "y": 277
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1132.5,
+        "y": 477
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1132.5,
+        "y": 287
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1160.625,
+        "y": 487
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1160.625,
+        "y": 297
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1188.75,
+        "y": 497
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1188.75,
+        "y": 307
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1216.875,
+        "y": 507
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 1216.875,
+        "y": 317
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": -8,
+            "y": 0
+          },
+          "end": 3600
+        }
+      ],
+      "end": 3600,
+      "boneType": "VeryLongBone"
     }
   ]
 }

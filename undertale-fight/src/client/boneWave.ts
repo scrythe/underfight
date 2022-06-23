@@ -1,10 +1,11 @@
-import { NormalBone, LongBone } from './bone';
+import { NormalBone, LongBone, VeryLongBone } from './bone';
 import { BoneState } from '../shared/stateInterface';
 import { BoneMap } from '../shared/interface';
 
-const boneMap: BoneMap<NormalBone, LongBone> = {
+const boneMap: BoneMap<NormalBone, LongBone, VeryLongBone> = {
   NormalBone: new NormalBone(),
   LongBone: new LongBone(),
+  VeryLongBone: new VeryLongBone(),
 };
 
 class BoneWave {

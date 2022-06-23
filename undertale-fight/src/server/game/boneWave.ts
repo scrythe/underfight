@@ -1,14 +1,19 @@
 import { BoneState } from '../../shared/stateInterface';
-import { NormalBone, LongBone } from './bone';
+import { NormalBone, LongBone, VeryLongBone } from './bone';
 import { BoneData, BoneMap } from '../../shared/interface';
 
-const boneMap: BoneMap<typeof NormalBone, typeof LongBone> = {
+const boneMap: BoneMap<
+  typeof NormalBone,
+  typeof LongBone,
+  typeof VeryLongBone
+> = {
   NormalBone,
   LongBone,
+  VeryLongBone,
 };
 
 class BoneWave {
-  private bones: Array<NormalBone | LongBone>;
+  private bones: Array<NormalBone | LongBone | VeryLongBone>;
   private unusedBonesData: BoneData[];
   private frame: number;
 
@@ -23,7 +28,7 @@ class BoneWave {
     this.unusedBonesData.splice(boneDataIndex, 1);
   }
 
-  private removeBone(bone: NormalBone | LongBone) {
+  private removeBone(bone: NormalBone | LongBone | VeryLongBone) {
     const boneIndex = this.bones.indexOf(bone);
     this.bones.splice(boneIndex, 1);
   }

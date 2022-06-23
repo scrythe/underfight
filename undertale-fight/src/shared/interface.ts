@@ -62,12 +62,13 @@ export interface HeartMap<RedHeart, BlueHeart> {
 
 export type HeartType = keyof HeartMap<'', ''>;
 
-export interface BoneMap<NormalBone, LongBone> {
+export interface BoneMap<NormalBone, LongBone, VeryLongBone> {
   NormalBone: NormalBone;
   LongBone: LongBone;
+  VeryLongBone: VeryLongBone;
 }
 
-export type BoneType = keyof BoneMap<'', ''>;
+export type BoneType = keyof BoneMap<'', '', ''>;
 
 export interface Attack {
   speed: Speed;

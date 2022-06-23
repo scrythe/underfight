@@ -1,0 +1,221 @@
+{
+  "$schema": "./schema.json",
+  "bonesData": [
+    {
+      "start": 0,
+      "position": {
+        "x": 367,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 386,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 405,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 424,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 443,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 461,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 480,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 499,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 518,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 536,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 555,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    },
+    {
+      "start": 0,
+      "position": {
+        "x": 575,
+        "y": 610
+      },
+      "attacks": [
+        {
+          "speed": {
+            "x": 0,
+            "y": -10
+          },
+          "end": 10
+        }
+      ],
+      "end": 50,
+      "boneType": "LongBone"
+    }
+  ]
+}

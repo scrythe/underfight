@@ -31,3 +31,11 @@ export class LongBone extends AbstractBone {
     super(width, height);
   }
 }
+
+export class VeryLongBone extends AbstractBone {
+  constructor() {
+    const width = 10;
+    const height = 150;
+    super(width, height);
+  }
+}

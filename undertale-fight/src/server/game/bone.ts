@@ -96,3 +96,11 @@ export class LongBone extends Bone {
     super(bonesData, width, height, 'LongBone');
   }
 }
+
+export class VeryLongBone extends Bone {
+  constructor(bonesData: BoneData) {
+    const width = 10;
+    const height = 150;
+    super(bonesData, width, height, 'VeryLongBone');
+  }
+}
