@@ -4,6 +4,7 @@ import { Bullet, Rocket } from './bullet';
 import InputHandler from './input';
 import RectSurface, { Rect } from '../shared/rectangle';
 import { ShipConst } from '../shared/gameConstants';
+import { SocketInterface } from '../shared/socketInterface';
 
 class Ship {
   private playerObject: RectSurface;
@@ -70,7 +71,7 @@ class Player {
   private switchPlayerPhaseTimestamp: number;
   private SWITCH_PLAYER_PHASE_DELAY = 5000;
   private _username: string;
-  private _socketID: string;
+  private _socket: SocketInterface;
   private _hp: number;
   private maxHealth = ShipConst.maxHealth;
   private _lastKiller?: string;
@@ -80,7 +81,7 @@ class Player {
     gameWidth: number,
     gameHeight: number,
     username: string,
-    socketID: string
+    socket: SocketInterface
   ) {
     const center = { x: gameWidth / 2, y: gameHeight / 2 };
     this.player = new Ship(center);
@@ -91,7 +92,7 @@ class Player {
     this._bullets = [];
     this.switchPlayerPhaseTimestamp = Date.now();
     this._username = username;
-    this._socketID = socketID;
+    this._socket = socket;
     this._hp = this.maxHealth;
     this._killed = false;
   }
@@ -205,8 +206,8 @@ class Player {
     return playerState;
   }
 
-  get socketID() {
-    return this._socketID;
+  get socket() {
+    return this._socket;
   }
 
   get angle() {

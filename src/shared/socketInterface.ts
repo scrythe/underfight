@@ -3,15 +3,17 @@ import { Server, Socket as ServerSocket } from 'socket.io';
 import { Keys } from './interfaces';
 import { Socket as ClientSocket } from 'socket.io-client';
 
-type GameMode = 'deepio' | 'undertale';
+export type GameMode = 'deepio' | 'undertale';
 
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
+  sendStateUndertale: (state: State) => void;
   switchMode: (mode: GameMode) => void;
 }
 
 export interface ClientToServerEvents {
   sendKeys: (keys: Keys, angle: number) => void;
+  sendKeysUndertale: (keys: Keys, angle: number) => void;
   joinGame: (token: string) => void;
 }
 

@@ -1,6 +1,10 @@
 import { Keys } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
-import { ServerInterface } from '../shared/socketInterface';
+import {
+  GameMode,
+  ServerInterface,
+  SocketInterface,
+} from '../shared/socketInterface';
 import Player from './player';
 import checkSatCollision from './sat';
 import checkAABBCollision from './aabb';
@@ -31,18 +35,18 @@ class Game {
     }, fpsDuration);
   }
 
-  addPlayer(username: string, socketID: string) {
+  addPlayer(username: string, socket: SocketInterface) {
     const player = new Player(
       this.GAME_WIDTH,
       this.GAME_HEIGHT,
       username,
-      socketID
+      socket
     );
     this.players.push(player);
   }
 
   removePlayer(socketID: string) {
-    const player = this.players.find((player) => player.socketID == socketID);
+    const player = this.players.find((player) => player.socket.id == socketID);
     if (player) {
       const playerIndex = this.players.indexOf(player);
       this.players.splice(playerIndex, 1);
@@ -59,14 +63,18 @@ class Game {
   update() {
     this.updatePlayers();
     this.collisionBullets();
+    this.killedPlayers();
   }
 
   private putKillerAndVictimInGame(killedPlayer: Player) {
     const killerName = killedPlayer.lastKiller;
     const killer = this.players.find((player) => player.username == killerName);
     if (!killer) return;
-    this.removePlayer(killer.socketID);
-    this.removePlayer(killedPlayer.socketID);
+    this.switchMode('undertale', killer);
+    this.switchMode('undertale', killedPlayer);
+
+    this.removePlayer(killer.socket.id);
+    this.removePlayer(killedPlayer.socket.id);
   }
 
   private killedPlayers() {
@@ -85,6 +93,18 @@ class Game {
       bulletsState.push(...playerBulletsStates);
     });
     return bulletsState;
+  }
+
+  private switchMode(gameMode: GameMode, player: Player) {
+    const socket = player.socket;
+    if (gameMode == 'undertale') {
+      socket.leave('deepio');
+      socket.join('undertale');
+    } else {
+      socket.leave('undertale');
+      socket.join('deepio');
+    }
+    socket.emit('switchMode', gameMode);
   }
 
   private getPlayerStates() {
@@ -146,13 +166,12 @@ class Game {
   }
 
   private getSpecificPlayer(socketID: string) {
-    const player = this.players.find((player) => player.socketID == socketID);
+    const player = this.players.find((player) => player.socket.id == socketID);
     return player;
   }
 
   handleInput(keys: Keys, angle: number, socketID: string) {
     const player = this.getSpecificPlayer(socketID);
-    this.killedPlayers();
     if (player) {
       player.inputHandler.updateKeys(keys);
       player.angle = angle;

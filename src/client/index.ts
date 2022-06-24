@@ -62,6 +62,7 @@ async function onConnect(
   const images = new Images();
 
   const game = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI, images);
+
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
   function sendStateFunction(state: State) {
