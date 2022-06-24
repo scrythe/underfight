@@ -43,10 +43,15 @@ class Game {
   }
 
   private getLeaderboard() {
-    const leaderBoardStats = this.players.map((player) =>
+    const leaderboardStats = this.players.map((player) =>
       player.getLeaderboardStats()
     );
-    return leaderBoardStats;
+    const sortedLeaderboardStats = leaderboardStats.sort((a, b) => {
+      if (a.kills < b.kills) return 1;
+      else return -1;
+    });
+    const top10Players = sortedLeaderboardStats.slice(0, 10);
+    return top10Players;
   }
 
   addPlayer(username: string, socket: SocketInterface) {
