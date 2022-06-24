@@ -59,7 +59,12 @@ class Game {
     };
     this.background = getBackground(this.backgroundRect);
     this.ctx.font = '20px Roboto';
-    ctx.textAlign = 'center';
+    this.ctx.textAlign = 'center';
+  }
+
+  reloadFont() {
+    this.ctx.font = '20px Roboto';
+    this.ctx.textAlign = 'center';
   }
 
   getMe(playerStates: PlayerState[]) {

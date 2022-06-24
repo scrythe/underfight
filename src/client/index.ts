@@ -11,6 +11,8 @@ import { getUser, isUser } from './user';
 import { User } from './interfaces';
 import Images from './assets';
 import { State } from '../shared/stateInterfaces';
+import UndertaleGame from './undertale-fight/game';
+import { State as UndertaleState } from '../shared/undertale-fight/stateInterface';
 
 const clientEventEmitter = new ClientEventEmitter();
 
@@ -61,6 +63,7 @@ async function onConnect(
   const images = new Images();
 
   const game = new Game(ctx, WIDTH, HEIGHT, user.username, ctxUI, images);
+  const undertaleGame = new UndertaleGame(canvas, socket);
 
   const inputHandler = new InputHandler(WIDTH, HEIGHT);
 
@@ -70,6 +73,10 @@ async function onConnect(
     });
     socket.emit('sendKeys', inputHandler.keys, inputHandler.angle);
     inputHandler.fire = { pressed: false };
+  }
+
+  function sendUndertaleStateFunction(state: UndertaleState) {
+    requestAnimationFrame(() => undertaleGame.draw(state));
   }
 
   socket.on('sendState', (state) => sendStateFunction(state));
@@ -83,12 +90,17 @@ async function onConnect(
       canvas.width = 960;
       canvas.height = 720;
       socket.off('sendState');
+      socket.on('sendStateUndertale', (state) =>
+        sendUndertaleStateFunction(state)
+      );
     } else {
       canvas.width = WIDTH;
       canvas.height = HEIGHT;
       canvas.classList.remove('undertale-fight');
       body.classList.remove('undertale-fight');
+      socket.off('sendStateUndertale');
       socket.on('sendState', (state) => sendStateFunction(state));
+      game.reloadFont();
     }
   });
 }

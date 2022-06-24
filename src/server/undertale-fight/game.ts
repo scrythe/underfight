@@ -67,6 +67,7 @@ class Game {
 
   stopGame() {
     this.gameState = GameState.stopped;
+    this.runner.removeAllListeners('sendKeysUndertale');
   }
 
   checkCollision() {
@@ -75,7 +76,6 @@ class Game {
       const boneRect = bone.rect;
       const playerRect = this.player.rect;
       const collision = checkAABBCollision(boneRect, playerRect);
-      if (collision) console.log(collision);
       if (collision) return;
     });
   }

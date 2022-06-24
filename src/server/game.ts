@@ -126,11 +126,11 @@ class Game {
     if (gameMode == 'undertale') {
       socket.leave('deepio');
       socket.join('undertale');
-      setTimeout(() => {
-        const playerFromList = this.getPlayerFromUndertale(player.socket.id);
-        if (!playerFromList) return;
-        this.switchMode('deepio', playerFromList);
-      }, 3000);
+      // setTimeout(() => {
+      //   const playerFromList = this.getPlayerFromUndertale(player.socket.id);
+      //   if (!playerFromList) return;
+      //   this.switchMode('deepio', playerFromList);
+      // }, 3000);
     } else {
       socket.leave('undertale');
       socket.join('deepio');
@@ -202,12 +202,12 @@ class Game {
     return player;
   }
 
-  private getPlayerFromUndertale(socketID: string) {
-    const player = this.undertalePlayers.find(
-      (player) => player.socket.id == socketID
-    );
-    return player;
-  }
+  // private getPlayerFromUndertale(socketID: string) {
+  //   const player = this.undertalePlayers.find(
+  //     (player) => player.socket.id == socketID
+  //   );
+  //   return player;
+  // }
 
   handleInput(keys: Keys, angle: number, socketID: string) {
     const player = this.getSpecificPlayer(socketID);
