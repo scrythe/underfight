@@ -55,7 +55,6 @@ async function onConnect(
   userToken: string,
   user: User
 ) {
-  console.log('emit');
   socket.emit('joinGame', userToken);
 
   await Images.preloadAssets();

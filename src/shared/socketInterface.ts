@@ -1,19 +1,21 @@
 import { State } from './stateInterfaces';
+import { State as UndertaleState } from './undertale-fight/stateInterface';
 import { Server, Socket as ServerSocket } from 'socket.io';
 import { Keys } from './interfaces';
+import { Keys as UndertaleKeys } from './undertale-fight/interface';
 import { Socket as ClientSocket } from 'socket.io-client';
 
 export type GameMode = 'deepio' | 'undertale';
 
 export interface ServerToClientEvents {
   sendState: (state: State) => void;
-  sendStateUndertale: (state: State) => void;
+  sendStateUndertale: (state: UndertaleState) => void;
   switchMode: (mode: GameMode) => void;
 }
 
 export interface ClientToServerEvents {
   sendKeys: (keys: Keys, angle: number) => void;
-  sendKeysUndertale: (keys: Keys, angle: number) => void;
+  sendKeysUndertale: (pressedKey: keyof UndertaleKeys, value: boolean) => void;
   joinGame: (token: string) => void;
 }
 

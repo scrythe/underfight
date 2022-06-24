@@ -10,6 +10,8 @@ import checkSatCollision from './sat';
 import checkAABBCollision from './aabb';
 import RotatedRect from './rotatedRectangle';
 import { Rect } from '../shared/rectangle';
+import { AttackType } from '../shared/undertale-fight/interface';
+import UndertaleGame from './undertale-fight/game';
 
 class Game {
   private GAME_WIDTH = 1536;
@@ -58,11 +60,9 @@ class Game {
     else players = this.undertalePlayers;
 
     const player = players.find((player) => player.socket.id == socketID);
-    console.log(player);
     if (!player) return;
     const playerIndex = players.indexOf(player);
     players.splice(playerIndex, 1);
-    console.log(playerIndex);
   }
 
   private updatePlayers() {
@@ -87,6 +87,8 @@ class Game {
 
     this.removePlayerOfGameMpde(killer.socket.id, 'deepio');
     this.removePlayerOfGameMpde(killedPlayer.socket.id, 'deepio');
+
+    this.startUndertaleGame(killer.socket, killedPlayer.socket);
   }
 
   private movePlayer(moveTo: GameMode, player: Player) {
@@ -94,7 +96,6 @@ class Game {
       const playerIndex = this.players.indexOf(player);
       this.players.splice(playerIndex, 1);
       this.undertalePlayers.push(player);
-      console.log(player);
     } else {
       const playerIndex = this.undertalePlayers.indexOf(player);
       this.undertalePlayers.splice(playerIndex, 1);
@@ -214,6 +215,18 @@ class Game {
       player.inputHandler.updateKeys(keys);
       player.angle = angle;
     }
+  }
+
+  private startUndertaleGame(
+    attacker: SocketInterface,
+    runner: SocketInterface
+  ) {
+    const attackList: AttackType[] = ['BoneStab', 'BoneWave', 'BoneJumpWave'];
+    const rndmAttackNum = Math.floor(Math.random() * attackList.length);
+    const rndmAttack = attackList[rndmAttackNum];
+    if (!rndmAttack) return;
+    const game = new UndertaleGame(attacker, runner, rndmAttack);
+    game.startGame();
   }
 }
 
