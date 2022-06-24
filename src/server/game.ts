@@ -17,11 +17,13 @@ class Game {
   private FPS = 60;
 
   private players: Player[];
+  private undertalePlayers: Player[];
 
   private io: ServerInterface;
 
   constructor(io: ServerInterface) {
     this.players = [];
+    this.undertalePlayers = [];
 
     this.io = io;
   }
@@ -46,11 +48,21 @@ class Game {
   }
 
   removePlayer(socketID: string) {
-    const player = this.players.find((player) => player.socket.id == socketID);
-    if (player) {
-      const playerIndex = this.players.indexOf(player);
-      this.players.splice(playerIndex, 1);
-    }
+    this.removePlayerOfGameMpde(socketID, 'undertale');
+    this.removePlayerOfGameMpde(socketID, 'deepio');
+  }
+
+  removePlayerOfGameMpde(socketID: string, of: GameMode) {
+    let players: Player[];
+    if (of == 'deepio') players = this.players;
+    else players = this.undertalePlayers;
+
+    const player = players.find((player) => player.socket.id == socketID);
+    console.log(player);
+    if (!player) return;
+    const playerIndex = players.indexOf(player);
+    players.splice(playerIndex, 1);
+    console.log(playerIndex);
   }
 
   private updatePlayers() {
@@ -73,8 +85,21 @@ class Game {
     this.switchMode('undertale', killer);
     this.switchMode('undertale', killedPlayer);
 
-    this.removePlayer(killer.socket.id);
-    this.removePlayer(killedPlayer.socket.id);
+    this.removePlayerOfGameMpde(killer.socket.id, 'deepio');
+    this.removePlayerOfGameMpde(killedPlayer.socket.id, 'deepio');
+  }
+
+  private movePlayer(moveTo: GameMode, player: Player) {
+    if (moveTo == 'undertale') {
+      const playerIndex = this.players.indexOf(player);
+      this.players.splice(playerIndex, 1);
+      this.undertalePlayers.push(player);
+      console.log(player);
+    } else {
+      const playerIndex = this.undertalePlayers.indexOf(player);
+      this.undertalePlayers.splice(playerIndex, 1);
+      this.players.push(player);
+    }
   }
 
   private killedPlayers() {
@@ -100,10 +125,16 @@ class Game {
     if (gameMode == 'undertale') {
       socket.leave('deepio');
       socket.join('undertale');
+      setTimeout(() => {
+        const playerFromList = this.getPlayerFromUndertale(player.socket.id);
+        if (!playerFromList) return;
+        this.switchMode('deepio', playerFromList);
+      }, 3000);
     } else {
       socket.leave('undertale');
       socket.join('deepio');
     }
+    this.movePlayer(gameMode, player);
     socket.emit('switchMode', gameMode);
   }
 
@@ -167,6 +198,13 @@ class Game {
 
   private getSpecificPlayer(socketID: string) {
     const player = this.players.find((player) => player.socket.id == socketID);
+    return player;
+  }
+
+  private getPlayerFromUndertale(socketID: string) {
+    const player = this.undertalePlayers.find(
+      (player) => player.socket.id == socketID
+    );
     return player;
   }
 
