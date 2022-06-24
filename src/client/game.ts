@@ -83,19 +83,22 @@ class Game {
       backgroundInCameraPos.x,
       backgroundInCameraPos.y
     );
-    const enemies = state.playerStates;
     const me = this.getMe(state.playerStates);
-    if (me) {
-      const meIndex = enemies.indexOf(me);
-      enemies.splice(meIndex, 1);
-      this.camera.watch(me.pos);
-      this.player.draw(this.ctx, me, this.camera.pos);
-      this.ui.drawCharge(me.charge);
-    }
+    if (!me) return;
+    const enemies = state.playerStates.filter(
+      (playerState) => playerState.username != me.username
+    );
+
     this.enemies.drawPlayers(this.ctx, enemies, this.camera.pos);
     state.bulletsState.forEach((bulletState) => {
       this.bullet.draw(this.ctx, bulletState, this.camera.pos);
     });
+
+    const meIndex = enemies.indexOf(me);
+    enemies.splice(meIndex, 1);
+    this.camera.watch(me.pos);
+    this.player.draw(this.ctx, me, this.camera.pos);
+    this.ui.drawCharge(me.charge);
   }
 }
 

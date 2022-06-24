@@ -13,7 +13,6 @@ import '../../attackData/boneStab.json';
 import '../../attackData/boneWave.json';
 
 const attackDataFolderPath = join(__dirname, '../../', 'attackData');
-console.log(attackDataFolderPath);
 
 const attackMap: AttackMap = {
   BoneStab: join(attackDataFolderPath, 'boneStab.json'),

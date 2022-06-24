@@ -110,8 +110,6 @@ class Game {
   private killedPlayers() {
     const killedPlayers = this.players.filter((player) => player.killed);
     killedPlayers.forEach((player) => {
-      player.killed = false;
-      player.hp = 20;
       this.putKillerAndVictimInGame(player);
     });
   }
@@ -171,6 +169,7 @@ class Game {
       const enemies = this.players.filter(
         (_player, index) => index !== playerIndex
       );
+      let anyCollision = false;
       enemies.forEach((enemy) => {
         enemy.bullets.forEach((bullet, index) => {
           const collision = this.collide(
@@ -183,9 +182,11 @@ class Game {
             enemy.removeBullet(index);
             enemy.chargeUp();
             player.takeDamage(enemy.username);
+            anyCollision = true;
           }
         });
       });
+      player.damaged = anyCollision;
     });
   }
 
@@ -246,12 +247,13 @@ class Game {
     const playerFromList = this.getPlayerFromUndertale(playerSocketID);
     if (!playerFromList) return;
     this.switchMode('deepio', playerFromList);
+    playerFromList.killed = false;
+    playerFromList.hp = 20;
   }
 
   private removeUndertaleGame(game: UndertaleGame) {
     const gameIndex = this.runningUndertaleGames.indexOf(game);
     this.runningUndertaleGames.splice(gameIndex, 1);
-    console.log(this.runningUndertaleGames);
   }
 }
 
