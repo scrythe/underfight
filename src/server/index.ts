@@ -29,8 +29,6 @@ io.on('connection', (socket) => {
     if (!isUser(user)) return;
     onNewPlayer(socket, user);
     socket.join('deepio');
-    socket.emit('switchMode', 'undertale');
-    socket.leave('deepio');
   });
   socket.on('disconnect', () => game.removePlayer(socket.id));
 });

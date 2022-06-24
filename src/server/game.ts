@@ -61,6 +61,23 @@ class Game {
     this.collisionBullets();
   }
 
+  private putKillerAndVictimInGame(killedPlayer: Player) {
+    const killerName = killedPlayer.lastKiller;
+    const killer = this.players.find((player) => player.username == killerName);
+    if (!killer) return;
+    this.removePlayer(killer.socketID);
+    this.removePlayer(killedPlayer.socketID);
+  }
+
+  private killedPlayers() {
+    const killedPlayers = this.players.filter((player) => player.killed);
+    killedPlayers.forEach((player) => {
+      player.killed = false;
+      player.hp = 20;
+      this.putKillerAndVictimInGame(player);
+    });
+  }
+
   private getAllBulletStates() {
     const bulletsState: BulletState[] = [];
     this.players.forEach((player) => {
@@ -103,8 +120,8 @@ class Game {
       const enemies = this.players.filter(
         (_player, index) => index !== playerIndex
       );
-      const allEnemiesBulletCollisions = enemies.map((enemy) => {
-        const enemyBulletsCollision = enemy.bullets.map((bullet, index) => {
+      enemies.forEach((enemy) => {
+        enemy.bullets.forEach((bullet, index) => {
           const collision = this.collide(
             bullet.rect,
             bullet.angle,
@@ -114,17 +131,10 @@ class Game {
           if (collision) {
             enemy.removeBullet(index);
             enemy.chargeUp();
+            player.takeDamage(enemy.username);
           }
-
-          return collision;
         });
-        return enemyBulletsCollision;
       });
-      const anyCollision = allEnemiesBulletCollisions
-        .flat()
-        .some((bulletCollision) => bulletCollision);
-      player.damaged = anyCollision;
-      if (anyCollision) player.takeDamage();
     });
   }
 
@@ -142,6 +152,7 @@ class Game {
 
   handleInput(keys: Keys, angle: number, socketID: string) {
     const player = this.getSpecificPlayer(socketID);
+    this.killedPlayers();
     if (player) {
       player.inputHandler.updateKeys(keys);
       player.angle = angle;

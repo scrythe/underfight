@@ -71,8 +71,10 @@ class Player {
   private SWITCH_PLAYER_PHASE_DELAY = 5000;
   private _username: string;
   private _socketID: string;
-  private hp: number;
+  private _hp: number;
   private maxHealth = ShipConst.maxHealth;
+  private _lastKiller?: string;
+  private _killed: boolean;
 
   constructor(
     gameWidth: number,
@@ -90,7 +92,8 @@ class Player {
     this.switchPlayerPhaseTimestamp = Date.now();
     this._username = username;
     this._socketID = socketID;
-    this.hp = this.maxHealth;
+    this._hp = this.maxHealth;
+    this._killed = false;
   }
 
   private inputs() {
@@ -133,8 +136,17 @@ class Player {
     }
   }
 
-  takeDamage() {
-    this.hp -= 1;
+  takeDamage(killer: string) {
+    this._hp -= 1;
+    if (this.gotKilled()) {
+      this._lastKiller = killer;
+      this._killed = true;
+    }
+  }
+
+  gotKilled() {
+    if (this._hp == 0) return true;
+    return false;
   }
 
   chargeUp() {
@@ -188,7 +200,7 @@ class Player {
       charge: this.charge,
       phase: this.playerPhase,
       username: this.username,
-      hp: this.hp,
+      hp: this._hp,
     };
     return playerState;
   }
@@ -236,6 +248,22 @@ class Player {
 
   get username() {
     return this._username;
+  }
+
+  get lastKiller() {
+    return this._lastKiller;
+  }
+
+  get killed() {
+    return this._killed;
+  }
+
+  set killed(value: boolean) {
+    this._killed = value;
+  }
+
+  set hp(value: number) {
+    this._hp = value;
   }
 }
 
