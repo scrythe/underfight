@@ -1,11 +1,7 @@
 import { Server } from 'socket.io';
 import express from 'express';
 import Game from './game';
-import {
-  // GameMode,
-  ServerInterface,
-  SocketInterface,
-} from '../shared/socketInterface';
+import { ServerInterface, SocketInterface } from '../shared/socketInterface';
 import cors from 'cors';
 import { getUser, isUser } from './user';
 import { User } from './interfaces';
@@ -33,7 +29,6 @@ io.on('connection', (socket) => {
     if (!isUser(user)) return;
     onNewPlayer(socket, user);
     socket.join('deepio');
-    // switchMode('undertale', socket);
   });
   socket.on('disconnect', () => game.removePlayer(socket.id));
 });

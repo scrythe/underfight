@@ -8,7 +8,12 @@ import {
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
+import '../../attackData/boneJumpWave.json';
+import '../../attackData/boneStab.json';
+import '../../attackData/boneWave.json';
+
 const attackDataFolderPath = join(__dirname, '../../', 'attackData');
+console.log(attackDataFolderPath);
 
 const attackMap: AttackMap = {
   BoneStab: join(attackDataFolderPath, 'boneStab.json'),
@@ -58,7 +63,8 @@ class JsonData {
   }
 
   get bonesData() {
-    return structuredClone(this.data.bonesData);
+    const boneDataString = JSON.stringify(this.data.bonesData);
+    return JSON.parse(boneDataString);
   }
 }
 
