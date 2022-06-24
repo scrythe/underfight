@@ -1,6 +1,6 @@
 export const ShipConst = {
-  width: 75,
-  height: 75,
+  width: 150,
+  height: 125,
   maxHealth: 20,
 };
 
