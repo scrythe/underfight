@@ -76,6 +76,7 @@ class Player {
   private maxHealth = ShipConst.maxHealth;
   private _lastKiller?: string;
   private _killed: boolean;
+  private kills: number;
 
   constructor(
     gameWidth: number,
@@ -95,6 +96,7 @@ class Player {
     this._socket = socket;
     this._hp = this.maxHealth;
     this._killed = false;
+    this.kills = 0;
   }
 
   private inputs() {
@@ -265,6 +267,16 @@ class Player {
 
   set hp(value: number) {
     this._hp = value;
+  }
+
+  killUp() {
+    this.kills += 1;
+  }
+
+  getLeaderboardStats() {
+    const username = this._username;
+    const kills = this.kills;
+    return { username, kills };
   }
 }
 

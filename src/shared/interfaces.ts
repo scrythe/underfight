@@ -37,6 +37,11 @@ export interface Keys {
   chargeAttack: Key;
 }
 
+export interface playerKillStat {
+  username: string;
+  kills: number;
+}
+
 export enum PlayerPhase {
   Ship,
   Rocket,

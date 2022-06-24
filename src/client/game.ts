@@ -7,11 +7,13 @@ import getBackground from './background';
 import { PlayerState, State } from '../shared/stateInterfaces';
 import { Position } from './interfaces';
 import Images from './assets';
+import LeaderBoard from './leaderboard';
+import RectObject, { Rect } from '../shared/rectangle';
 
 class Game {
   private ctx: CanvasRenderingContext2D;
-  private gameWidth: number;
-  private gameHeight: number;
+  private screen: Rect;
+  private leaderBoard: LeaderBoard;
   private player: Player;
   private enemies: Enemies;
   private bullet: Bullet;
@@ -35,8 +37,15 @@ class Game {
     images: Images
   ) {
     this.ctx = ctx;
-    this.gameWidth = gameWidth;
-    this.gameHeight = gameHeight;
+
+    const screenObject = new RectObject(gameWidth, gameHeight);
+    const screenPos = {
+      x: 0,
+      y: 0,
+    };
+    this.screen = screenObject.getRect({ topLeft: screenPos });
+    this.leaderBoard = new LeaderBoard(this.screen);
+
     this.player = new Player(
       images.playerNormal,
       images.playerDamaged,
@@ -47,8 +56,9 @@ class Game {
       images.playerDamaged,
       images.bullet
     );
+
     this.bullet = new Bullet(images.bullet);
-    this.camera = new Camera(this.gameWidth, this.gameHeight);
+    this.camera = new Camera(this.screen.width, this.screen.height);
     this.username = username;
     this.ui = new UI(ctxUI);
     this.backgroundRect = {
@@ -59,12 +69,10 @@ class Game {
     };
     this.background = getBackground(this.backgroundRect);
     this.ctx.font = '20px Roboto';
-    this.ctx.textAlign = 'center';
   }
 
   reloadFont() {
     this.ctx.font = '20px Roboto';
-    this.ctx.textAlign = 'center';
   }
 
   getMe(playerStates: PlayerState[]) {
@@ -73,7 +81,7 @@ class Game {
   }
 
   draw(state: State) {
-    this.ctx.clearRect(0, 0, this.gameWidth, this.gameHeight);
+    this.ctx.clearRect(0, 0, this.screen.width, this.screen.height);
     const backgroundInCameraPos: Position = {
       x: this.backgroundRect.x - this.camera.pos.x,
       y: this.backgroundRect.y - this.camera.pos.y,
@@ -99,6 +107,8 @@ class Game {
     this.camera.watch(me.pos);
     this.player.draw(this.ctx, me, this.camera.pos);
     this.ui.drawCharge(me.charge);
+
+    this.leaderBoard.draw(this.ctx, state.leaderboard);
   }
 }
 

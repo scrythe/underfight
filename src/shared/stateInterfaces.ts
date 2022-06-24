@@ -1,4 +1,4 @@
-import { PlayerPhase, Position } from './interfaces';
+import { PlayerPhase, Position, playerKillStat } from './interfaces';
 
 export interface PlayerState {
   pos: Position;
@@ -18,4 +18,5 @@ export interface BulletState {
 export interface State {
   playerStates: PlayerState[];
   bulletsState: BulletState[];
+  leaderboard: playerKillStat[];
 }

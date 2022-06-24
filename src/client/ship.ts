@@ -47,6 +47,7 @@ class Ship {
       y: insideCameraPos.y - ShipConst.height / 1.5,
     };
 
+    ctx.textAlign = 'center';
     ctx.fillStyle = 'black';
     ctx.lineWidth = 3;
     ctx.strokeText(username, textPos.x, textPos.y);

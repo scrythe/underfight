@@ -42,6 +42,13 @@ class Game {
     }, fpsDuration);
   }
 
+  private getLeaderboard() {
+    const leaderBoardStats = this.players.map((player) =>
+      player.getLeaderboardStats()
+    );
+    return leaderBoardStats;
+  }
+
   addPlayer(username: string, socket: SocketInterface) {
     const player = new Player(
       this.GAME_WIDTH,
@@ -86,6 +93,7 @@ class Game {
     const killerName = killedPlayer.lastKiller;
     const killer = this.players.find((player) => player.username == killerName);
     if (!killer) return;
+    killer.killUp();
     this.switchMode('undertale', killer);
     this.switchMode('undertale', killedPlayer);
 
@@ -193,7 +201,8 @@ class Game {
   private getState(): State {
     const playerStates = this.getPlayerStates();
     const bulletsState: BulletState[] = this.getAllBulletStates();
-    const state: State = { playerStates, bulletsState };
+    const leaderboard = this.getLeaderboard();
+    const state: State = { playerStates, bulletsState, leaderboard };
     return state;
   }
 
