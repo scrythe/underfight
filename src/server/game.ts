@@ -23,9 +23,12 @@ class Game {
 
   private io: ServerInterface;
 
+  private runningUndertaleGames: UndertaleGame[];
+
   constructor(io: ServerInterface) {
     this.players = [];
     this.undertalePlayers = [];
+    this.runningUndertaleGames = [];
 
     this.io = io;
   }
@@ -76,6 +79,7 @@ class Game {
     this.updatePlayers();
     this.collisionBullets();
     this.killedPlayers();
+    this.undertaleGameEnd();
   }
 
   private putKillerAndVictimInGame(killedPlayer: Player) {
@@ -126,11 +130,6 @@ class Game {
     if (gameMode == 'undertale') {
       socket.leave('deepio');
       socket.join('undertale');
-      // setTimeout(() => {
-      //   const playerFromList = this.getPlayerFromUndertale(player.socket.id);
-      //   if (!playerFromList) return;
-      //   this.switchMode('deepio', playerFromList);
-      // }, 3000);
     } else {
       socket.leave('undertale');
       socket.join('deepio');
@@ -202,12 +201,12 @@ class Game {
     return player;
   }
 
-  // private getPlayerFromUndertale(socketID: string) {
-  //   const player = this.undertalePlayers.find(
-  //     (player) => player.socket.id == socketID
-  //   );
-  //   return player;
-  // }
+  private getPlayerFromUndertale(socketID: string) {
+    const player = this.undertalePlayers.find(
+      (player) => player.socket.id == socketID
+    );
+    return player;
+  }
 
   handleInput(keys: Keys, angle: number, socketID: string) {
     const player = this.getSpecificPlayer(socketID);
@@ -227,6 +226,32 @@ class Game {
     if (!rndmAttack) return;
     const game = new UndertaleGame(attacker, runner, rndmAttack);
     game.startGame();
+    this.runningUndertaleGames.push(game);
+  }
+
+  private undertaleGameEnd() {
+    const endedGames = this.runningUndertaleGames.filter(
+      (game) => game.gameState == 'stopped'
+    );
+    endedGames.forEach((undertaleGame) => {
+      const attacker = undertaleGame.attackerSocketID;
+      const runner = undertaleGame.runnerSocketID;
+      this.playerMoveToUndertale(attacker);
+      this.playerMoveToUndertale(runner);
+      this.removeUndertaleGame(undertaleGame);
+    });
+  }
+
+  private playerMoveToUndertale(playerSocketID: string) {
+    const playerFromList = this.getPlayerFromUndertale(playerSocketID);
+    if (!playerFromList) return;
+    this.switchMode('deepio', playerFromList);
+  }
+
+  private removeUndertaleGame(game: UndertaleGame) {
+    const gameIndex = this.runningUndertaleGames.indexOf(game);
+    this.runningUndertaleGames.splice(gameIndex, 1);
+    console.log(this.runningUndertaleGames);
   }
 }
 

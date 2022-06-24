@@ -23,6 +23,11 @@ class BoneWave {
     this.frame = 0;
   }
 
+  bonesGone() {
+    const boneLength = this._bones.length;
+    return boneLength == 0;
+  }
+
   private removeBoneData(boneData: BoneData) {
     const boneDataIndex = this.unusedBonesData.indexOf(boneData);
     this.unusedBonesData.splice(boneDataIndex, 1);

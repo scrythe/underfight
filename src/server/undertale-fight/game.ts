@@ -10,10 +10,7 @@ import { SocketInterface } from '../../shared/socketInterface';
 import { GameConst } from '../../shared/undertale-fight/gameConstants';
 import checkAABBCollision from '../aabb';
 
-enum GameState {
-  running,
-  stopped,
-}
+type GameState = 'running' | 'stopped';
 
 class Game {
   private attacker: SocketInterface;
@@ -28,7 +25,7 @@ class Game {
   private lag: number;
   private FPS = 60;
   private MS_PER_UPDATE = 1000 / this.FPS;
-  private gameState: GameState;
+  private _gameState: GameState;
   private WIDTH = GameConst.width;
   private HEIGHT = GameConst.height;
   private inputHandler: InputHandler;
@@ -54,19 +51,19 @@ class Game {
     this.boneGroup = new BoneGroup(this.jsonData.bonesData);
     this.previous = performance.now();
     this.lag = 0;
-    this.gameState = GameState.stopped;
+    this._gameState = 'stopped';
 
     if (attack == 'BoneWave') this.player.switchHeart('RedHeart');
     else this.player.switchHeart('BlueHeart');
   }
 
   startGame() {
-    this.gameState = GameState.running;
+    this._gameState = 'running';
     this.loopGame();
   }
 
   stopGame() {
-    this.gameState = GameState.stopped;
+    this._gameState = 'stopped';
     this.runner.removeAllListeners('sendKeysUndertale');
   }
 
@@ -81,7 +78,7 @@ class Game {
   }
 
   loopGame() {
-    if (this.gameState == GameState.stopped) return;
+    if (this._gameState == 'stopped') return;
     const current = performance.now();
     const timeDiffrence = current - this.previous;
     this.lag += timeDiffrence;
@@ -104,6 +101,7 @@ class Game {
     this.player.update(this.keys);
     this.boneGroup.update();
     this.checkCollision();
+    if (this.boneGroup.bonesGone()) this.stopGame();
   }
 
   getState(): State {
@@ -111,6 +109,18 @@ class Game {
     const boneStates = this.boneGroup.getBoneStates();
     const state = { playerState, boneStates };
     return state;
+  }
+
+  get gameState() {
+    return this._gameState;
+  }
+
+  get attackerSocketID() {
+    return this.attacker.id;
+  }
+
+  get runnerSocketID() {
+    return this.runner.id;
   }
 }
 
