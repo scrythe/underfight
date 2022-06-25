@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/scrythe/underfight/compare/v1.1.0...v2.0.0) (2022-06-25)
+
+
+### Features
+
+* able to choose which bone type used ([d52f828](https://github.com/scrythe/underfight/commit/d52f82846f5a38959d4b9447f2a1f68e3c7ad3a8))
+* add attacker which can watch game ([8cd53f3](https://github.com/scrythe/underfight/commit/8cd53f339b645fa055147dfebc6e677c7dc737c5))
+* add bone jump wave ([c7288ba](https://github.com/scrythe/underfight/commit/c7288ba5d91e2584ba107698c867e256d10d8011))
+* add bonewave attack ([3ee6f50](https://github.com/scrythe/underfight/commit/3ee6f50259fd7fd3124e6c4da5f7555a06b89154))
+* add collision detection and heart diffrent ([f25c6fa](https://github.com/scrythe/underfight/commit/f25c6fa66e75e0137db6609359ba60a9b930a051))
+* create game if kill ([9331ea6](https://github.com/scrythe/underfight/commit/9331ea6605544938a8bfeac1add5fcc9dfcb66c2))
+* more changes to code structure ([f1db721](https://github.com/scrythe/underfight/commit/f1db72140847733b9cdd9745961f7b3179b2c040))
+* move player to undertale player if kill ([337f24e](https://github.com/scrythe/underfight/commit/337f24ee8522dafc39e2fdb2c846f6f43b669726))
+* only one person can attend game ([3149d8d](https://github.com/scrythe/underfight/commit/3149d8d726b68e60d3b4fef23bf03aaf32b110f8))
+* option to choose attack ([b885ded](https://github.com/scrythe/underfight/commit/b885ded30e409aa527e2de8552c3410ad205d267))
+* own new assets for player ([6f9b47b](https://github.com/scrythe/underfight/commit/6f9b47b453a9eb292d5c47ff33de6146dfe818d3))
+* remove killer and killed player on kill ([c4138bc](https://github.com/scrythe/underfight/commit/c4138bcf8545d64cb837452833f92e0da0b93b30))
+* rocket deals damage too when enemy hit ([65a6486](https://github.com/scrythe/underfight/commit/65a648618d653b5cfdb49e3000393480a58308f2))
+* select random Attack ([369621e](https://github.com/scrythe/underfight/commit/369621ee7c19507fbbe691ceba70632291ee5e76))
+* share fixed numbers with gameConstants file ([b6a7aa2](https://github.com/scrythe/underfight/commit/b6a7aa24ae7f0a02574dd368f8e7ba5167e6eebe))
+* show client fight game on kill ([38468d0](https://github.com/scrythe/underfight/commit/38468d0a0576e6491a769ff43a91f33836353c28))
+* show leaderboard ([238dd5a](https://github.com/scrythe/underfight/commit/238dd5a6b576553a46d5bf16ee7f613cceebb141))
+* sort leaderboard and return top 10 ([c2fe806](https://github.com/scrythe/underfight/commit/c2fe80622c32e461854eec90c2b5fae6d3ef855f))
+* switch back to main after done ([6c34621](https://github.com/scrythe/underfight/commit/6c346216ab414b87c4d0c22a4e533aed455a51d2))
+* switch between game mode ([114e510](https://github.com/scrythe/underfight/commit/114e510e337b2a83be584a151da8fe0758312031))
+* switch mode when killed ([5f42118](https://github.com/scrythe/underfight/commit/5f421186937f9dc59803396f3785afb984b65e17))
+
+
+### Bug Fixes
+
+* bugs etc. ([510d7f6](https://github.com/scrythe/underfight/commit/510d7f602af7d46c939d8717d15ad1824ec80438))
+* if damaged not showing and player drawn top ([4c943a3](https://github.com/scrythe/underfight/commit/4c943a32d197a2611de389b2abff282ca0cd9575))
+
 ## [1.1.0](https://github.com/scrythe/underfight/compare/v1.0.0...v1.1.0) (2022-06-19)
 
 
