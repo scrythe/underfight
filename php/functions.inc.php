@@ -113,9 +113,10 @@ function getUserOfToken($db, $selector) {
     return $user;
 }
 
-// $sql = 'SELECT * FROM users
-//             WHERE username = ? OR email = ?';
-//     $stmt = $db->prepare($sql);
-//     $stmt->execute([$username, $email]);
-//     $user = $stmt->fetch();
-//     return $user;
+function updatePwd($db, $pwd, $userID) {
+    $sql = "UPDATE users SET password = ? WHERE userID = ?";
+    $stmt = $db->prepare($sql);
+    $pwdHashed = password_hash($pwd, PASSWORD_DEFAULT);
+    $result = $stmt->execute([$pwdHashed, $userID]);
+    return $result;
+}

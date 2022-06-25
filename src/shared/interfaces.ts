@@ -74,3 +74,11 @@ export type AuthTokenApiResponses =
   | 'not-hex-tokens'
   | 'invalid-token'
   | User;
+
+export type ForgotPwdApiResponses = 'empty-input' | 'email-not-exists';
+
+export type ResetPwdApiResponse =
+  | 'empty-input'
+  | 'pwd-not-match'
+  | 'not-hex-tokens'
+  | 'invalid-token';

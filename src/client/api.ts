@@ -2,6 +2,7 @@ import {
   RegisterApiResponses,
   LoginApiResponses,
   AuthTokenApiResponses,
+  ForgotPwdApiResponses,
 } from './interfaces';
 
 const phpUrl = process.env['PHP_URL'] || 'http://localhost:593';
@@ -50,6 +51,24 @@ export function sendAuthToken(
   token: string | undefined
 ) {
   return sendPost<AuthTokenApiResponses>('authorizeToken.php', {
+    selector,
+    token,
+  });
+}
+
+export function sendPwdForgot(email: string) {
+  return sendPost<ForgotPwdApiResponses>('forgotPwd.php', { email });
+}
+
+export function resetPwdApi(
+  pwd: string,
+  pwdRepeat: string,
+  selector: string,
+  token: string
+) {
+  return sendPost<ForgotPwdApiResponses>('resetPwd.php', {
+    pwd,
+    pwdRepeat,
     selector,
     token,
   });

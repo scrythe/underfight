@@ -85,7 +85,8 @@ html {
   outline: none;
 }
 
-.signup-box .no-acc {
+.signup-box .no-acc,
+.signup-box .forgot-pwd {
   margin: 8px 0;
   color: #caf0f8;
 }

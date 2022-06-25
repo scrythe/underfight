@@ -26,6 +26,7 @@
         <input type="submit" class="btn login-btn" value="Login" />
         <h3 class="response"></h3>
         <a href="" class="no-acc">No account?</a>
+        <a href="" class="forgot-pwd">Forgot Password?</a>
       </form>
 
       <form class="signup-box register-box">
@@ -55,6 +56,40 @@
           autocomplete="current-password"
         />
         <input type="submit" class="btn register-btn" value="Register" />
+        <h3 class="response"></h3>
+      </form>
+
+      <form class="signup-box forgot-pwd-box">
+        <h2>Forgot Password</h2>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          autocomplete="email"
+        />
+        <input
+          type="submit"
+          class="btn forgot-pwd-btn"
+          value="Forgot-Password"
+        />
+        <h3 class="response"></h3>
+      </form>
+
+      <form class="signup-box reset-pwd-box">
+        <h2>Reset Password</h2>
+        <input
+          type="password"
+          name="pwd"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <input
+          type="password"
+          name="pwdRepeat"
+          placeholder="Password"
+          autocomplete="current-password"
+        />
+        <input type="submit" class="btn reset-pwd-btn" value="Reset-Password" />
         <h3 class="response"></h3>
       </form>
     </section>
