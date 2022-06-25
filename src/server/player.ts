@@ -68,8 +68,6 @@ class Player {
   private _inputHandler: InputHandler;
   private _damaged: boolean;
   private _bullets: Bullet[];
-  private switchPlayerPhaseTimestamp: number;
-  private SWITCH_PLAYER_PHASE_DELAY = 5000;
   private _username: string;
   private _socket: SocketInterface;
   private _hp: number;
@@ -91,7 +89,6 @@ class Player {
     this._inputHandler = new InputHandler();
     this._damaged = false;
     this._bullets = [];
-    this.switchPlayerPhaseTimestamp = Date.now();
     this._username = username;
     this._socket = socket;
     this._hp = this.maxHealth;
@@ -100,11 +97,8 @@ class Player {
   }
 
   private inputs() {
-    if (this.player instanceof Rocket) {
-      if (this._inputHandler.keys.chargeAttack.pressed)
-        this.swtichPlayerPhase(PlayerPhase.Ship);
-      return;
-    }
+    if (this.player instanceof Rocket) return;
+
     this.player.move(this._inputHandler.keys);
     if (this._inputHandler.keys.chargeAttack.pressed && this._charge >= 10) {
       if (this.swtichPlayerPhase(PlayerPhase.Rocket)) this._charge = 0;
@@ -112,18 +106,11 @@ class Player {
   }
 
   swtichPlayerPhase(state: PlayerPhase) {
-    const timestamp = Date.now();
-    if (
-      this.switchPlayerPhaseTimestamp + this.SWITCH_PLAYER_PHASE_DELAY >
-      timestamp
-    )
-      return false;
     if (state == PlayerPhase.Ship) {
       this.player = new Ship(this.player.rect.center);
     } else {
       this.player = new Rocket(this.player.rect.center, this._angle);
     }
-    this.switchPlayerPhaseTimestamp = Date.now();
     return true;
   }
 
@@ -139,8 +126,8 @@ class Player {
     }
   }
 
-  takeDamage(killer: string) {
-    this._hp -= 1;
+  takeDamage(killer: string, damage: number = 1) {
+    this._hp -= damage;
     if (this.gotKilled()) {
       this._lastKiller = killer;
       this._killed = true;

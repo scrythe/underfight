@@ -65,7 +65,7 @@ export class Bullet extends AbsractBullet {
 
 export class Rocket extends AbsractBullet {
   private flightLength: number;
-  private maxLength = 1000;
+  private maxLength = 5000;
 
   private acceleration = 1.02;
   protected override maxSpeed = 35;
@@ -93,6 +93,7 @@ export class Rocket extends AbsractBullet {
   override update() {
     super.update();
     this.updateSpeed();
+    console.log('ah');
   }
 
   override set angle(value: number) {

@@ -1,4 +1,4 @@
-import { Keys } from './interfaces';
+import { Keys, PlayerPhase } from './interfaces';
 import { PlayerState, BulletState, State } from '../shared/stateInterfaces';
 import {
   GameMode,
@@ -54,6 +54,31 @@ class Game {
     return top10Players;
   }
 
+  private rocketCollision() {
+    const rockets = this.players.filter(
+      (player) => player.playerPhase == PlayerPhase.Rocket
+    );
+    rockets.forEach((rocket) => {
+      const enemies = this.players.filter(
+        (player) => player.username != rocket.username
+      );
+      enemies.forEach((enemy) => {
+        const collision = this.collide(
+          enemy.rect,
+          enemy.angle,
+          rocket.rect,
+          rocket.angle
+        );
+        enemy.damaged = false;
+        if (collision) {
+          rocket.swtichPlayerPhase(PlayerPhase.Ship);
+          enemy.takeDamage(enemy.username, 8);
+          enemy.damaged = true;
+        }
+      });
+    });
+  }
+
   addPlayer(username: string, socket: SocketInterface) {
     const player = new Player(
       this.GAME_WIDTH,
@@ -90,6 +115,7 @@ class Game {
   update() {
     this.updatePlayers();
     this.collisionBullets();
+    this.rocketCollision();
     this.killedPlayers();
     this.undertaleGameEnd();
   }
