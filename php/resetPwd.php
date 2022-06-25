@@ -33,5 +33,6 @@ $user = getUserOfToken($db, $selector);
 $userID = $user['userID'];
 updatePwd($db, $pwd, $userID);
 
+
 echo json_encode($userID);
 exit;

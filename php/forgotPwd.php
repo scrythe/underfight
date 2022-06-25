@@ -11,6 +11,11 @@ $data = json_decode($jsonData);
 
 $email = $data->email;
 
+require_once 'accountInfos.php';
+require_once 'sendEmail.php';
+
+
+
 function exitWithError($error) {
     echo json_encode($error);
     exit;
@@ -23,7 +28,25 @@ $token = loginUser($db, $email);
 
 
 [$selector, $token] = explode(":", $token);
-$urlPath = "$websitePath?reset-pwd=1&selector=$selector&token=$token";
+$url = "$websitePath?reset-pwd=1&selector=$selector&token=$token";
 
-echo json_encode($urlPath);
+$sendEmail = function (
+    $privateInfo,
+    $name,
+    $email,
+    $subject,
+    $body
+) {
+    sendEmail(
+        $privateInfo,
+        $name,
+        $email,
+        $subject,
+        $body
+    );
+};
+
+if (!sendPasswordReset($privateInfo, $url, $email, $sendEmail)) exitWithError('email-not-sent');
+
+echo json_encode('email-sent');
 exit;

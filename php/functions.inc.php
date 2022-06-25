@@ -120,3 +120,13 @@ function updatePwd($db, $pwd, $userID) {
     $result = $stmt->execute([$pwdHashed, $userID]);
     return $result;
 }
+
+function sendPasswordReset($privateInfo, $url, $email, $sendEmail) {
+    $subject = "Reset your password for Underfight";
+    $body = <<<MESSAGE
+    <p>We recieved a password request. The link to reset your password is below. If you did not make this request, you can ignore this email</p>
+    <p>Here is your password reset link: <br>
+    <a href="{$url}">{$url}</a></p> 
+    MESSAGE;
+    return $sendEmail($privateInfo, '', $email, $subject, $body) === true;
+}

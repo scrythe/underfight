@@ -1,5 +1,8 @@
 # Private
 dbh.inc.prod.php
+accountInfos.php
+
+PHPMailer
 
 # Webpack
 bundle.js
