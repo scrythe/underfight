@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/scrythe/underfight/compare/v2.0.0...v2.1.0) (2022-06-25)
+
+
+### Features
+
+* add send gmail function ([0ecc598](https://github.com/scrythe/underfight/commit/0ecc598b58bcbf9e847f065dc3f25fcce3ab0603))
+* function to change password via link ([7d39956](https://github.com/scrythe/underfight/commit/7d39956f6a65540d0bb84f0fb4245e32ac0eb2d7))
+
 ## [2.0.0](https://github.com/scrythe/underfight/compare/v1.1.0...v2.0.0) (2022-06-25)
 
 
